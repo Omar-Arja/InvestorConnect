@@ -5,27 +5,31 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const CustomButton({required this.text, required this.onPressed,super.key});
+  const CustomButton({required this.text, required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Theme.of(context).primaryColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            )
-          ],
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          )
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).primaryColor,
+          minimumSize: const Size(334, 61),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
         ),
-        width: 334,
-        height: 61,
         child: Center(
           child: Text(
             text,
@@ -36,14 +40,14 @@ class CustomButton extends StatelessWidget {
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }
 
 class GoogleButton extends StatelessWidget {
   final VoidCallback onPressed;
-  
+
   const GoogleButton({
     required this.onPressed,
     super.key,
