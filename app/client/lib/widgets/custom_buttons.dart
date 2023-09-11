@@ -10,6 +10,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 334,
+      height: 61,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
@@ -24,27 +26,24 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+          alignment: Alignment.center,
           backgroundColor: Theme.of(context).primaryColor,
-          minimumSize: const Size(334, 61),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
         ),
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
     );
   }
 }
-
 class GoogleButton extends StatelessWidget {
   final VoidCallback onPressed;
 
@@ -56,6 +55,8 @@ class GoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 334,
+      height: 61,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
@@ -71,7 +72,6 @@ class GoogleButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
-          minimumSize: const Size(334, 61),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
