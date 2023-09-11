@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:client/screens/auth/authentication_screen.dart';
 import 'package:client/screens/auth/login_screen.dart';
+import 'package:client/screens/auth/signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +29,7 @@ class App extends StatelessWidget {
       routes: {
         '/auth': (context) => const AuthScreen(),
         '/login': (context) => LoginScreen(),
+        '/signup': (context) => SignupScreen(),
       },
     );
   }

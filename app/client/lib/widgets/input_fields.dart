@@ -55,6 +55,7 @@ class _InputFieldState extends State<InputField> {
         ),
         const SizedBox(height: 10),
         TextFormField(
+          textAlignVertical: TextAlignVertical.center,
           controller: controller,
           onChanged: (text) {
             widget.inputValue = text;

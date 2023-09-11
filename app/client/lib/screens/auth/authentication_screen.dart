@@ -75,7 +75,10 @@ class AuthScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    timeDilation = 3;
+                    Navigator.of(context).pushNamed('/signup');
+                  },
                   text: 'Sign Up',
                 ),
               ],

@@ -3,8 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/input_fields.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  SignupScreen({super.key});
+
+  final InputField firstName = InputField(
+    label: 'First Name',
+    icon: Icons.person_outline,
+    hint: 'John',
+  );
+
+  final InputField lastName = InputField(
+    label: 'Last Name',
+    icon: Icons.person_outline,
+    hint: 'Doe',
+  );
 
   final InputField emailInput = InputField(
     label: 'Email',
@@ -14,6 +26,13 @@ class LoginScreen extends StatelessWidget {
 
   final InputField passwordInput = InputField(
     label: 'Password',
+    icon: Icons.lock_outline,
+    hint: '********',
+    isPassword: true,
+  );
+
+  final InputField confirmPasswordInput = InputField(
+    label: 'Confirm Password',
     icon: Icons.lock_outline,
     hint: '********',
     isPassword: true,
@@ -40,6 +59,7 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
         body: ListView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           children: [
             Container(
               width: double.infinity,
@@ -47,9 +67,9 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   const Text(
-                    'Login',
+                    'Sign up',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.w500,
@@ -57,34 +77,40 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    'Login to your Account',
+                    'Create your account, it’s free!',
                     style: TextStyle(
                       fontSize: 16,
                       color: Color.fromARGB(255, 96, 96, 96),
                     ),
                   ),
-                  const SizedBox(height: 60),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: emailInput,
+                  Container(
+                    width: 334,
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(child: firstName),
+                            const SizedBox(width: 10),
+                            Expanded(child: lastName),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        emailInput,
+                        const SizedBox(height: 20),
+                        passwordInput,
+                        const SizedBox(height: 20),
+                        confirmPasswordInput,
+                      ],
+                    )
                   ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: passwordInput,
-                  ),
-                  const SizedBox(height: 28),
-                  CustomButton(text: 'Login', onPressed: () {
+                  const SizedBox(height: 25),
+                  CustomButton(text: 'Sign Up', onPressed: () {
                     String email = emailInput.inputValue;
                     String password = passwordInput.inputValue;
                     print('Email: $email, Password: $password');
                   }),
-                  const SizedBox(height: 30),
-                  Image.asset(
-                    'assets/images/data_protection.png',
-                    width: 200,
-                    fit: BoxFit.contain,
-                  )
                 ],
               ),
             ),
