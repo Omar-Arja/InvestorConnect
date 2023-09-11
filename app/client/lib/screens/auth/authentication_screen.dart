@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/or_divider.dart';
@@ -8,12 +9,13 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
+    return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Container(
@@ -65,7 +67,10 @@ class AuthScreen extends StatelessWidget {
                 const OrDivider(),
                 const SizedBox(height: 20),
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    timeDilation = 3;
+                    Navigator.of(context).pushNamed('/login');
+                  },
                   text: 'Log In',
                 ),
                 const SizedBox(height: 20),
