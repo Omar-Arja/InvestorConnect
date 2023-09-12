@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/or_divider.dart';
@@ -68,16 +69,18 @@ class AuthScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 CustomButton(
                   onPressed: () {
-                    timeDilation = 3;
-                    Navigator.of(context).pushNamed('/login');
+                    Timer(const Duration(milliseconds: 90), () {
+                      Navigator.of(context).pushNamed('/login');
+                    });
                   },
                   text: 'Log In',
                 ),
                 const SizedBox(height: 20),
                 CustomButton(
                   onPressed: () {
-                    timeDilation = 3;
-                    Navigator.of(context).pushNamed('/signup');
+                    Timer(const Duration(milliseconds: 90), () {
+                      Navigator.of(context).pushNamed('/signup');
+                    });
                   },
                   text: 'Sign Up',
                 ),

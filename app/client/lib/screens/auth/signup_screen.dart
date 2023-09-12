@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'package:client/services/auth_validation.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/input_fields.dart';
 
-class SignupScreen extends StatelessWidget {
-  SignupScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
-  final InputField firstName = InputField(
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  String buttonText = 'Sign Up';
+
+  final InputField firstNameInput = InputField(
     label: 'First Name',
     icon: Icons.person_outline,
     hint: 'John',
   );
 
-  final InputField lastName = InputField(
+  final InputField lastNameInput = InputField(
     label: 'Last Name',
     icon: Icons.person_outline,
     hint: 'Doe',
@@ -37,6 +48,68 @@ class SignupScreen extends StatelessWidget {
     hint: '********',
     isPassword: true,
   );
+
+  Future signupUser (String firstName, String lastName, String email, String password, String confirmPassword) async {
+    setState(() {
+      buttonText = 'Loading...';
+    });
+    final url = Uri.parse('http://10.0.2.2:8000/api/auth/register');
+    String name = '$firstName $lastName';
+    
+    final validationError = AuthValidation.validateSignup(firstName, lastName, email, password, confirmPassword);
+
+    if (validationError != null) {
+      setState(() {
+        buttonText = validationError;
+      });
+      Timer(const Duration(seconds: 3), () {
+        setState(() {
+          buttonText = 'Sign Up';
+        });
+      });
+      return;
+    }
+
+    try {
+      setState(() {
+        buttonText = 'Signing Up...';
+      });
+      final response = await http.post(url, body: {
+        'name': name,
+        'email': email,
+        'password': password,
+      });
+      Map data = json.decode(response.body);
+      print('response: $data');
+      if (data['status'] == 'success') {
+        setState(() {
+          buttonText = 'Success!';
+        });
+        Timer(const Duration(seconds: 3), () {
+          // TODO: Navigate to home screen
+        });
+      } else {
+        setState(() {
+          buttonText = 'Invalid Credentials';
+        });
+        Timer(const Duration(seconds: 3), () {
+          setState(() {
+            buttonText = 'Sign Up';
+          });
+        });
+      }
+    }  catch (e) {
+      setState(() {
+        buttonText = 'Email already exists';
+      });
+      Timer(const Duration(seconds: 3), () {
+          setState(() {
+            buttonText = 'Sign Up';
+          });
+        });
+      print('error: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +164,9 @@ class SignupScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Expanded(child: firstName),
+                            Expanded(child: firstNameInput),
                             const SizedBox(width: 10),
-                            Expanded(child: lastName),
+                            Expanded(child: lastNameInput),
                           ],
                         ),
                         const SizedBox(height: 20),
@@ -101,15 +174,20 @@ class SignupScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         passwordInput,
                         const SizedBox(height: 20),
-                        confirmPasswordInput,
+                        confirmPasswordInput,                        
                       ],
                     )
                   ),
                   const SizedBox(height: 25),
-                  CustomButton(text: 'Sign Up', onPressed: () {
-                    String email = emailInput.inputValue;
-                    String password = passwordInput.inputValue;
-                    print('Email: $email, Password: $password');
+                  CustomButton(
+                    text: buttonText, 
+                    onPressed: () {
+                      String firstName = firstNameInput.inputValue;
+                      String lastName = lastNameInput.inputValue;
+                      String email = emailInput.inputValue;
+                      String password = passwordInput.inputValue;
+                      String confirmPassword = confirmPasswordInput.inputValue;
+                      signupUser(firstName, lastName, email, password, confirmPassword);
                   }),
                 ],
               ),

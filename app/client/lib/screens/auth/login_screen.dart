@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'package:client/services/auth_validation.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/input_fields.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String buttonText = 'Login';
 
   final InputField emailInput = InputField(
     label: 'Email',
@@ -18,6 +29,63 @@ class LoginScreen extends StatelessWidget {
     hint: '********',
     isPassword: true,
   );
+
+  Future loginUser (String email, String password) async {
+    setState(() {
+      buttonText = 'Loading...';
+    });
+    final url = Uri.parse('http://10.0.2.2:8000/api/auth/login');
+    
+    final validationError = AuthValidation.validateLogin(email, password);
+
+    if (validationError != null) {
+      setState(() {
+        buttonText = validationError;
+      });
+      Timer(const Duration(seconds: 3), () {
+        setState(() {
+          buttonText = 'Login';
+        });
+      });
+      return;
+    }
+
+    try {
+      final response = await http.post(url, body: {
+        'email': email,
+        'password': password
+      });
+      Map data = json.decode(response.body);
+      print('token: ${data['authorisation']['token']}');
+      if (data['status'] == 'success') {
+        setState(() {
+          buttonText = 'Success!';
+        });
+        Timer(const Duration(seconds: 3), () {
+          // TODO: Navigate to home screen
+        });
+      } else {
+        setState(() {
+          buttonText = 'Email or password is incorrect';
+        });
+        Timer(const Duration(seconds: 3), () {
+          setState(() {
+            buttonText = 'Login';
+          });
+        });
+      }
+    } catch (e) {
+      setState(() {
+        buttonText = 'Email or password is incorrect';
+      });
+      Timer(const Duration(seconds: 3), () {
+        setState(() {
+          buttonText = 'Login';
+        });
+      });
+      print('error: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +142,10 @@ class LoginScreen extends StatelessWidget {
                     child: passwordInput,
                   ),
                   const SizedBox(height: 28),
-                  CustomButton(text: 'Login', onPressed: () {
+                  CustomButton(text: buttonText, onPressed: () {
                     String email = emailInput.inputValue;
                     String password = passwordInput.inputValue;
-                    print('Email: $email, Password: $password');
+                    loginUser(email, password);
                   }),
                   const SizedBox(height: 30),
                   Image.asset(

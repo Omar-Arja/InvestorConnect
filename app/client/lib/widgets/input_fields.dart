@@ -8,7 +8,7 @@ class InputField extends StatefulWidget {
   final bool isPassword;
   final String? initialText;
 
-  late String inputValue;
+  String inputValue = '';
 
   InputField({
     required this.label,
