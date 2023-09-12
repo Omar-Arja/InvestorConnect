@@ -32,12 +32,13 @@ return new class extends Migration
             ['name' => 'admin'],
             ['name' => 'investor'],
             ['name' => 'startup'],
+            ['name' => 'pending'],
         ]);
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('usertypes');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('usertypes');
     }
 };
