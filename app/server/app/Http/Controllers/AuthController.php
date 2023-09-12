@@ -46,14 +46,12 @@ class AuthController extends Controller
     public function register(Request $request){
         $request->validate([
             'name' => 'required|string|max:255',
-            'google_id' => 'string|max:255',
-            'usertype' => 'string|max:255',
+            'google_id' => 'nullable|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
         ]);
-
-        $usertype = strtolower($request->usertype);
-        $usertype_id = Usertype::where('name', $usertype)->first()->id;
+        
+        $usertype_id = Usertype::where('name', 'pending')->first()->id;
 
         $user = User::create([
             'name' => $request->name,
