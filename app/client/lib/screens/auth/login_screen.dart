@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -8,7 +9,8 @@ import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/input_fields.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final SharedPreferences prefs;
+  const LoginScreen(this.prefs, {super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -61,6 +63,8 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           buttonText = 'Success!';
         });
+        widget.prefs.setString('token', data['authorisation']['token']);
+        print('token saved: ${widget.prefs.getString('token')}');
         Timer(const Duration(seconds: 3), () {
           // TODO: Navigate to home screen
         });

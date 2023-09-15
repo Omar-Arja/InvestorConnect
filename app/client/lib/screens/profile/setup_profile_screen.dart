@@ -2,8 +2,8 @@ import 'package:client/widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SetupProfile extends StatelessWidget {
-  const SetupProfile({super.key});
+class SetupProfileScreen extends StatelessWidget {
+  const SetupProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

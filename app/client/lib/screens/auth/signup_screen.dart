@@ -86,7 +86,7 @@ class _SignupScreenState extends State<SignupScreen> {
           buttonText = 'Success!';
         });
         Timer(const Duration(seconds: 3), () {
-          // TODO: Navigate to home screen
+          // TODO: Navigate to set up profile screen
         });
       } else {
         setState(() {
