@@ -4,6 +4,7 @@ import 'package:client/screens/auth/authentication_screen.dart';
 import 'package:client/screens/auth/login_screen.dart';
 import 'package:client/screens/auth/signup_screen.dart';
 import 'package:client/screens/profile/setup_profile_screen.dart';
+import 'package:client/screens/profile/usertype_selection_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,12 +27,13 @@ class App extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: 'InvestorConnect',
-      initialRoute: '/setup_profile',
+      initialRoute: '/usertype_selection',
       routes: {
         '/auth': (context) => const AuthScreen(),
         '/login': (context) => LoginScreen(prefs),
         '/signup': (context) => const SignupScreen(),
-        '/setup_profile':(context) => const SetupProfile(),
+        '/setup_profile':(context) => const SetupProfileScreen(),
+        '/usertype_selection':(context) => const UsertypeSelectionScreen(),
       },
     );
   }
