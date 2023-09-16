@@ -6,7 +6,7 @@ class CustomDropdownTextField extends StatefulWidget {
   final bool multipleSelection;
   final Function(List<String>) onSelectionChanged;
 
-  const CustomDropdownTextField({super.key, 
+  const CustomDropdownTextField({super.key,
     required this.label,
     required this.options,
     this.multipleSelection = false,
@@ -78,7 +78,14 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.label),
+        Text(
+          widget.label,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 10),
         TextFormField(
           controller: _textEditingController,
           decoration: InputDecoration(

@@ -67,10 +67,12 @@ class _InputFieldState extends State<InputField> {
               fontSize: 16,
               color: Color.fromARGB(255, 96, 96, 96),
             ),
-            prefixIcon: Icon(
-              widget.icon,
-              color: const Color.fromARGB(255, 96, 96, 96),
-            ),
+            prefixIcon: widget.icon != null
+              ? Icon(
+                  widget.icon,
+                  color: const Color.fromARGB(255, 96, 96, 96),
+                )
+              : null,
             suffixIcon: widget.isPassword
                 ? IconButton(
                     onPressed: () {
