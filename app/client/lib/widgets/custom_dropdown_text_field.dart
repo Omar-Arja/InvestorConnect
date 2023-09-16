@@ -147,15 +147,24 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
             children: _selectedOptions
                 .map(
                   (option) => Chip(
-                    label: Text(option),
+                    side: const BorderSide(
+                      color: Color.fromARGB(60, 77, 77, 77),
+                    ),
+                    elevation: 1,
+                    label: Text(
+                      option,
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
                     onDeleted: () {
                       setState(() {
                         _selectedOptions.remove(option);
                         widget.onSelectionChanged(_selectedOptions);
                       });
                     },
-                    backgroundColor: const Color(0xFF3B82F6),
-                    deleteIconColor: Colors.white,
+                    backgroundColor: Colors.white,
+                    deleteIconColor: const Color.fromARGB(255, 77, 77, 77),
                   ),
                 )
                 .toList(),
