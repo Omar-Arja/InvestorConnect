@@ -1,8 +1,9 @@
-import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/input_fields.dart';
+import 'package:client/widgets/custom_dropdown_text_field.dart';
+import 'package:client/widgets/custom_buttons.dart';
+import 'package:client/models/startup_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:client/widgets/custom_dropdown_text_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -10,8 +11,7 @@ class StartupSetupProfileScreen extends StatefulWidget {
   const StartupSetupProfileScreen({super.key});
 
   @override
-  _StartupSetupProfileScreenState createState() =>
-      _StartupSetupProfileScreenState();
+  _StartupSetupProfileScreenState createState() => _StartupSetupProfileScreenState();
 }
 
 class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
@@ -22,9 +22,9 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
   String companyName = '';
   String location = '';
   String investmentStage = '';
-  List industries = [];
+  List<String> industries = [];
 
-  Future<void> _pickImage() async {
+  Future _pickImage() async {
     final picker = ImagePicker();
     final selectedImage = await picker.pickImage(source: ImageSource.gallery);
 
@@ -39,6 +39,31 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
   final companyNameInput = InputField(
     label: "What's your company's name?",
   );
+
+  void _handleFormSubmit() {
+    companyName = companyNameInput.inputValue;
+    if (companyName.isNotEmpty &&
+        location.isNotEmpty &&
+        industries.isNotEmpty &&
+        investmentStage.isNotEmpty &&
+        _selectedImage != null) {
+      final startupData = StartupProfileModel(
+        companyName: companyName,
+        location: location,
+        industries: industries,
+        investmentStage: investmentStage,
+        imageFile: imageFile,
+      );
+      Navigator.of(context).pushNamed(
+        '/startup_setup_profile_2',
+        arguments: startupData,
+      );
+    } else {
+      setState(() {
+        buttonText = 'Please fill in all fields';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,19 +170,7 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
-                CustomButton(text: buttonText, onPressed: () {
-                  companyName = companyNameInput.inputValue;
-                  if(companyName != '' && location != '' && industries != [] && investmentStage != '') {
-                    print('Company Name: $companyName');
-                    print('Location: $location');
-                    print('Industries: $industries');
-                    print('Investment Stage: $investmentStage');
-                  } else {
-                    setState(() {
-                      buttonText = 'Please fill in all fields';
-                    });
-                  }
-                })
+                CustomButton(text: buttonText, onPressed: _handleFormSubmit),
               ],
             ),
           ),
@@ -363,37 +376,36 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
   'Yemen',
   'Zambia',
   'Zimbabwe',
-];
+  ];
 
-final List<String> industryOptions = [
-  'Agriculture',
-  'Automotive',
-  'Construction',
-  'Education',
-  'Energy',
-  'Entertainment',
-  'Finance',
-  'Healthcare',
-  'Information Technology',
-  'Manufacturing',
-  'Media',
-  'Real Estate',
-  'Retail',
-  'Telecommunications',
-  'Transportation',
-  'Travel',
-  'Technology',
-];
+  final List<String> industryOptions = [
+    'Agriculture',
+    'Automotive',
+    'Construction',
+    'Education',
+    'Energy',
+    'Entertainment',
+    'Finance',
+    'Healthcare',
+    'Information Technology',
+    'Manufacturing',
+    'Media',
+    'Real Estate',
+    'Retail',
+    'Telecommunications',
+    'Transportation',
+    'Travel',
+    'Technology',
+  ];
 
-final List<String> investmentStageOptions = [
-  'Pre-Seed',
-  'Seed',
-  'Series A',
-  'Series B',
-  'Series C',
-  'Series D+',
-  'IPO',
-  'Acquisition',
-];
-
+  final List<String> investmentStageOptions = [
+    'Pre-Seed',
+    'Seed',
+    'Series A',
+    'Series B',
+    'Series C',
+    'Series D+',
+    'IPO',
+    'Acquisition',
+  ];
 }

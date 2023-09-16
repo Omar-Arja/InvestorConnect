@@ -95,7 +95,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(
-                color: Color(0xFF3D4E81),
+                color: Color.fromARGB(255, 96, 96, 96),
               ),
             ),
             focusedBorder: OutlineInputBorder(
