@@ -1,18 +1,18 @@
 import 'dart:io';
 
 class StartupProfileModel {
-  String companyName = '';
-  String location = '';
-  List<String> industries = [];
-  String investmentStage = '';
-  String imageFilePath = '';
+  String companyName;
+  String location;
+  List<String> industries;
+  String investmentStage;
+  String imageFilePath;
   File? imageFile;
-  String shortDescription = '';
-  String pitchVideoPath = '';
+  String shortDescription;
+  String pitchVideoPath;
   File? pitchVideoFile;
-  List<String> selectedLocations = [];
-  double minInvestmentAmount = 0;
-  double maxInvestmentAmount = 0;
+  List<String> selectedLocations;
+  double minInvestmentAmount;
+  double maxInvestmentAmount;
 
   StartupProfileModel({
     this.companyName = '',

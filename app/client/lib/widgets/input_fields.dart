@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class InputField extends StatefulWidget {
-  final String label;
+  final dynamic label;
   final IconData? icon;
   final String? hint;
+  final int? maxLines;
+  final int? maxCharacterCount;
   final bool isPassword;
   final String? initialText;
 
@@ -14,6 +16,8 @@ class InputField extends StatefulWidget {
     required this.label,
     this.icon,
     this.hint,
+    this.maxLines,
+    this.maxCharacterCount,
     this.isPassword = false,
     this.initialText,
     Key? key,
@@ -46,31 +50,37 @@ class _InputFieldState extends State<InputField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        widget.label is Text
+            ? widget.label
+            : Text(
+                widget.label,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Color.fromARGB(255, 20, 20, 20),
+                ),
+              ),
         const SizedBox(height: 10),
         TextFormField(
+          maxLines: widget.maxLines ?? 1,
+          maxLength: widget.maxCharacterCount,
           textAlignVertical: TextAlignVertical.center,
           controller: controller,
           onChanged: (text) {
             widget.inputValue = text;
           },
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             alignLabelWithHint: true,
             hintText: widget.hint,
             hintStyle: const TextStyle(
               fontSize: 16,
-              color: Color.fromARGB(255, 96, 96, 96),
+              color: Color.fromARGB(255, 117, 117, 117),
             ),
             prefixIcon: widget.icon != null
               ? Icon(
                   widget.icon,
-                  color: const Color.fromARGB(255, 96, 96, 96),
+                  color: const Color.fromARGB(255, 117, 117, 117),
                 )
               : null,
             suffixIcon: widget.isPassword
@@ -82,7 +92,7 @@ class _InputFieldState extends State<InputField> {
                     },
                     icon: Icon(
                       !obscureText ? Icons.visibility : Icons.visibility_off,
-                      color: const Color.fromARGB(255, 96, 96, 96),
+                      color: const Color.fromARGB(255, 117, 117, 117),
                     ),
                   )
                 : null,
