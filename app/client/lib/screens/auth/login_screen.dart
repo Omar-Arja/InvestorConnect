@@ -58,15 +58,20 @@ class _LoginScreenState extends State<LoginScreen> {
         'password': password
       });
       Map data = json.decode(response.body);
-      print('token: ${data['authorisation']['token']}');
+
       if (data['status'] == 'success') {
         setState(() {
           buttonText = 'Success!';
         });
+        
         widget.prefs.setString('token', data['authorisation']['token']);
-        print('token saved: ${widget.prefs.getString('token')}');
+
         Timer(const Duration(seconds: 3), () {
-          // TODO: Navigate to home screen
+          if (data['user']['usertype_name'] == 'pending') {
+            Navigator.pushNamed(context, '/setup_profile');
+          } else {
+            Navigator.pushNamed(context, '/homepage');
+          }
         });
       } else {
         setState(() {
@@ -87,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
           buttonText = 'Login';
         });
       });
-      print('error: $e');
+      debugPrint('error: $e');
     }
   }
 

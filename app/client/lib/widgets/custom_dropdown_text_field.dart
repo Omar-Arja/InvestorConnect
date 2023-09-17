@@ -14,8 +14,7 @@ class CustomDropdownTextField extends StatefulWidget {
   });
 
   @override
-  _CustomDropdownTextFieldState createState() =>
-      _CustomDropdownTextFieldState();
+  _CustomDropdownTextFieldState createState() => _CustomDropdownTextFieldState();
 }
 
 class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {

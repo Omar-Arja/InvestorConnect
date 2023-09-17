@@ -64,7 +64,9 @@ class SetupProfileScreen extends StatelessWidget {
                     )
                   ),
                   const SizedBox(height: 150,),
-                  Center(child: CustomButton(text: 'Continue', onPressed: () {}))
+                  Center(child: CustomButton(text: 'Continue', onPressed: () {
+                    Navigator.pushNamed(context, '/usertype_selection');
+                  }))
                 ],
                )
             ),

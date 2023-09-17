@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:client/widgets/input_fields.dart';
 import 'package:client/widgets/custom_dropdown_text_field.dart';
 import 'package:client/widgets/custom_buttons.dart';
-import 'package:client/models/startup_data.dart';
+import 'package:client/models/startup_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,10 +38,6 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
     }
   }
 
-  final companyNameInput = InputField(
-    label: "What's your company's name?",
-  );
-
   void handleFormSubmit() {
     companyName = companyNameInput.inputValue;
     if (companyName.isNotEmpty &&
@@ -54,16 +52,23 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
         investmentStage: investmentStage,
         imageFile: imageFile,
       );
-      Navigator.of(context).pushNamed(
-        '/startup_setup_profile_2',
-        arguments: startupData,
-      );
+
+      Navigator.of(context).pushNamed('/startup_setup_profile_2', arguments: startupData);
     } else {
       setState(() {
         buttonText = 'Please fill in all fields';
       });
+      Timer(const Duration(seconds: 2), () {
+        setState(() {
+          buttonText = 'Continue';
+        });
+      });
     }
   }
+
+  final companyNameInput = InputField(
+    label: "What's your company's name?",
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +180,6 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
                   options: countryOptions,
                   onSelectionChanged: (selectedOptions) {
                     location = selectedOptions[0];
-                    print('Locations: $location');
                   },
                 ),
                 const SizedBox(height: 16),
@@ -185,7 +189,6 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
                   multipleSelection: true,
                   onSelectionChanged: (selectedOptions) {
                     industries = selectedOptions;
-                    print('Industries: $industries');
                   },
                 ),
                 const SizedBox(height: 16),
@@ -194,7 +197,6 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
                   options: investmentStageOptions,
                   onSelectionChanged: (selectedOptions) {
                     investmentStage = selectedOptions[0];
-                    print('Investment Stage: $investmentStage');
                   },
                 ),
                 const SizedBox(height: 24),

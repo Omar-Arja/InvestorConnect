@@ -80,13 +80,13 @@ class _SignupScreenState extends State<SignupScreen> {
         'password': password,
       });
       Map data = json.decode(response.body);
-      print('response: $data');
+
       if (data['status'] == 'success') {
         setState(() {
           buttonText = 'Success!';
         });
         Timer(const Duration(seconds: 3), () {
-          // TODO: Navigate to set up profile screen
+          Navigator.of(context).pushNamed('/login');
         });
       } else {
         setState(() {
@@ -107,7 +107,7 @@ class _SignupScreenState extends State<SignupScreen> {
             buttonText = 'Sign Up';
           });
         });
-      print('error: $e');
+      debugPrint('error: $e');
     }
   }
 
