@@ -136,26 +136,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 60),
-                  Padding(
+                  Container(
+                    width: double.infinity,
                     padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: emailInput,
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: passwordInput,
-                  ),
-                  const SizedBox(height: 28),
-                  CustomButton(text: buttonText, onPressed: () {
-                    String email = emailInput.inputValue;
-                    String password = passwordInput.inputValue;
-                    loginUser(email, password);
-                  }),
-                  const SizedBox(height: 30),
-                  Image.asset(
-                    'assets/images/data_protection.png',
-                    width: 200,
-                    fit: BoxFit.contain,
+                    child: Column(
+                      children: [
+                        emailInput,
+                        const SizedBox(height: 20),
+                        passwordInput,
+                        const SizedBox(height: 28),
+                        CustomButton(text: buttonText, onPressed: () {
+                          String email = emailInput.inputValue;
+                          String password = passwordInput.inputValue;
+                          loginUser(email, password);
+                        }),
+                        const SizedBox(height: 30),
+                        Image.asset(
+                          'assets/images/data_protection.png',
+                          width: 200,
+                          fit: BoxFit.contain,
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),

@@ -25,9 +25,10 @@ class _UsertypeSelectionScreenState extends State<UsertypeSelectionScreen> {
         selectUsertype(usertype);
       },
       child: Container(
-        width: 334,
+        width: double.infinity,
         height: 269,
         margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         decoration: BoxDecoration(
           color: isSelected ? Theme.of(context).primaryColor : Colors.white,
           borderRadius: BorderRadius.circular(5),
@@ -101,7 +102,7 @@ class _UsertypeSelectionScreenState extends State<UsertypeSelectionScreen> {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

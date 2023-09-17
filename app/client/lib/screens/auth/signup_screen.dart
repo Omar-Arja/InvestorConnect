@@ -122,7 +122,7 @@ class _SignupScreenState extends State<SignupScreen> {
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           elevation: 0,
           iconTheme: const IconThemeData(color: Colors.black),
           leading: IconButton(
@@ -157,8 +157,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   Container(
-                    width: 334,
-                    padding: const EdgeInsets.only(top: 40),
+                    width: double.infinity,
+                    padding: const EdgeInsets.fromLTRB(24, 40, 24, 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -175,20 +175,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         passwordInput,
                         const SizedBox(height: 20),
                         confirmPasswordInput,                        
+                        const SizedBox(height: 25),
+                        CustomButton(
+                          text: buttonText, 
+                          onPressed: () {
+                            String firstName = firstNameInput.inputValue;
+                            String lastName = lastNameInput.inputValue;
+                            String email = emailInput.inputValue;
+                            String password = passwordInput.inputValue;
+                            String confirmPassword = confirmPasswordInput.inputValue;
+                            signupUser(firstName, lastName, email, password, confirmPassword);
+                        }),
                       ],
                     )
                   ),
-                  const SizedBox(height: 25),
-                  CustomButton(
-                    text: buttonText, 
-                    onPressed: () {
-                      String firstName = firstNameInput.inputValue;
-                      String lastName = lastNameInput.inputValue;
-                      String email = emailInput.inputValue;
-                      String password = passwordInput.inputValue;
-                      String confirmPassword = confirmPasswordInput.inputValue;
-                      signupUser(firstName, lastName, email, password, confirmPassword);
-                  }),
                 ],
               ),
             ),

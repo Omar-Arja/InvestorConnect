@@ -40,7 +40,7 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
     label: "What's your company's name?",
   );
 
-  void _handleFormSubmit() {
+  void handleFormSubmit() {
     companyName = companyNameInput.inputValue;
     if (companyName.isNotEmpty &&
         location.isNotEmpty &&
@@ -76,6 +76,19 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         appBar: AppBar(
+          title: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(right: 25),
+            child: const Text(
+              '1/3',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
+              ),
+            ),
+          ),
           backgroundColor: Colors.white,
           elevation: 0,
           iconTheme: const IconThemeData(color: Colors.black),
@@ -105,12 +118,27 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
                           radius: 64,
                           backgroundImage: FileImage(File(_selectedImage!.path)),
                         ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.add_a_photo,
-                          color: Colors.white,
-                        ),
-                        onPressed: _pickImage,
+                      Column(
+                        mainAxisAlignment: _selectedImage != null
+                            ? MainAxisAlignment.end
+                            : MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.add_a_photo,
+                              color: Colors.white,
+                            ),
+                            onPressed: _pickImage,
+                          ),
+                          _selectedImage == null
+                              ? const Text(
+                            'Upload Logo',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ) : const SizedBox(),
+                        ],
                       ),
                     ],
                   ),
@@ -170,7 +198,7 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
-                CustomButton(text: buttonText, onPressed: _handleFormSubmit),
+                CustomButton(text: buttonText, onPressed: handleFormSubmit),
               ],
             ),
           ),
