@@ -27,13 +27,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('usertype_id')->references('id')->on('usertypes');
         });
-
-        DB::table('usertypes')->insert([
-            ['name' => 'admin'],
-            ['name' => 'investor'],
-            ['name' => 'startup'],
-            ['name' => 'pending'],
-        ]);
     }
 
     public function down(): void
