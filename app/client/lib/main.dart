@@ -9,16 +9,13 @@ import 'package:client/screens/profile/startup/startup_setup_profile.dart';
 import 'package:client/screens/profile/startup/startup_setup_profile_2.dart';
 import 'package:client/screens/profile/startup/startup_setup_profile_3.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-  runApp(App(prefs));
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
-  final SharedPreferences prefs;
-
-  const App(this.prefs, {super.key});
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,7 @@ class App extends StatelessWidget {
       initialRoute: '/auth',
       routes: {
         '/auth': (context) => const AuthScreen(),
-        '/login': (context) => LoginScreen(prefs),
+        '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/setup_profile': (context) => const SetupProfileScreen(),
         '/usertype_selection': (context) => const UsertypeSelectionScreen(),

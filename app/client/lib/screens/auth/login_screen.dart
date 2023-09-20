@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
+import 'package:client/services/api_service.dart';
 import 'package:client/services/auth_validation.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/input_fields.dart';
 
 class LoginScreen extends StatefulWidget {
-  final SharedPreferences prefs;
-  const LoginScreen(this.prefs, {super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -36,8 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       buttonText = 'Loading...';
     });
-    final url = Uri.parse('http://10.0.2.2:8000/api/auth/login');
     
+    // Validate email and password
     final validationError = AuthValidation.validateLogin(email, password);
 
     if (validationError != null) {
@@ -53,18 +51,17 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     try {
-      final response = await http.post(url, body: {
-        'email': email,
-        'password': password
-      });
-      Map data = json.decode(response.body);
+      // Call API
+      final data = await ApiService.login(email, password);
 
       if (data['status'] == 'success') {
         setState(() {
           buttonText = 'Success!';
         });
-        
-        widget.prefs.setString('token', data['authorisation']['token']);
+
+        // Save token to shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', data['authorisation']['token']);
 
         Timer(const Duration(seconds: 3), () {
           if (data['user']['usertype_name'] == 'pending') {

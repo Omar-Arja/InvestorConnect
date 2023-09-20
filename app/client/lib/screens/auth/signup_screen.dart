@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
+import 'package:client/services/api_service.dart';
 import 'package:client/services/auth_validation.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:client/widgets/input_fields.dart';
@@ -53,9 +52,8 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       buttonText = 'Loading...';
     });
-    final url = Uri.parse('http://10.0.2.2:8000/api/auth/register');
-    String name = '$firstName $lastName';
-    
+
+    // Validate credentials
     final validationError = AuthValidation.validateSignup(firstName, lastName, email, password, confirmPassword);
 
     if (validationError != null) {
@@ -74,12 +72,9 @@ class _SignupScreenState extends State<SignupScreen> {
       setState(() {
         buttonText = 'Signing Up...';
       });
-      final response = await http.post(url, body: {
-        'name': name,
-        'email': email,
-        'password': password,
-      });
-      Map data = json.decode(response.body);
+
+      // Call API
+      final data = await ApiService.signup(firstName, lastName, email, password);
 
       if (data['status'] == 'success') {
         setState(() {

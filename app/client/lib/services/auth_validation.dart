@@ -1,5 +1,3 @@
-// AuthValidation class
-
 class AuthValidation {
   static validateLogin(String email, String password) {
     if (email.isEmpty || password.isEmpty) {
