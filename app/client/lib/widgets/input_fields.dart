@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class InputField extends StatefulWidget {
   final dynamic label;
   final IconData? icon;
@@ -24,7 +23,6 @@ class InputField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _InputFieldState createState() => _InputFieldState();
 
 }
