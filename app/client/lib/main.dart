@@ -7,6 +7,7 @@ import 'package:client/screens/profile/setup_profile_screen.dart';
 import 'package:client/screens/profile/usertype_selection_screen.dart';
 import 'package:client/screens/profile/startup/startup_setup_profile.dart';
 import 'package:client/screens/profile/startup/startup_setup_profile_2.dart';
+import 'package:client/screens/profile/startup/startup_setup_profile_3.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +39,7 @@ class App extends StatelessWidget {
         '/usertype_selection': (context) => const UsertypeSelectionScreen(),
         '/startup_setup_profile': (context) => const StartupSetupProfileScreen(),
         '/startup_setup_profile_2': (context) => const StartupSetupProfileScreen2(),
+        '/startup_setup_profile_3': (context) => const StartupPreferencesScreen(),
       },
     );
   }
