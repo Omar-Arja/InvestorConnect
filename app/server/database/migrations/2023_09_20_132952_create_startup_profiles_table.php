@@ -30,7 +30,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Relationships
+        // Foreign keys
         Schema::table('startup_profiles', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
