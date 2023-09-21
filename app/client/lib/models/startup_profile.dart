@@ -5,58 +5,57 @@ class StartupProfileModel {
   String location;
   List<String> industries;
   String investmentStage;
-  String imageFilePath;
-  File? imageFile;
-  String shortDescription;
-  String pitchVideoPath;
+  String companyLogoUrl;
+  File? logoFile;
+  String companyDescription;
+  String pitchVideoUrl;
   File? pitchVideoFile;
-  List<String> selectedLocations;
-  double minInvestmentAmount;
-  double maxInvestmentAmount;
+  List<String> preferredLocations;
+  int minInvestmentAmount;
+  int maxInvestmentAmount;
 
   StartupProfileModel({
     this.companyName = '',
     this.location = '',
     this.industries = const [],
     this.investmentStage = '',
-    this.imageFilePath = '',
-    this.imageFile,
-    this.shortDescription = '',
-    this.pitchVideoPath = '',
+    this.companyLogoUrl = '',
+    this.logoFile,
+    this.companyDescription = '',
+    this.pitchVideoUrl = '',
     this.pitchVideoFile,
-    this.selectedLocations = const [],
+    this.preferredLocations = const [],
     this.minInvestmentAmount = 0,
     this.maxInvestmentAmount = 0,
   });
 
   factory StartupProfileModel.fromJson(Map<String, dynamic> json) {
     return StartupProfileModel(
-      companyName: json['companyName'] ?? '',
+      companyName: json['company_name'] ?? '',
       location: json['location'] ?? '',
       industries: List<String>.from(json['industries'] ?? []),
-      imageFilePath: json['imageFilePath'] ?? '',
-      imageFile: json['imageFile'],
-      investmentStage: json['investmentStage'] ?? '',
-      shortDescription: json['shortDescription'] ?? '',
-      pitchVideoPath: json['pitchVideoPath'] ?? '',
-      selectedLocations: List<String>.from(json['selectedLocations'] ?? []),
-      minInvestmentAmount: json['minInvestmentAmount'] ?? 0.0,
-      maxInvestmentAmount: json['maxInvestmentAmount'] ?? 0.0,
+      companyLogoUrl: json['company_logo_url'] ?? '',
+      investmentStage: json['investment_stage'] ?? '',
+      companyDescription: json['company_description'] ?? '',
+      pitchVideoUrl: json['pitch_video_url'] ?? '',
+      preferredLocations: List<String>.from(json['preferred_locations'] ?? []),
+      minInvestmentAmount: json['min_investment_amount'] ?? 0.0,
+      maxInvestmentAmount: json['max_investment_amount'] ?? 0.0,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'companyName': companyName,
+      'company_name': companyName,
       'location': location,
       'industries': industries,
-      'investmentStage': investmentStage,
-      'imageFile': imageFile,
-      'shortDescription': shortDescription,
-      'pitchVideoFile': pitchVideoFile,
-      'selectedLocations': selectedLocations,
-      'minInvestmentAmount': minInvestmentAmount,
-      'maxInvestmentAmount': maxInvestmentAmount,
+      'investment_stage': investmentStage,
+      'logo_file': logoFile,
+      'company_description': companyDescription,
+      'pitch_video_file': pitchVideoFile,
+      'preferred_locations': preferredLocations,
+      'min_investment_amount': minInvestmentAmount,
+      'max_investment_amount': maxInvestmentAmount,
     };
   }
 }
