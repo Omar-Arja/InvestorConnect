@@ -49,6 +49,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Usertype::class);
     }
 
+    public function startupProfile()
+    {
+        return $this->hasOne(StartupProfile::class);
+    }
+
+    public function investorProfile()
+    {
+        return $this->hasOne(InvestorProfile::class);
+    }
+
     // Attributes
     public function getUsertypeNameAttribute()
     {

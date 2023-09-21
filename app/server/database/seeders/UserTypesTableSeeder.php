@@ -4,16 +4,17 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class UserTypesTableSeeder extends Seeder
+class UsertypesTableSeeder extends Seeder
 {
     public function run(): void
     {
         DB::table('usertypes')->insert([
-            'name' => 'pending',
-            'name' => 'admin',
-            'name' => 'investor',
-            'name' => 'startup',
+            ['name' => 'admin'],
+            ['name' => 'investor'],
+            ['name' => 'startup'],
+            ['name' => 'pending'],
         ]);
     }
 }
