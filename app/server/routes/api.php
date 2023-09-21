@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StartupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,11 @@ Route::prefix('/auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
+});
+
+Route::middleware('auth.api')->prefix('/startup')->group(function () {
+    Route::post('/create-profile', [StartupController::class, 'createProfile']);
+    Route::get('/profile', [StartupController::class, 'getProfile']);
+    Route::post('/update-profile', [StartupController::class, 'updateProfile']);
+    Route::delete('/profile', [StartupController::class, 'deleteProfile']);
 });
