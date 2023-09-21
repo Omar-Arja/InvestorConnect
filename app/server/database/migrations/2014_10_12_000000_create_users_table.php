@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Relationships
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('usertype_id')->references('id')->on('usertypes');
         });
