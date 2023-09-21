@@ -3,6 +3,8 @@ import 'package:client/widgets/custom_dropdown_text_field.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:client/services/api_service.dart';
+import 'package:client/models/startup_profile.dart';
 
 class StartupPreferencesScreen extends StatefulWidget {
   const StartupPreferencesScreen({Key? key}) : super(key: key);
@@ -13,26 +15,59 @@ class StartupPreferencesScreen extends StatefulWidget {
 
 class _StartupPreferencesScreenState extends State<StartupPreferencesScreen> {
   final ScrollController _scrollController = ScrollController();
+  StartupProfileModel? startupData;
   String buttonText = 'Continue';
-  double minInvestment = 1000;
-  double maxInvestment = 500000;
+  double minInvestmentAmount = 1000;
+  double maxInvestmentAmount = 500000;
   List<String> selectedLocations = [];
 
-  void handleFormSubmit() {
-   if (selectedLocations.isNotEmpty) {
-    
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    startupData = ModalRoute.of(context)?.settings.arguments as StartupProfileModel?;
+  }
 
-    } else {
-      setState(() {
-        buttonText = 'Please fill in all fields';
-      });
-      Timer(const Duration(seconds: 2), () {
+  void handleFormSubmit() async {
+  if (selectedLocations.isNotEmpty) {
+    startupData?.minInvestmentAmount = minInvestmentAmount.toInt();
+    startupData?.maxInvestmentAmount = maxInvestmentAmount.toInt();
+    startupData?.preferredLocations = selectedLocations;
+
+    setState(() {
+      buttonText = 'Loading...';
+    });
+
+    final data = await ApiService.createStartupProfile(startupData!);
+
+    setState(() {
+      if (data['status'] == 'success') {
+        buttonText = 'Success!';
+      } else {
+        buttonText = 'An error occurred. Please try again later.';
+      }
+    });
+
+    Timer(const Duration(seconds: 2), () {
+      if (data['status'] == 'success') {
+        Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+      } else {
         setState(() {
           buttonText = 'Continue';
         });
+      }
+    });
+  } else {
+    setState(() {
+      buttonText = 'Please fill in all fields';
+    });
+
+    Timer(const Duration(seconds: 2), () {
+      setState(() {
+        buttonText = 'Continue';
       });
-    } 
+    });
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +104,6 @@ class _StartupPreferencesScreenState extends State<StartupPreferencesScreen> {
         ),
         body: SingleChildScrollView(
           controller: _scrollController,
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 15),
@@ -112,18 +146,18 @@ class _StartupPreferencesScreenState extends State<StartupPreferencesScreen> {
                   ),
                 ),
                 RangeSlider(
-                  values: RangeValues(minInvestment, maxInvestment),
+                  values: RangeValues(minInvestmentAmount, maxInvestmentAmount),
                   divisions: 100,
                   labels: RangeLabels(
-                    "\$${(minInvestment / 1000).toStringAsFixed(0)}k",
-                    "\$${(maxInvestment / 1000).toStringAsFixed(0)}k",
+                    "\$${(minInvestmentAmount / 1000).toStringAsFixed(0)}k",
+                    "\$${(maxInvestmentAmount / 1000).toStringAsFixed(0)}k",
                   ),
                   min: 0,
                   max: 500000,
                   onChanged: (values) {
                     setState(() {
-                      minInvestment = values.start;
-                      maxInvestment = values.end;
+                      minInvestmentAmount = values.start;
+                      maxInvestmentAmount = values.end;
                     });
                   },
                   activeColor: Theme.of(context).primaryColor,
