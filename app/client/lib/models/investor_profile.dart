@@ -31,7 +31,7 @@ class InvestorProfileModel {
       minInvestmentAmount: json['min_investment_amount'] ?? 0,
       maxInvestmentAmount: json['max_investment_amount'] ?? 0,
       preferredIndustries: List<String>.from(json['industries'] ?? []),
-      preferredLocations: List<String>.from(json['locations'] ?? []),
+      preferredLocations: List<String>.from(json['preferred_locations'] ?? []),
       preferredInvestmentStages: List<String>.from(json['investment_stages'] ?? []),
     );
   }
@@ -44,7 +44,7 @@ class InvestorProfileModel {
       'min_investment_amount': minInvestmentAmount,
       'max_investment_amount': maxInvestmentAmount,
       'industries': preferredIndustries,
-      'locations': preferredLocations,
+      'preferred_locations': preferredLocations,
       'investment_stages': preferredInvestmentStages,
     };
   }

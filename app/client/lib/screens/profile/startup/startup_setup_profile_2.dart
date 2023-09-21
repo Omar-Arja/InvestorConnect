@@ -27,7 +27,7 @@ class _StartupSetupProfileScreen2State extends State<StartupSetupProfileScreen2>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    startupData = ModalRoute.of(context)?.settings.arguments as StartupProfileModel?;
+    startupData = ModalRoute.of(context)?.settings.arguments as StartupProfileModel;
   }
 
   Future<void> _pickVideo() async {
@@ -84,7 +84,7 @@ class _StartupSetupProfileScreen2State extends State<StartupSetupProfileScreen2>
       return;
     }
     startupData?.pitchVideoFile = videoFile;
-    startupData?.companyDescription = descriptionInputValue;
+    startupData?.companyDescription = descriptionInputValue.trim();
     Navigator.of(context).pushNamed('/startup_setup_profile_3', arguments: startupData);
   }
 

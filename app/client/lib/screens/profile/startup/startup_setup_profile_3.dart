@@ -16,15 +16,15 @@ class StartupPreferencesScreen extends StatefulWidget {
 class _StartupPreferencesScreenState extends State<StartupPreferencesScreen> {
   final ScrollController _scrollController = ScrollController();
   StartupProfileModel? startupData;
-  String buttonText = 'Continue';
-  double minInvestmentAmount = 1000;
+  String buttonText = 'Complete Setup';
+  double minInvestmentAmount = 0;
   double maxInvestmentAmount = 500000;
   List<String> selectedLocations = [];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    startupData = ModalRoute.of(context)?.settings.arguments as StartupProfileModel?;
+    startupData = ModalRoute.of(context)?.settings.arguments as StartupProfileModel;
   }
 
   void handleFormSubmit() async {
@@ -42,8 +42,10 @@ class _StartupPreferencesScreenState extends State<StartupPreferencesScreen> {
     setState(() {
       if (data['status'] == 'success') {
         buttonText = 'Success!';
+      } else if (data.containsKey('message')){
+        buttonText = data['message'];
       } else {
-        buttonText = 'An error occurred. Please try again later.';
+        buttonText = 'Oops! Something Went Wrong. Please Retry.';
       }
     });
 
@@ -52,7 +54,7 @@ class _StartupPreferencesScreenState extends State<StartupPreferencesScreen> {
         Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
       } else {
         setState(() {
-          buttonText = 'Continue';
+          buttonText = 'Complete Setup';
         });
       }
     });
@@ -63,7 +65,7 @@ class _StartupPreferencesScreenState extends State<StartupPreferencesScreen> {
 
     Timer(const Duration(seconds: 2), () {
       setState(() {
-        buttonText = 'Continue';
+        buttonText = 'Complete Setup';
       });
     });
   }
@@ -149,8 +151,8 @@ class _StartupPreferencesScreenState extends State<StartupPreferencesScreen> {
                   values: RangeValues(minInvestmentAmount, maxInvestmentAmount),
                   divisions: 100,
                   labels: RangeLabels(
-                    "\$${(minInvestmentAmount / 1000).toStringAsFixed(0)}k",
-                    "\$${(maxInvestmentAmount / 1000).toStringAsFixed(0)}k",
+                    "\$${(minInvestmentAmount / 1000).toStringAsFixed(0)}K",
+                    "\$${(maxInvestmentAmount / 1000).toStringAsFixed(0)}K",
                   ),
                   min: 0,
                   max: 500000,
