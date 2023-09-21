@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/models/investor_profile.dart';
 import 'package:http/http.dart' as http;
 import 'package:client/models/startup_profile.dart';
 import 'package:dio/dio.dart';
@@ -55,9 +56,9 @@ class ApiService {
 
   // Startup profile requests
   static Future<Map<String, dynamic>> createStartupProfile(StartupProfileModel startupData) async {
-
     const url = '$baseUrl/startup/create-profile';
     final dio = Dio();
+
     dio.options.headers['Authorization'] = '${headers['Authorization']}';
     dio.options.headers['Content-Type'] = 'multipart/form-data';
     
@@ -80,10 +81,42 @@ class ApiService {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return response.data;
       } else {
-          return {'status': 'error', 'message': 'An error occurred'};
+          return {'status': 'error'};
       }
     } catch (e) {
-      return {'status': 'error', 'message': 'An unexpected error occurred'};
+      return {'status': 'error'};
+    }
+  }
+
+  // Investor profile requests
+  static Future<Map<String, dynamic>> createInvestorProfile(InvestorProfileModel investorData) async {
+    const url = '$baseUrl/investor/create-profile';
+    final dio = Dio();
+
+    dio.options.headers['Authorization'] = '${headers['Authorization']}';
+    dio.options.headers['Content-Type'] = 'multipart/form-data';
+
+    final FormData formData = FormData.fromMap({
+      'location': investorData.location,
+      'bio': investorData.bio,
+      'min_investment_amount': investorData.minInvestmentAmount.toString(),
+      'max_investment_amount': investorData.maxInvestmentAmount.toString(),
+      'industries': investorData.preferredIndustries.join(','),
+      'preferred_locations': investorData.preferredLocations.join(','),
+      'investment_stages': investorData.preferredInvestmentStages.join(','),
+      'profile_picture_file': await MultipartFile.fromFile(investorData.profilePictureFile!.path, contentType: MediaType('image', investorData.profilePictureFile!.path.split('.').last)),
+    });
+
+    try {
+      final response = await dio.post(url, data: formData);
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return response.data;
+      } else {
+          return {'status': 'error'};
+      }
+    } catch (e) {
+      return {'status': 'error'};
     }
   }
 }
