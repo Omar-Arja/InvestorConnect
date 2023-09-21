@@ -8,10 +8,9 @@ class InputField extends StatefulWidget {
   final int? maxCharacterCount;
   final bool isPassword;
   final String? initialText;
+  final Function onInputChanged;
 
-  String inputValue = '';
-
-  InputField({
+  const InputField({
     required this.label,
     this.icon,
     this.hint,
@@ -19,6 +18,7 @@ class InputField extends StatefulWidget {
     this.maxCharacterCount,
     this.isPassword = false,
     this.initialText,
+    required this.onInputChanged,
     Key? key,
   }) : super(key: key);
 
@@ -64,8 +64,8 @@ class _InputFieldState extends State<InputField> {
           maxLength: widget.maxCharacterCount,
           textAlignVertical: TextAlignVertical.center,
           controller: controller,
-          onChanged: (text) {
-            widget.inputValue = text;
+          onChanged: (value) {
+            widget.onInputChanged(value);
           },
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),

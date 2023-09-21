@@ -16,19 +16,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   String buttonText = 'Login';
-
-  final InputField emailInput = InputField(
-    label: 'Email',
-    icon: Icons.email_outlined,
-    hint: 'you@site.com',
-  );
-
-  final InputField passwordInput = InputField(
-    label: 'Password',
-    icon: Icons.lock_outline,
-    hint: '********',
-    isPassword: true,
-  );
+  String emailInputValue = '';
+  String passwordInputValue = '';
 
   Future loginUser (String email, String password) async {
     setState(() {
@@ -143,14 +132,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Column(
                       children: [
-                        emailInput,
+                        InputField(
+                          label: 'Email',
+                          icon: Icons.email_outlined,
+                          hint: 'you@site.com',
+                          onInputChanged: (value) {
+                            emailInputValue = value;
+                          },
+                        ),
                         const SizedBox(height: 20),
-                        passwordInput,
+                        InputField(
+                          label: 'Password',
+                          icon: Icons.lock_outline,
+                          hint: '********',
+                          isPassword: true,
+                          onInputChanged: (value) {
+                            passwordInputValue = value;
+                          },
+                        ),
                         const SizedBox(height: 28),
                         CustomButton(text: buttonText, onPressed: () {
-                          String email = emailInput.inputValue;
-                          String password = passwordInput.inputValue;
-                          loginUser(email, password);
+                          loginUser(emailInputValue, passwordInputValue);
                         }),
                         const SizedBox(height: 30),
                         Image.asset(

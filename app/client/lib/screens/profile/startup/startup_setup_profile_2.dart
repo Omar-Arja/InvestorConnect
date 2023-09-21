@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:client/widgets/input_fields.dart';
 import 'package:client/widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +17,11 @@ class StartupSetupProfileScreen2 extends StatefulWidget {
 }
 
 class _StartupSetupProfileScreen2State extends State<StartupSetupProfileScreen2> {
+  StartupProfileModel? startupData;
   String buttonText = 'Continue';
   String? _thumbnailPath;
-  StartupProfileModel? startupData;
   File videoFile = File('');
-  String description = '';
+  String descriptionInputValue = '';
   String? errorMessage;
 
   @override
@@ -71,8 +70,7 @@ class _StartupSetupProfileScreen2State extends State<StartupSetupProfileScreen2>
   }
 
   void handleFormSubmit() {
-    description = descriptionInput.inputValue;
-    if (description.isEmpty || videoFile.path.isEmpty) {
+    if (descriptionInputValue.isEmpty || videoFile.path.isEmpty) {
       setState(() {
         buttonText = 'Please fill in all fields';
       });
@@ -86,22 +84,9 @@ class _StartupSetupProfileScreen2State extends State<StartupSetupProfileScreen2>
       return;
     }
     startupData?.pitchVideoFile = videoFile;
-    startupData?.shortDescription = description;
+    startupData?.companyDescription = descriptionInputValue;
     Navigator.of(context).pushNamed('/startup_setup_profile_3', arguments: startupData);
   }
-
-  final descriptionInput = InputField(
-    maxLines: 5,
-    label: const Text(
-      'Description',
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    maxCharacterCount: 260,
-    hint: 'Describe your startup in 260 characters or less (Recommended length: 200-240 characters)',
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -241,7 +226,21 @@ class _StartupSetupProfileScreen2State extends State<StartupSetupProfileScreen2>
                   ],
                 ),
                 const SizedBox(height: 16),
-                descriptionInput,
+                InputField(
+                  maxLines: 5,
+                  label: const Text(
+                    'Description',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  maxCharacterCount: 260,
+                  hint: 'Describe your startup in 260 characters or less (Recommended length: 200-240 characters)',
+                  onInputChanged: (value) {
+                    descriptionInputValue = value;
+                  },
+                ),
                 const SizedBox(height: 5),
                 const Text(
                   'Your video and description are critical. They are the first things potential investors will see.',

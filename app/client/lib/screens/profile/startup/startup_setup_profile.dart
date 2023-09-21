@@ -20,7 +20,7 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
   String buttonText = 'Continue';
   XFile? _selectedImage;
   File imageFile = File('');
-  String companyName = '';
+  String companyNameInputValue = '';
   String location = '';
   String investmentStage = '';
   List<String> industries = [];
@@ -38,18 +38,17 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
   }
 
   void handleFormSubmit() {
-    companyName = companyNameInput.inputValue;
-    if (companyName.isNotEmpty &&
+    if (companyNameInputValue.isNotEmpty &&
         location.isNotEmpty &&
         industries.isNotEmpty &&
         investmentStage.isNotEmpty &&
         _selectedImage != null) {
       final startupData = StartupProfileModel(
-        companyName: companyName,
+        companyName: companyNameInputValue,
         location: location,
         industries: industries,
         investmentStage: investmentStage,
-        imageFile: imageFile,
+        logoFile: imageFile,
       );
 
       Navigator.of(context).pushNamed('/startup_setup_profile_2', arguments: startupData);
@@ -64,10 +63,6 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
       });
     }
   }
-
-  final companyNameInput = InputField(
-    label: "What's your company's name?",
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +99,6 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
         ),
         body: SingleChildScrollView(
           controller: _scrollController,
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 15),
@@ -172,7 +166,12 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                companyNameInput,
+                InputField(
+                  label: "What's your company's name?",
+                  onInputChanged: (value) {
+                    companyNameInputValue = value;
+                  },
+                ),
                 const SizedBox(height: 16),
                 CustomDropdownTextField(
                   label: 'Where is your company located?',

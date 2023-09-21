@@ -15,38 +15,11 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   String buttonText = 'Sign Up';
-
-  final InputField firstNameInput = InputField(
-    label: 'First Name',
-    icon: Icons.person_outline,
-    hint: 'John',
-  );
-
-  final InputField lastNameInput = InputField(
-    label: 'Last Name',
-    icon: Icons.person_outline,
-    hint: 'Doe',
-  );
-
-  final InputField emailInput = InputField(
-    label: 'Email',
-    icon: Icons.email_outlined,
-    hint: 'you@site.com',
-  );
-
-  final InputField passwordInput = InputField(
-    label: 'Password',
-    icon: Icons.lock_outline,
-    hint: '********',
-    isPassword: true,
-  );
-
-  final InputField confirmPasswordInput = InputField(
-    label: 'Confirm Password',
-    icon: Icons.lock_outline,
-    hint: '********',
-    isPassword: true,
-  );
+  String firstNameInputValue = '';
+  String lastNameInputValue = '';
+  String emailInputValue = '';
+  String passwordInputValue = '';
+  String confirmPasswordInputValue = '';
 
   Future signupUser (String firstName, String lastName, String email, String password, String confirmPassword) async {
     setState(() {
@@ -159,28 +132,71 @@ class _SignupScreenState extends State<SignupScreen> {
                       children: [
                         Row(
                           children: [
-                            Expanded(child: firstNameInput),
+                            Expanded(
+                              child: InputField(
+                                label: 'First Name',
+                                icon: Icons.person_outline,
+                                hint: 'John',
+                                onInputChanged: (value) {
+                                  firstNameInputValue = value;
+                                },
+                              ),
+                            ),
                             const SizedBox(width: 10),
-                            Expanded(child: lastNameInput),
+                            Expanded(
+                              child: InputField(
+                                label: 'Last Name',
+                                icon: Icons.person_outline,
+                                hint: 'Doe',
+                                onInputChanged: (value) {
+                                  lastNameInputValue = value;
+                                },
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 20),
-                        emailInput,
+                        InputField(
+                          label: 'Email',
+                          icon: Icons.email_outlined,
+                          hint: 'you@site.com',
+                          onInputChanged: (value) {
+                            emailInputValue = value;
+                          },
+                        ),
                         const SizedBox(height: 20),
-                        passwordInput,
+                        InputField(
+                          label: 'Password',
+                          icon: Icons.lock_outline,
+                          hint: '********',
+                          isPassword: true,
+                          onInputChanged: (value) {
+                            passwordInputValue = value;
+                          },
+                        ),
                         const SizedBox(height: 20),
-                        confirmPasswordInput,                        
+                        InputField(
+                          label: 'Confirm Password',
+                          icon: Icons.lock_outline,
+                          hint: '********',
+                          isPassword: true,
+                          onInputChanged: (value) {
+                            confirmPasswordInputValue = value;
+                          },
+                        ),                        
                         const SizedBox(height: 25),
                         CustomButton(
                           text: buttonText, 
                           onPressed: () {
-                            String firstName = firstNameInput.inputValue;
-                            String lastName = lastNameInput.inputValue;
-                            String email = emailInput.inputValue;
-                            String password = passwordInput.inputValue;
-                            String confirmPassword = confirmPasswordInput.inputValue;
-                            signupUser(firstName, lastName, email, password, confirmPassword);
-                        }),
+                            signupUser(
+                              firstNameInputValue,
+                              lastNameInputValue,
+                              emailInputValue,
+                              passwordInputValue,
+                              confirmPasswordInputValue,
+                            );
+                          }
+                        ),
                       ],
                     )
                   ),
