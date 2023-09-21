@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StartupController;
+use App\Http\Controllers\InvestorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,18 @@ Route::prefix('/auth')->group(function () {
     Route::post('/refresh', [AuthController::class, 'refresh']);
 });
 
-Route::middleware('auth.api')->prefix('/startup')->group(function () {
-    Route::post('/create-profile', [StartupController::class, 'createProfile']);
-    Route::get('/profile', [StartupController::class, 'getProfile']);
-    Route::post('/update-profile', [StartupController::class, 'updateProfile']);
-    Route::delete('/profile', [StartupController::class, 'deleteProfile']);
+Route::middleware('auth.api')->group(function () {
+    Route::prefix('/startup')->group(function () {
+        Route::post('/create-profile', [StartupController::class, 'createProfile']);
+        Route::get('/profile', [StartupController::class, 'getProfile']);
+        Route::post('/update-profile', [StartupController::class, 'updateProfile']);
+        Route::delete('/profile', [StartupController::class, 'deleteProfile']);
+    });
+
+    Route::prefix('/investor')->group(function () {
+        Route::post('/create-profile', [InvestorController::class, 'createProfile']);
+        Route::get('/profile', [InvestorController::class, 'getProfile']);
+        Route::post('/update-profile', [InvestorController::class, 'updateProfile']);
+        Route::delete('/profile', [InvestorController::class, 'deleteProfile']);
+    });
 });
