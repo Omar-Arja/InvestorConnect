@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class StartupProfileModel {
+  String fullName;
   String companyName;
   String location;
   List<String> industries;
@@ -15,6 +16,7 @@ class StartupProfileModel {
   int maxInvestmentAmount;
 
   StartupProfileModel({
+    this.fullName = '',
     this.companyName = '',
     this.location = '',
     this.industries = const [],
@@ -31,6 +33,7 @@ class StartupProfileModel {
 
   factory StartupProfileModel.fromJson(Map<String, dynamic> json) {
     return StartupProfileModel(
+      fullName: json['full_name'] ?? '',
       companyName: json['company_name'] ?? '',
       location: json['location'] ?? '',
       industries: List<String>.from(json['industries'] ?? []),
@@ -46,6 +49,7 @@ class StartupProfileModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'full_name': fullName,
       'company_name': companyName,
       'location': location,
       'industries': industries,
