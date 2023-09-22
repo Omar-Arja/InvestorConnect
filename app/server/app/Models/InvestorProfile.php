@@ -18,6 +18,10 @@ class InvestorProfile extends Model
         'max_investment_amount',
     ];
 
+    protected $appends = [
+        'full_name',
+    ];
+
     // Relationships
     public function user()
     {
@@ -27,5 +31,11 @@ class InvestorProfile extends Model
     public function investorPreferences()
     {
         return $this->hasOne(InvestorPreference::class);
+    }
+
+    // Attributes
+    public function getFullNameAttribute()
+    {
+        return $this->user->name;
     }
 }

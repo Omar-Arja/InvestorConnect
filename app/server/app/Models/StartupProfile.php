@@ -24,6 +24,10 @@ class StartupProfile extends Model
         'industries' => 'array',
     ];
 
+    protected $appends = [
+        'full_name',
+    ];
+
     // Relationships
     public function user()
     {
@@ -33,5 +37,11 @@ class StartupProfile extends Model
     public function startupPreferences()
     {
         return $this->hasOne(StartupPreference::class);
+    }
+
+    // Attributes
+    public function getFullNameAttribute()
+    {
+        return $this->user->name;
     }
 }
