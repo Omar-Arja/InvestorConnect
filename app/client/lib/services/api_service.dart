@@ -137,4 +137,21 @@ class ApiService {
       return {'status': 'error', 'error': '$e'};
     }
   }
+
+  static Future<Map<String, dynamic>> sendMessage(Message message) async {
+    final url = Uri.parse('$baseUrl/messages/send');
+    final body = message.toJson();
+
+    try {
+      final response = await http.post(url, body: body, headers: headers);
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        return {'status': 'error'};
+      }
+    } catch (e) {
+      return {'error occured': '$e'};
+    }
+  }
 }
