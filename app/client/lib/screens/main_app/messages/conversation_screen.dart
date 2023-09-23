@@ -93,23 +93,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
       ),
       body: Column(
         children: [
-          // const SizedBox(height: 8),
-          // Container(
-          //   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     borderRadius: BorderRadius.circular(30),
-          //   ),
-          //   child: const Text(
-          //     'This is the beginning of your conversation',
-          //     style: TextStyle(
-          //       color: Color.fromARGB(255, 61, 78, 129),
-          //       fontWeight: FontWeight.w500,
-          //       fontSize: 16,
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(height: 15),
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
