@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:client/services/auth_service.dart';
 import 'dart:async';
 import 'package:client/services/api_service.dart';
 import 'package:client/services/auth_validation.dart';
@@ -49,8 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
 
         // Save token to shared preferences
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString('token', data['authorisation']['token']);
+        await AuthService.saveToken(data['authorisation']['token']);
 
         Timer(const Duration(seconds: 3), () {
           if (data['user']['usertype_name'] == 'pending') {

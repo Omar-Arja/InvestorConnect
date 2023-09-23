@@ -19,7 +19,7 @@ class ChatCard extends StatelessWidget {
           radius: 28,
           foregroundImage: NetworkImage(profile.profilePictureUrl),
           backgroundImage: const AssetImage('assets/images/founder.png'),
-          onBackgroundImageError: (exception, stackTrace) => const AssetImage('assets/images/founder.png'),
+          onForegroundImageError: (exception, stackTrace) => const AssetImage('assets/images/founder.png'),
         ),
         title: Text(
           profile.fullName,

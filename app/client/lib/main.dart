@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:client/services/auth_service.dart';
 import 'package:client/screens/auth/authentication_screen.dart';
 import 'package:client/screens/auth/login_screen.dart';
 import 'package:client/screens/auth/signup_screen.dart';
@@ -11,8 +14,9 @@ import 'package:client/screens/profile/investor/investor_setup_profile.dart';
 import 'package:client/screens/profile/investor/investor_setup_profile_2.dart';
 import 'package:client/screens/main_app/main_app_screens.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const App());
 }
 
@@ -30,6 +34,16 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'InvestorConnect',
       initialRoute: '/auth',
+      home: FutureBuilder(
+        future: AuthService.isTokenValid(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const MainAppScreens();
+          } else {
+            return const AuthScreen();
+          }
+        },
+      ),
       routes: {
         '/auth': (context) => const AuthScreen(),
         '/login': (context) => const LoginScreen(),
