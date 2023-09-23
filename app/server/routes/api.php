@@ -5,17 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\InvestorController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\MessagesController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -29,6 +19,7 @@ Route::prefix('/auth')->group(function () {
 });
 
 Route::middleware('auth.api')->group(function () {
+
     Route::prefix('/startup')->group(function () {
         Route::post('/create-profile', [StartupController::class, 'createProfile']);
         Route::get('/profile', [StartupController::class, 'getProfile']);
@@ -42,4 +33,10 @@ Route::middleware('auth.api')->group(function () {
         Route::post('/update-profile', [InvestorController::class, 'updateProfile']);
         Route::delete('/profile', [InvestorController::class, 'deleteProfile']);
     });
+
+    Route::prefix('/messages')->group(function () {
+        Route::post('/send', [MessagesController::class, 'sendMessage']);
+        Route::get('/all', [MessagesController::class, 'getMatchedProfilesWithMessages']);
+    });
+
 });
