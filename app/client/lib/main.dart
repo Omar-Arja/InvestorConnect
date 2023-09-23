@@ -9,6 +9,7 @@ import 'package:client/screens/profile/startup/startup_setup_profile_2.dart';
 import 'package:client/screens/profile/startup/startup_setup_profile_3.dart';
 import 'package:client/screens/profile/investor/investor_setup_profile.dart';
 import 'package:client/screens/profile/investor/investor_setup_profile_2.dart';
+import 'package:client/screens/main_app/main_app_screens.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +41,7 @@ class App extends StatelessWidget {
         '/startup_setup_profile_3': (context) => const StartupPreferencesScreen(),
         '/investor_setup_profile': (context) => const InvestorSetupProfileScreen(),
         '/investor_setup_profile_2': (context) => const InvestorPreferencesScreen(),
+        '/home': (context) => const MainAppScreens(),
       },
     );
   }

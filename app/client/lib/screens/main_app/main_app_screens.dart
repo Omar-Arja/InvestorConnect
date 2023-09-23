@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:client/widgets/bottom_navbar.dart';
 import 'package:client/screens/main_app/home_screen.dart';
-import 'package:client/screens/main_app/messages_screen.dart';
+import 'package:client/screens/main_app/messages/chats_screen.dart';
 import 'package:client/screens/main_app/calendar_screen.dart';
 import 'package:client/screens/main_app/notifications_screen.dart';
 import 'package:client/screens/main_app/profile_screen.dart';
