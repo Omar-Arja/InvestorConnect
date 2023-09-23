@@ -25,11 +25,11 @@ class InvestorController extends Controller
 
         $user = Auth::user();
 
-        if ($user->investorProfile) {
+        if ($user->investorProfile || $user->startupProfile) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'User already has a profile',
-                'profile' => $user->investorProfile->with('investorPreferences')->first(),
+                'profile' => $user->investorProfile ? $user->investorProfile->load('investorPreferences') : $user->startupProfile->load('startupPreferences'),
             ]);
         }
 
@@ -45,7 +45,7 @@ class InvestorController extends Controller
         // Store the uploaded file in the public disk
         $profile_picture_path = $request->File('profile_picture_file')->storeAs('images', $profile_picture_name, 'public');
 
-        // Generate URL for the uploaded files
+        // Generate URL for the uploaded file
         $profile_picture_url = asset('storage/' . $profile_picture_path);
 
         $investor_profile = InvestorProfile::create([
@@ -70,7 +70,24 @@ class InvestorController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Investor profile created successfully',
-            'profile' => $investor_profile->with('investorPreferences')->first(),
+            'profile' => $investor_profile->load('investorPreferences'),
+        ]);
+    }
+
+    public function getProfile()
+    {
+        $user = Auth::user();
+
+        if (!$user->investorProfile) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User does not have an investor profile',
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'profile' => $user->investorProfile->load('investorPreferences'),
         ]);
     }
 }

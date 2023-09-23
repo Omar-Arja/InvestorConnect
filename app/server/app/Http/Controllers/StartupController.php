@@ -27,11 +27,11 @@ class StartupController extends Controller
 
         $user = Auth::user();
 
-        if ($user->startupProfile) {
+        if ($user->startupProfile || $user->investorProfile) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'User already has a profile',
-                'profile' => $user->startupProfile,
+                'profile' => $user->startupProfile ? $user->startupProfile->load('startupPreferences') : $user->investorProfile->load('investorPreferences'),
             ]);
         }
 
@@ -71,11 +71,12 @@ class StartupController extends Controller
         ]);
 
         $user->userType()->associate(UserType::where('name', 'startup')->first());
+        $user->save();
 
         return response()->json([
             'status' => 'success',
             'message' => 'Profile created successfully',
-            'profile' => $startup_profile->with('startupPreferences')->first(),
+            'profile' => $startup_profile->load('startupPreferences'),
         ], 201);
     }
 
@@ -141,7 +142,7 @@ class StartupController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Profile updated successfully',
-            'profile' => $startup_profile->with('startupPreferences')->first(),
+            'profile' => $startup_profile->load('startupPreferences'),
         ], 200);
     }
 
