@@ -17,11 +17,20 @@ import 'package:client/screens/main_app/main_app_screens.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const App());
+  final bool tokenValid = await AuthService.isTokenValid();
+  runApp(App(tokenValid));
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
+class App extends StatefulWidget {
+  final bool tokenValid;
+
+  const App(this.tokenValid, {Key? key}) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +42,7 @@ class App extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: 'InvestorConnect',
-      initialRoute: '/auth',
-      home: FutureBuilder(
-        future: AuthService.isTokenValid(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const MainAppScreens();
-          } else {
-            return const AuthScreen();
-          }
-        },
-      ),
+      home: widget.tokenValid ? const MainAppScreens() : const AuthScreen(),
       routes: {
         '/auth': (context) => const AuthScreen(),
         '/login': (context) => const LoginScreen(),

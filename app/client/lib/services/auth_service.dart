@@ -43,7 +43,7 @@ class AuthService {
   static Future<bool> isTokenValid() async {
     if (await hasToken()) {
       final response = await ApiService.refreshToken();
-        if (response['status'] == 'success') {
+        if (response != null && response['status'] == 'success') {
           await saveToken(response['authorisation']['token']);
           return true;
         } else {
@@ -51,6 +51,16 @@ class AuthService {
         }
     } else {
       return false;
+    }
+  }
+
+  static Future<int?> getUserId() async {
+    if (await hasToken()) {
+      final token = await getToken();
+      final decodedToken = JwtDecoder.decode(token!);
+      return decodedToken['sub'];
+    } else {
+      return null;
     }
   }
 }

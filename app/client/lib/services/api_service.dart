@@ -73,22 +73,25 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>> refreshToken() async {
+  static Future<Map<String, dynamic>?> refreshToken() async {
     final url = Uri.parse('$baseUrl/auth/refresh');
+    final token = await AuthService.getToken();
+
+    headers['Authorization'] = 'Bearer $token';
 
     try {
       final response = await http.post(url, headers: headers);
 
       if (response.statusCode == 200) {
         headers['Authorization'] = 'Bearer ${json.decode(response.body)['authorisation']['token']}';
-
         return json.decode(response.body);
       } else {
         throw Exception();
       }
     } catch (e) {
-      throw Exception('Refresh token failed: $e');
+      print('Refresh token failed: $e');
     }
+    return null;
   }
 
   // Startup profile requests
