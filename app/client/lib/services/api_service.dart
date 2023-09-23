@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'auth_service.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:client/models/startup_profile.dart';
 import 'package:client/models/investor_profile.dart';
@@ -52,6 +53,41 @@ class ApiService {
       }
     } catch (e) {
       throw Exception('Signup failed: $e');
+    }
+  }
+
+  static Future<Map<String, dynamic>> logout() async {
+    final url = Uri.parse('$baseUrl/auth/logout');
+
+    try {
+      final response = await http.post(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        AuthService.deleteToken();
+        return json.decode(response.body);
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      throw Exception('Logout failed: $e');
+    }
+  }
+
+  static Future<Map<String, dynamic>> refreshToken() async {
+    final url = Uri.parse('$baseUrl/auth/refresh');
+
+    try {
+      final response = await http.post(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        headers['Authorization'] = 'Bearer ${json.decode(response.body)['authorisation']['token']}';
+
+        return json.decode(response.body);
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      throw Exception('Refresh token failed: $e');
     }
   }
 
