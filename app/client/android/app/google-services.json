@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "922905908291",
+    "project_id": "investorconnect-8bdc1",
+    "storage_bucket": "investorconnect-8bdc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922905908291:android:5cf109f4e120d7975cb0f6",
+        "android_client_info": {
+          "package_name": "com.investorconnect.client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvcc6Kke_PpfvSsp4g1bCk1KJFW_uobtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
