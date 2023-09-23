@@ -1,9 +1,10 @@
 import 'dart:convert';
-import 'package:client/models/investor_profile.dart';
 import 'package:http/http.dart' as http;
-import 'package:client/models/startup_profile.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:client/models/startup_profile.dart';
+import 'package:client/models/investor_profile.dart';
+import 'package:client/models/message.dart';
 
 class ApiService {
   static const String baseUrl = 'http://10.0.2.2:8000/api';
@@ -26,7 +27,7 @@ class ApiService {
 
         return json.decode(response.body);
       } else {
-        throw Exception('Login failed');
+        throw Exception();
       }
     } catch (e) {
       throw Exception('Login failed: $e');
@@ -47,7 +48,7 @@ class ApiService {
       if (response.statusCode == 200) {
         return json.decode(response.body);
       } else {
-        throw Exception('Signup failed');
+        throw Exception();
       }
     } catch (e) {
       throw Exception('Signup failed: $e');
@@ -84,7 +85,7 @@ class ApiService {
           return {'status': 'error'};
       }
     } catch (e) {
-      return {'status': 'error'};
+      return {'status': 'error', 'error': '$e'};
     }
   }
 
@@ -116,7 +117,24 @@ class ApiService {
           return {'status': 'error'};
       }
     } catch (e) {
-      return {'status': 'error'};
+      return {'status': 'error', 'error': '$e'};
+    }
+  }
+
+  // Messages requests
+  static Future<Map<String, dynamic>> getChats() async {
+    final url = Uri.parse('$baseUrl/messages/all');
+
+    try {
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        return {'status': 'error'};
+      }
+    } catch (e) {
+      return {'status': 'error', 'error': '$e'};
     }
   }
 }
