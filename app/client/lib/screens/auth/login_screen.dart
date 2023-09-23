@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (data['user']['usertype_name'] == 'pending') {
             Navigator.pushNamed(context, '/setup_profile');
           } else {
-            Navigator.pushNamed(context, '/homepage');
+            Navigator.pushNamed(context, '/home');
           }
         });
       } else {

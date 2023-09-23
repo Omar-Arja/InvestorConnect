@@ -57,7 +57,7 @@ class _InvestorPreferencesScreenState extends State<InvestorPreferencesScreen> {
 
       Timer(const Duration(seconds: 2), () {
         if (data['status'] == 'success') {
-          // Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
         } else {
           setState(() {
             buttonText = 'Complete Setup';

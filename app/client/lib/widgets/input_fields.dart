@@ -116,7 +116,6 @@ class _InputFieldState extends State<InputField> {
           obscureText: widget.isPassword ? obscureText : false,
           style: const TextStyle(
             fontSize: 17,
-            fontWeight: FontWeight.w500,
             color: Color.fromARGB(255, 10, 10, 10),
           ),
         ),

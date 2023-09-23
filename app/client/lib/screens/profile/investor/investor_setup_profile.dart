@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class InvestorSetupProfileScreen extends StatefulWidget {
-  const InvestorSetupProfileScreen({Key? key});
+  const InvestorSetupProfileScreen({super.key});
 
   @override
   _InvestorSetupProfileScreenState createState() => _InvestorSetupProfileScreenState();
