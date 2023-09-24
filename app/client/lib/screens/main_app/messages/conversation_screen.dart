@@ -1,17 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:client/services/api_service.dart';
 import 'package:client/services/auth_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:client/models/user_profile.dart';
 import 'package:client/models/message.dart';
-import 'package:flutter/services.dart';
+import 'package:client/widgets/ui/meeting_schedule_dialog.dart';
 
 class ConversationScreen extends StatefulWidget {
   final UserProfile profile;
   final Function? updateChats;
 
-  const ConversationScreen({Key? key, required this.profile, this.updateChats}) : super(key: key);
+  const ConversationScreen({ super.key, required this.profile, this.updateChats });
 
   @override
   State<ConversationScreen> createState() => _ConversationScreenState();
@@ -153,8 +154,24 @@ class _ConversationScreenState extends State<ConversationScreen> {
               child: IconButton(
                 icon: const Icon(Icons.video_chat_outlined),
                 iconSize: 28,
-                color: Colors.white,
-                onPressed: () {},
+                color: widget.profile.calendlyLink.isNotEmpty ? Colors.white : Colors.grey,
+                onPressed: () {
+                  if (widget.profile.calendlyLink.isNotEmpty) {
+                    showDialog(
+                    context: context,
+                    builder: (context) => MeetingScheduleDialog(
+                      profileName: widget.profile.fullName,
+                      calendlyLink: widget.profile.calendlyLink,
+                    ),
+                  );
+                 } else {
+                   ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                       content: Text('${widget.profile.fullName} has not set up a meeting link yet.'),
+                     ),
+                   );
+                 }
+                },
               ),
             ),
           ),
@@ -275,7 +292,9 @@ class ChatBubble extends StatelessWidget {
               padding: const EdgeInsets.only(top: 7),
               child: CircleAvatar(
                 radius: 21,
-                backgroundImage: NetworkImage(widget.profile.profilePictureUrl),
+                foregroundImage: NetworkImage(widget.profile.profilePictureUrl),
+                backgroundImage: const AssetImage('assets/images/founder.png'),
+                onForegroundImageError: (exception, stackTrace) => const AssetImage('assets/images/founder.png'),
               ),
             )
           ],
