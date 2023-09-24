@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('profile_picture_url');
+            $table->string('calendly_link')->nullable();
             $table->string('location');
             $table->text('bio');
             $table->decimal('min_investment_amount', 10, 2);

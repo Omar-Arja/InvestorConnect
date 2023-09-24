@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('company_name');
+            $table->string('calendly_link')->nullable();
             $table->string('company_logo_url');
             $table->json('industries');
             $table->string('location');
