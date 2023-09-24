@@ -3,6 +3,7 @@ import 'dart:io';
 class StartupProfileModel {
   String fullName;
   String companyName;
+  String calendlyLink;
   String location;
   List<String> industries;
   String investmentStage;
@@ -18,6 +19,7 @@ class StartupProfileModel {
   StartupProfileModel({
     this.fullName = '',
     this.companyName = '',
+    this.calendlyLink = '',
     this.location = '',
     this.industries = const [],
     this.investmentStage = '',
@@ -35,6 +37,7 @@ class StartupProfileModel {
     return StartupProfileModel(
       fullName: json['full_name'] ?? '',
       companyName: json['company_name'] ?? '',
+      calendlyLink: json['calendly_link'] ?? '',
       location: json['location'] ?? '',
       industries: List<String>.from(json['industries'] ?? []),
       companyLogoUrl: json['company_logo_url'] ?? '',
@@ -51,6 +54,7 @@ class StartupProfileModel {
     return {
       'full_name': fullName,
       'company_name': companyName,
+      'calendly_link': calendlyLink,
       'location': location,
       'industries': industries,
       'investment_stage': investmentStage,
