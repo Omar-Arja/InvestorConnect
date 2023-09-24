@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:client/services/api_service.dart';
 import 'package:client/services/auth_validation.dart';
-import 'package:client/widgets/custom_buttons.dart';
-import 'package:client/widgets/input_fields.dart';
+import 'package:client/widgets/buttons/custom_buttons.dart';
+import 'package:client/widgets/forms/input_fields.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

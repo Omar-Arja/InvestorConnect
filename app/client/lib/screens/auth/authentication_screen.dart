@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:client/widgets/custom_buttons.dart';
-import 'package:client/widgets/or_divider.dart';
+import 'package:client/widgets/buttons/custom_buttons.dart';
+import 'package:client/widgets/ui/or_divider.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

@@ -1,4 +1,4 @@
-import 'package:client/widgets/custom_buttons.dart';
+import 'package:client/widgets/buttons/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

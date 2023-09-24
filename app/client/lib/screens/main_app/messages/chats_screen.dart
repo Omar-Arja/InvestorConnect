@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:client/services/api_service.dart';
-import 'package:client/widgets/chat_card.dart';
+import 'package:client/widgets/ui/chat_card.dart';
 import 'package:client/models/user_profile.dart';
 
 class ChatsScreen extends StatefulWidget {
@@ -16,8 +16,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   void initState() {
-    super.initState();
     fetchChats();
+    super.initState();
   }
 
   void updateChats() {

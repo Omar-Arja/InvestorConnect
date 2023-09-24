@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:client/widgets/bottom_navbar.dart';
+import 'package:client/widgets/ui/bottom_navbar.dart';
 import 'package:client/screens/main_app/home_screen.dart';
 import 'package:client/screens/main_app/messages/chats_screen.dart';
 import 'package:client/screens/main_app/calendar_screen.dart';

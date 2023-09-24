@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:client/widgets/input_fields.dart';
-import 'package:client/widgets/custom_dropdown_text_field.dart';
-import 'package:client/widgets/custom_buttons.dart';
+import 'package:client/widgets/forms/input_fields.dart';
+import 'package:client/widgets/forms/custom_dropdown_text_field.dart';
+import 'package:client/widgets/buttons/custom_buttons.dart';
 import 'package:client/models/startup_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
