@@ -41,6 +41,7 @@ class MessagesController extends Controller
             $profile = [
                 'id' => $other_user_profile->user_id,
                 'full_name' => $other_user_profile->full_name,
+                'calendly_link' => $other_user_profile->calendly_link,
                 'profile_picture_url' => $other_user_profile->profile_picture_url ?? $other_user_profile->company_logo_url,
             ];
 

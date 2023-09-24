@@ -14,6 +14,7 @@ class InvestorController extends Controller
     {
         $request->validate([
             'profile_picture_file' => 'required|file',
+            'calendly_link' => 'required|string|sometimes',
             'location' => 'required|string',
             'bio' => 'required|string',
             'min_investment_amount' => 'required|string',
@@ -51,6 +52,7 @@ class InvestorController extends Controller
         $investor_profile = InvestorProfile::create([
             'user_id' => $user->id,
             'profile_picture_url' => $profile_picture_url,
+            'calendly_link' => $request->calendly_link ?? null,
             'location' => $request->location,
             'bio' => $request->bio,
             'min_investment_amount' => $request->min_investment_amount,

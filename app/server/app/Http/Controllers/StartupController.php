@@ -14,6 +14,7 @@ class StartupController extends Controller
     {
         $request->validate([
             'company_name' => 'required|string',
+            'calendly_link' => 'required|string|sometimes',
             'company_logo_file' => 'required|file',
             'industries' => 'required|string',
             'location' => 'required|string',
@@ -55,6 +56,7 @@ class StartupController extends Controller
         $startup_profile = StartupProfile::create([
             'user_id' => $user->id,
             'company_name' => $request->company_name,
+            'calendly_link' => $request->calendly_link ?? null,
             'company_logo_url' => $company_logo_url,
             'industries' => $request->industries,
             'location' => $request->location,
@@ -84,6 +86,7 @@ class StartupController extends Controller
     {
         $request->validate([
             'company_name' => 'required|string',
+            'calendl_link' => 'required|string|sometimes',
             'company_logo_file' => 'required|file',
             'industries' => 'required|string',
             'location' => 'required|string',
@@ -125,6 +128,7 @@ class StartupController extends Controller
 
         $startup_profile->update([
             'company_name' => $request->company_name,
+            'calendly_link' => $request->calendly_link ?? null,
             'company_logo_url' => $company_logo_url,
             'industries' => $request->industries,
             'location' => $request->location,
