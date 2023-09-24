@@ -20,11 +20,18 @@ class _ChatsScreenState extends State<ChatsScreen> {
     fetchChats();
   }
 
+  void updateChats() {
+    setState(() {
+      fetchChats();
+    });
+  }
+
   void fetchChats() async {
     final data = await ApiService.getChats();
 
     if (data['status'] == 'success') {
       setState(() {
+        
         profiles = data['profiles'].map((profile) => UserProfile.fromJson(profile)).toList();
       });
     } else {
@@ -34,6 +41,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    profiles.sort((a, b) {
+      final aTime = a.messages.last.createdAt;
+      final bTime = b.messages.last.createdAt;
+      return bTime.compareTo(aTime);
+    });
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -56,7 +68,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       body: ListView.builder(
         padding: const EdgeInsets.only(bottom: 60),
         itemCount: profiles.length,
-        itemBuilder: (context, index) => ChatCard(profile: profiles[index]),
+        itemBuilder: (context, index) => ChatCard(profile: profiles[index], updateChats: updateChats,),
       )
     );
   }

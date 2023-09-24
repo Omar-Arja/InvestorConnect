@@ -9,8 +9,9 @@ import 'package:flutter/services.dart';
 
 class ConversationScreen extends StatefulWidget {
   final UserProfile profile;
+  final Function? updateChats;
 
-  const ConversationScreen({Key? key, required this.profile}) : super(key: key);
+  const ConversationScreen({Key? key, required this.profile, this.updateChats}) : super(key: key);
 
   @override
   State<ConversationScreen> createState() => _ConversationScreenState();
@@ -130,6 +131,15 @@ class _ConversationScreenState extends State<ConversationScreen> {
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Color.fromARGB(255, 50, 65, 110),
           statusBarIconBrightness: Brightness.light,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (widget.updateChats != null) {
+              widget.updateChats!();
+            }
+            Navigator.of(context).pop();
+          },
         ),
         elevation: 1,
         title: Text(widget.profile.fullName),

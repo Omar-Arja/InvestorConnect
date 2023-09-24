@@ -4,7 +4,7 @@ import 'package:client/screens/main_app/home_screen.dart';
 import 'package:client/screens/main_app/messages/chats_screen.dart';
 import 'package:client/screens/main_app/calendar_screen.dart';
 import 'package:client/screens/main_app/notifications_screen.dart';
-import 'package:client/screens/main_app/profile_screen.dart';
+import 'package:client/screens/main_app/profile/profile_screen.dart';
 
 class MainAppScreens extends StatefulWidget {
   const MainAppScreens({super.key});

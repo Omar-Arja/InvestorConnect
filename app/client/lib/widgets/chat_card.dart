@@ -4,8 +4,9 @@ import 'package:client/screens/main_app/messages/conversation_screen.dart';
 
 class ChatCard extends StatelessWidget {
   final UserProfile profile;
+  final Function? updateChats;
 
-  const ChatCard({super.key, required this.profile});
+  const ChatCard({super.key, required this.profile, this.updateChats});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class ChatCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ConversationScreen(profile: profile),
+              builder: (context) => ConversationScreen(profile: profile, updateChats: updateChats),
             ),
           );
         },
