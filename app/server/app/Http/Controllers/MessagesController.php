@@ -51,10 +51,25 @@ class MessagesController extends Controller
                 'messages' => $messages,
             ];
         }
+        
+        $profilesWithMessages = [];
+        $profilesWithoutMessages = [];
 
-        $profiles = collect($profiles)->sortByDesc(function ($profile) {
+        foreach ($profiles as $profile) {
+            if (empty($profile['messages'])) {
+                $profilesWithMessages[] = $profile;
+            } else {
+                $profilesWithoutMessages[] = $profile;
+            }
+        }
+
+        $sortedProfilesWithMessages = collect($profilesWithMessages)->sortByDesc(function ($profile) {
             return $profile['messages']->last()->created_at;
         })->values()->all();
+
+        $sortedProfilesWithoutMessages = collect($profilesWithoutMessages)->sortBy('profile.full_name')->values()->all();
+
+        $profiles = array_merge($sortedProfilesWithMessages, $sortedProfilesWithoutMessages);
 
         return response()->json([
             'status' => 'success',
