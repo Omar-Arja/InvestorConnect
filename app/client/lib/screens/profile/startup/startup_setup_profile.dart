@@ -21,6 +21,7 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
   XFile? _selectedImage;
   File imageFile = File('');
   String companyNameInputValue = '';
+  String calendlyLinkInputValue = '';
   String location = '';
   String investmentStage = '';
   List<String> industries = [];
@@ -45,6 +46,7 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
         _selectedImage != null) {
       final startupData = StartupProfileModel(
         companyName: companyNameInputValue,
+        calendlyLink: calendlyLinkInputValue,
         location: location,
         industries: industries,
         investmentStage: investmentStage,
@@ -170,6 +172,13 @@ class _StartupSetupProfileScreenState extends State<StartupSetupProfileScreen> {
                   label: "What's your company's name?",
                   onInputChanged: (value) {
                     companyNameInputValue = value;
+                  },
+                ),
+                const SizedBox(height: 16),
+                InputField(
+                  label: 'What is your Calendly link? (Optional - for meetings)',
+                  onInputChanged: (value) {
+                    calendlyLinkInputValue = value;
                   },
                 ),
                 const SizedBox(height: 16),

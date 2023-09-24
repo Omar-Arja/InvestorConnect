@@ -8,7 +8,7 @@ import 'package:client/models/investor_profile.dart';
 import 'package:client/models/message.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
+  static const String baseUrl = 'http://192.168.1.2:8000/api';
   static Map<String, String> headers = {
     'Authorization': 'Bearer ',
   };
@@ -137,6 +137,7 @@ class ApiService {
     dio.options.headers['Content-Type'] = 'multipart/form-data';
 
     final FormData formData = FormData.fromMap({
+      'calendly_link': investorData.calendlyLink,
       'location': investorData.location,
       'bio': investorData.bio,
       'min_investment_amount': investorData.minInvestmentAmount.toString(),
