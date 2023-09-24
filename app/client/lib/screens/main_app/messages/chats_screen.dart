@@ -16,8 +16,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   void initState() {
-    fetchChats();
     super.initState();
+    fetchChats();
   }
 
   void updateChats() {
