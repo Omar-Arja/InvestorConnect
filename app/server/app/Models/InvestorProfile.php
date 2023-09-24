@@ -12,6 +12,7 @@ class InvestorProfile extends Model
     protected $fillable = [
         'user_id',
         'profile_picture_url',
+        'calendly_link',
         'location',
         'bio',
         'min_investment_amount',

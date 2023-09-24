@@ -12,6 +12,7 @@ class StartupProfile extends Model
     protected $fillable = [
         'user_id',
         'company_name',
+        'calendly_link',
         'company_logo_url',
         'industries',
         'location',
