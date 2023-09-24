@@ -35,14 +35,15 @@ class ChatCard extends StatelessWidget {
             maxHeight: 30,
           ),
           child: Text(
-            profile.messages.last.message,
-            style: const TextStyle(
+            profile.messages.lastOrNull?.message ?? 'Start a conversation',
+            style: TextStyle(
               fontFamily: 'Montserrat',
               fontSize: 13,
+              fontStyle: profile.messages.lastOrNull?.message != null ? FontStyle.normal : FontStyle.italic,
             ),
           ),
         ),
-        trailing: Text(profile.messages.last.time),
+        trailing: Text(profile.messages.lastOrNull?.time ?? ''),
         tileColor: Colors.white,
         onTap: () {
           Navigator.push(

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:client/services/api_service.dart';
+import 'package:client/services/auth_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:client/models/user_profile.dart';
 import 'package:client/models/message.dart';
@@ -16,14 +18,56 @@ class ConversationScreen extends StatefulWidget {
 
 class _ConversationScreenState extends State<ConversationScreen> {
   final TextEditingController _messageController = TextEditingController();
-  List<Message> messages = [];
   final ScrollController _scrollController = ScrollController();
+  List<Message> messages = [];
+  String chatId = '';
 
   @override
   void initState() {
     super.initState();
-    messages = widget.profile.messages;
+    initializeChat();
+    scrollToLastMessage();
+  }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    scrollToLastMessage();
+  }
+
+  Future<void> initializeChat() async {
+    messages = widget.profile.messages;
+    final userId = await AuthService.getUserId();
+    final profileId = widget.profile.id;
+    final chatIds = [userId, profileId];
+    chatIds.sort();
+    chatId = chatIds.join('_');
+
+    final messagesCollection = FirebaseFirestore.instance
+        .collection('conversations')
+        .doc(chatId)
+        .collection('messages');
+
+    messagesCollection
+        .orderBy('createdAt', descending: false)
+        .snapshots()
+        .listen((querySnapshot) {
+      final messages = querySnapshot.docs.map((e) => Message(
+        senderId: e['senderId'],
+        receiverId: e['receiverId'],
+        message: e['message'],
+        isSender: e['senderId'] == userId,
+        createdAt: e['createdAt'].toDate(),
+      )).toList()
+        ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      setState(() {
+        this.messages = messages;
+        scrollToLastMessage();
+      });
+    });
+  }
+
+  void scrollToLastMessage() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
@@ -37,6 +81,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
   void sendMessage(String message) async {
     final newMessage = Message(
+      senderId: await AuthService.getUserId(),
       receiverId: widget.profile.id,
       message: message,
       isSender: true,
@@ -59,7 +104,21 @@ class _ConversationScreenState extends State<ConversationScreen> {
     });
 
     final data = await ApiService.sendMessage(newMessage);
-    
+    if (data['status'] == 'success') {
+
+      await FirebaseFirestore.instance
+          .collection('conversations')
+          .doc(chatId)
+          .collection('messages')
+          .add({
+            'senderId': newMessage.senderId,
+            'receiverId': newMessage.receiverId,
+            'message': newMessage.message,
+            'createdAt': newMessage.createdAt,
+          });
+    } else {
+      print('Error sending message');
+    } 
   }
 
   @override
@@ -94,18 +153,35 @@ class _ConversationScreenState extends State<ConversationScreen> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                final message = messages[index];
-                final isSender = message.isSender;
-                final messageBubbleColor = isSender ? const Color.fromARGB(255, 61, 78, 129) : Colors.white;
-                final messageTextColor = isSender ? Colors.white : Colors.black;
-                final messageTimeColor = isSender ? const Color.fromARGB(255, 177, 177, 177) : const Color.fromARGB(255, 134, 134, 134);
-                
-                return ChatBubble(isSender: isSender, widget: widget, messageBubbleColor: messageBubbleColor, message: message, messageTextColor: messageTextColor, messageTimeColor: messageTimeColor);
-              },
+            child: StreamBuilder(
+              stream: chatId.isNotEmpty ? FirebaseFirestore.instance
+                .collection('conversations')
+                .doc(chatId)
+                .collection('messages')
+                .orderBy('createdAt', descending: false)
+                .snapshots() : null,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  scrollToLastMessage();
+              return ListView.builder(
+                controller: _scrollController,
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  final message = messages[index];
+                  final isSender = message.isSender;
+                  final messageBubbleColor = isSender ? const Color.fromARGB(255, 61, 78, 129) : Colors.white;
+                  final messageTextColor = isSender ? Colors.white : Colors.black;
+                  final messageTimeColor = isSender ? const Color.fromARGB(255, 177, 177, 177) : const Color.fromARGB(255, 134, 134, 134);
+                  
+                  return ChatBubble(isSender: isSender, widget: widget, messageBubbleColor: messageBubbleColor, message: message, messageTextColor: messageTextColor, messageTimeColor: messageTimeColor);
+                },
+              );
+              }
+            }
             ),
           ),
           SafeArea(
@@ -206,10 +282,10 @@ class ChatBubble extends StatelessWidget {
               decoration: BoxDecoration(
                 color: messageBubbleColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(isSender ? 12 : 0),
-                  topRight: Radius.circular(isSender ? 0 : 12),
-                  bottomLeft: const Radius.circular(12),
-                  bottomRight: const Radius.circular(12),
+                  topLeft: Radius.circular(isSender ? 15 : 1),
+                  topRight: Radius.circular(isSender ? 1 : 15),
+                  bottomLeft: const Radius.circular(15),
+                  bottomRight: const Radius.circular(15),
                 ),
               ),
               child: Column(

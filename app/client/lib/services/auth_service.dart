@@ -58,7 +58,8 @@ class AuthService {
     if (await hasToken()) {
       final token = await getToken();
       final decodedToken = JwtDecoder.decode(token!);
-      return decodedToken['sub'];
+      int parsedId = int.parse(decodedToken['sub']);
+      return parsedId;
     } else {
       return null;
     }
