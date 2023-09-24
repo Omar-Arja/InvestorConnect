@@ -4,14 +4,14 @@ import 'package:client/services/api_service.dart';
 import 'package:client/widgets/chat_card.dart';
 import 'package:client/models/user_profile.dart';
 
-class MessagesScreen extends StatefulWidget {
-  const MessagesScreen({super.key});
+class ChatsScreen extends StatefulWidget {
+  const ChatsScreen({super.key});
 
   @override
-  State<MessagesScreen> createState() => _MessagesScreenState();
+  State<ChatsScreen> createState() => _ChatsScreenState();
 }
 
-class _MessagesScreenState extends State<MessagesScreen> {
+class _ChatsScreenState extends State<ChatsScreen> {
   List profiles = [];
 
   @override

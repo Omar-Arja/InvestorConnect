@@ -37,7 +37,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
       case 0:
         return const HomeScreen();
       case 1:
-        return const MessagesScreen();
+        return const ChatsScreen();
       case 2:
         return const CalendarScreen();
       case 3:
