@@ -100,13 +100,13 @@ class _InvestorSetupProfileScreenState extends State<InvestorSetupProfileScreen>
             children: [
               CircleAvatar(
                 backgroundColor: Colors.grey,
-                radius: 66,
+                radius: 70,
                 child: Stack(
                   alignment: Alignment.bottomRight,
                   children: [
                     if (_selectedImage != null)
                       CircleAvatar(
-                        radius: 66,
+                        radius: 70,
                         backgroundImage: FileImage(File(_selectedImage!.path)),
                       ),
                     Column(
@@ -126,7 +126,7 @@ class _InvestorSetupProfileScreenState extends State<InvestorSetupProfileScreen>
                                 'Upload Profile Picture',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 12,
+                                  fontSize: 13,
                                 ),
                               )
                             : const SizedBox(),

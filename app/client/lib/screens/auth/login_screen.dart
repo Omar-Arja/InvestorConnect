@@ -83,90 +83,88 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+        ),
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          iconTheme: const IconThemeData(color: Colors.black),
-          leading: IconButton(
-            padding: const EdgeInsets.only(left: 25),
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        leading: IconButton(
+          padding: const EdgeInsets.only(left: 25),
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        body: ListView(
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w500,
-                    ),
+      ),
+      body: ListView(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w500,
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Login to your Account',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 96, 96, 96),
-                    ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Login to your Account',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color.fromARGB(255, 96, 96, 96),
                   ),
-                  const SizedBox(height: 60),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Column(
-                      children: [
-                        InputField(
-                          label: 'Email',
-                          icon: Icons.email_outlined,
-                          hint: 'you@site.com',
-                          onInputChanged: (value) {
-                            emailInputValue = value;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        InputField(
-                          label: 'Password',
-                          icon: Icons.lock_outline,
-                          hint: '********',
-                          isPassword: true,
-                          onInputChanged: (value) {
-                            passwordInputValue = value;
-                          },
-                        ),
-                        const SizedBox(height: 28),
-                        CustomButton(text: buttonText, onPressed: () {
-                          loginUser(emailInputValue, passwordInputValue);
-                        }),
-                        const SizedBox(height: 30),
-                        Image.asset(
-                          'assets/images/data_protection.png',
-                          width: 200,
-                          fit: BoxFit.contain,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                ),
+                const SizedBox(height: 60),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Column(
+                    children: [
+                      InputField(
+                        label: 'Email',
+                        icon: Icons.email_outlined,
+                        hint: 'you@site.com',
+                        onInputChanged: (value) {
+                          emailInputValue = value;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      InputField(
+                        label: 'Password',
+                        icon: Icons.lock_outline,
+                        hint: '********',
+                        isPassword: true,
+                        onInputChanged: (value) {
+                          passwordInputValue = value;
+                        },
+                      ),
+                      const SizedBox(height: 28),
+                      CustomButton(text: buttonText, onPressed: () {
+                        loginUser(emailInputValue, passwordInputValue);
+                      }),
+                      const SizedBox(height: 30),
+                      Image.asset(
+                        'assets/images/data_protection.png',
+                        width: 200,
+                        fit: BoxFit.contain,
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
