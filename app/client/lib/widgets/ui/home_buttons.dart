@@ -1,14 +1,17 @@
+import 'package:client/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:client/widgets/ui/ai_modal.dart';
 
 class HomeButtons extends StatelessWidget {
   final Function leftButton;
   final Function rightButton;
+  final Profile? currentProfile;
 
-  const HomeButtons({super.key, required this.leftButton, required this.rightButton});
+  const HomeButtons({super.key, required this.leftButton, required this.rightButton, required this.currentProfile});
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6),
       margin: const EdgeInsets.only(top: 16),
@@ -58,7 +61,19 @@ class HomeButtons extends StatelessWidget {
             child: Center(
               child: GestureDetector(
                 onTap: () {
-                  showModalBottomSheet(context: context, builder: (context) => const AiModal());
+                  showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.6,
+                    ),
+                    builder: (context) => AiModal(currentProfile: currentProfile),
+                  );
                 },
                 child: const ImageIcon(
                   AssetImage('assets/images/chatgpt_logo.png'),
