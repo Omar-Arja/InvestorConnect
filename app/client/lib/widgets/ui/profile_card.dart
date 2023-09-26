@@ -8,7 +8,7 @@ class ProfileCard extends StatefulWidget {
   final InvestorProfileModel? investorProfile;
   final StartupProfileModel? startupProfile;
 
-  ProfileCard({super.key, this.investorProfile, this.startupProfile});
+  const ProfileCard({super.key, this.investorProfile, this.startupProfile});
 
   @override
   State<ProfileCard> createState() => _ProfileCardState();
@@ -30,7 +30,7 @@ class _ProfileCardState extends State<ProfileCard> {
         color: const Color.fromARGB(255, 62, 79, 129),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withOpacity(0.5),
             blurRadius: 5,
             offset: const Offset(0, 2),
           ),
@@ -124,7 +124,7 @@ class _ProfileCardState extends State<ProfileCard> {
                       ),
                     ),
                   ],
-                ),],
+                )],
                 if (!isInvestor)
                 const SizedBox(height: 14),
                 Text(
