@@ -51,6 +51,7 @@ class _UsertypeSelectionScreenState extends State<UsertypeSelectionScreen> {
           children: [
             CircleAvatar(
               radius: 50,
+              backgroundColor: const Color.fromARGB(255, 76, 104, 175),
               backgroundImage: AssetImage(isSelected ? activeImagePath : imagePath),
             ),
             const SizedBox(height: 10),

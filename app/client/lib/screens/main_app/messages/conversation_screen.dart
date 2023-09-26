@@ -292,6 +292,7 @@ class ChatBubble extends StatelessWidget {
               padding: const EdgeInsets.only(top: 7),
               child: CircleAvatar(
                 radius: 21,
+                backgroundColor: const Color.fromARGB(255, 76, 104, 175),
                 foregroundImage: NetworkImage(widget.profile.profilePictureUrl),
                 backgroundImage: const AssetImage('assets/images/founder.png'),
                 onForegroundImageError: (exception, stackTrace) => const AssetImage('assets/images/founder.png'),
