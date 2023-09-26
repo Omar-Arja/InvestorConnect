@@ -30,10 +30,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
     final data = await ApiService.getChats();
 
     if (data['status'] == 'success') {
-      setState(() {
-        
-        profiles = data['profiles'].map((profile) => UserProfile.fromJson(profile)).toList();
-      });
+      if (mounted) {
+        setState(() {
+          profiles = data['profiles'].map((profile) => UserProfile.fromJson(profile)).toList();
+        });
+      }
     } else {
       print('Error fetching chats');
     }
