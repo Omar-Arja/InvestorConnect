@@ -35,7 +35,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
   Widget _buildScreen(int index) {
     switch (index) {
       case 0:
-        return HomeScreen();
+        return const HomeScreen();
       case 1:
         return const ChatsScreen();
       case 2:
@@ -45,7 +45,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
       case 4:
         return const ProfileScreen();
       default:
-        return HomeScreen();
+        return const HomeScreen();
     }
   }
 }
