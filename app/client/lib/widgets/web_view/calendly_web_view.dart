@@ -38,7 +38,7 @@ class _CalendlyWebViewState extends State<CalendlyWebView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Schedule a Meeting'),
+        title: const Text('Schedule Meeting'),
         backgroundColor: const Color.fromARGB(255, 76, 104, 175),
       ),
       body: WebViewWidget(

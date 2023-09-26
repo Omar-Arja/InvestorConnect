@@ -18,6 +18,7 @@ class ChatCard extends StatelessWidget {
         contentPadding: const EdgeInsets.all(8),
         leading: CircleAvatar(
           radius: 28,
+          backgroundColor: const Color.fromARGB(255, 76, 104, 175),
           foregroundImage: NetworkImage(profile.profilePictureUrl),
           backgroundImage: const AssetImage('assets/images/founder.png'),
           onForegroundImageError: (exception, stackTrace) => const AssetImage('assets/images/founder.png'),
