@@ -26,6 +26,8 @@ dependencies:
   jwt_decoder: ^2.0.1
   cloud_firestore: ^4.9.2
   webview_flutter: ^4.2.4
+  appinio_swiper: ^2.0.3
+  appinio_video_player: ^1.2.2
 
 dev_dependencies:
   flutter_test:
