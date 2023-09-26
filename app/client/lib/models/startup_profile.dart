@@ -10,6 +10,7 @@ class StartupProfileModel {
   String companyLogoUrl;
   File? logoFile;
   String companyDescription;
+  String aiAnalysis;
   String pitchVideoUrl;
   File? pitchVideoFile;
   List<String> preferredLocations;
@@ -26,6 +27,7 @@ class StartupProfileModel {
     this.companyLogoUrl = '',
     this.logoFile,
     this.companyDescription = '',
+    this.aiAnalysis = '',
     this.pitchVideoUrl = '',
     this.pitchVideoFile,
     this.preferredLocations = const [],
@@ -43,6 +45,7 @@ class StartupProfileModel {
       companyLogoUrl: json['company_logo_url'] ?? '',
       investmentStage: json['investment_stage'] ?? '',
       companyDescription: json['company_description'] ?? '',
+      aiAnalysis: json['ai_analysis'] ?? '',
       pitchVideoUrl: json['pitch_video_url'] ?? '',
       preferredLocations: List<String>.from(json['preferred_locations'] ?? []),
       minInvestmentAmount: json['min_investment_amount'] ?? 0.0,

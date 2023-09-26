@@ -5,6 +5,7 @@ class InvestorProfileModel {
   String calendlyLink;
   String location;
   String bio;
+  String aiAnalysis;
   String profilePictureUrl;
   File? profilePictureFile;
   int minInvestmentAmount;
@@ -18,6 +19,7 @@ class InvestorProfileModel {
     this.calendlyLink = '',
     this.location = '',
     this.bio = '',
+    this.aiAnalysis = '',
     this.profilePictureUrl = '',
     this.profilePictureFile,
     this.minInvestmentAmount = 0,
@@ -33,6 +35,7 @@ class InvestorProfileModel {
       calendlyLink: json['calendly_link'] ?? '',
       location: json['location'] ?? '',
       bio: json['bio'] ?? '',
+      aiAnalysis: json['ai_analysis'] ?? '',
       profilePictureUrl: json['profile_picture_url'] ?? '',
       minInvestmentAmount: json['min_investment_amount'] ?? 0,
       maxInvestmentAmount: json['max_investment_amount'] ?? 0,
