@@ -66,10 +66,36 @@ class _ChatsScreenState extends State<ChatsScreen> {
         backgroundColor: Colors.transparent,
       ),
       backgroundColor: const Color.fromARGB(255, 231, 234, 239),
-      body: ListView.builder(
-        padding: const EdgeInsets.only(bottom: 60),
-        itemCount: profiles.length,
-        itemBuilder: (context, index) => ChatCard(profile: profiles[index], updateChats: updateChats,),
+      body: FutureBuilder(
+        future: ApiService.getChats(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (profiles.isNotEmpty) {
+              return ListView.builder(
+                padding: const EdgeInsets.only(bottom: 60),
+                itemCount: profiles.length,
+                itemBuilder: (context, index) => ChatCard(profile: profiles[index], updateChats: updateChats,),
+              );
+            } else {
+              return const Center(
+                child: Text(
+                  'No chats yet',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 61, 78, 129),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+              );
+            }
+          } else if (snapshot.hasError) {
+            return const Center(child: Text('Error loading chats'));
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            return const Center(child: Text('Loading...'));
+          }
+        },
       )
     );
   }
