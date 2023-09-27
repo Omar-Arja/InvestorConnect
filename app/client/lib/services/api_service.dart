@@ -194,4 +194,21 @@ class ApiService {
       return {'error occured': '$e'};
     }
   }
+
+  // AI requests
+  static Future<Map<String, dynamic>> getPotentialMatches() async {
+    final url = Uri.parse('$baseUrl/swipe/all');
+
+    try {
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        return {'status': 'error'};
+      }
+    } catch (e) {
+      return {'error occured': '$e'};
+    }
+  }
 }
