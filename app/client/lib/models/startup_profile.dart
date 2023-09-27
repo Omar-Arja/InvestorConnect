@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class StartupProfileModel {
+  int? userId;
   String fullName;
   String companyName;
   String calendlyLink;
@@ -18,6 +19,7 @@ class StartupProfileModel {
   int maxInvestmentAmount;
 
   StartupProfileModel({
+    this.userId,
     this.fullName = '',
     this.companyName = '',
     this.calendlyLink = '',
@@ -44,6 +46,7 @@ class StartupProfileModel {
   }
 
   return StartupProfileModel(
+    userId: json['user_id'],
     fullName: json['full_name'] ?? '',
     companyName: json['company_name'] ?? '',
     calendlyLink: json['calendly_link'] ?? '',
@@ -63,6 +66,7 @@ class StartupProfileModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'user_id': userId,
       'full_name': fullName,
       'company_name': companyName,
       'calendly_link': calendlyLink,
