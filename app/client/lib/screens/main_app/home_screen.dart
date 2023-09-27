@@ -5,7 +5,7 @@ import 'package:client/models/investor_profile.dart';
 import 'package:client/models/startup_profile.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:client/widgets/ui/profile_card.dart';
-import 'package:client/widgets/ui/home_buttons.dart';
+import 'package:client/widgets/ui/swipe_control_buttons.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<InvestorProfileModel>? investorProfiles;
@@ -39,28 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void setCurrentProfile(bool isInvestor, int index) {
-    if (isInvestor && index < widget.investorProfiles!.length && widget.investorProfiles?.isNotEmpty == true) {
-      Profile newProfile = Profile(
-      name: widget.investorProfiles![index].fullName,
-      aiAnalysis: widget.investorProfiles![index].aiAnalysis,
-      pictureUrl: widget.investorProfiles![index].profilePictureUrl,
-    );
-    setState(() {
-      currentProfile = newProfile;
-    });
-    } else if (!isInvestor && index < widget.startupProfiles!.length && widget.startupProfiles?.isNotEmpty == true) {
-      Profile newProfile = Profile(
-      name: widget.startupProfiles![index].companyName,
-      aiAnalysis: widget.startupProfiles![index].aiAnalysis,
-      pictureUrl: widget.startupProfiles![index].companyLogoUrl,
-    );
-    setState(() {
-      currentProfile = newProfile;
-    });
-    }
-  }
-
   void swipeLeft() {
     _swiperController.swipeLeft();
   }
@@ -71,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isInvestor = widget.investorProfiles != null;
+    final bool isInvestor = widget.investorProfiles?.isNotEmpty == true;
 
     return Scaffold(
       appBar: AppBar(
@@ -127,24 +105,65 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundCardsCount: 1,
                 controller: _swiperController,
                 onSwipe: (index, direction) {
-                  setCurrentProfile(isInvestor, index);
+                  if (isInvestor && index < widget.investorProfiles!.length && widget.investorProfiles?.isNotEmpty == true) {
+                    Profile newProfile = Profile(
+                    name: widget.investorProfiles![index].fullName,
+                    aiAnalysis: widget.investorProfiles![index].aiAnalysis,
+                    pictureUrl: widget.investorProfiles![index].profilePictureUrl,
+                  );
+                  setState(() {
+                    currentProfile = newProfile;
+                  });
+                  } else if (!isInvestor && index < widget.startupProfiles!.length && widget.startupProfiles?.isNotEmpty == true) {
+                    Profile newProfile = Profile(
+                    name: widget.startupProfiles![index].companyName,
+                    aiAnalysis: widget.startupProfiles![index].aiAnalysis,
+                    pictureUrl: widget.startupProfiles![index].companyLogoUrl,
+                  );
+                  setState(() {
+                    currentProfile = newProfile;
+                  });
+                  }
                 },
                 cardsBuilder: (context, index) {
                   if (isInvestor && index < widget.investorProfiles!.length) {
-                    return ProfileCard(investorProfile: widget.investorProfiles![index],);
+                    return ProfileCard(investorProfile: widget.investorProfiles![index]);
                   }
                   else if (!isInvestor && index < widget.startupProfiles!.length) {
-                    return ProfileCard(startupProfile: widget.startupProfiles![index],);
+                    return ProfileCard(startupProfile: widget.startupProfiles![index]);
                   }
-                  else {
-                    return Container();
+                  else if (index == widget.investorProfiles!.length || index == widget.startupProfiles!.length) {
+                    return const Center(
+                      child: Text('No Profiles Found, Please try again later',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('No Profiles Found, Please try again later',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    );
                   }
                 },
               ),
             ),
-            HomeButtons(leftButton: swipeLeft, rightButton: swipeRight, currentProfile: currentProfile),
+            SwipeControlButtons(leftButton: swipeLeft, rightButton: swipeRight, currentProfile: currentProfile),
           ],
-        ) : const Center(child: Text('No Profiles Found')),
+        ) : const Center(
+          child: Text('No Profiles Found, Please try again later',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+          )
+        ),
       ),
     );
   }
