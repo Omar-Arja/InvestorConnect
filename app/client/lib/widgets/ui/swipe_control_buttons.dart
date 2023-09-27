@@ -2,12 +2,12 @@ import 'package:client/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:client/widgets/ui/ai_modal.dart';
 
-class HomeButtons extends StatelessWidget {
+class SwipeControlButtons extends StatelessWidget {
   final Function leftButton;
   final Function rightButton;
   final Profile? currentProfile;
 
-  const HomeButtons({super.key, required this.leftButton, required this.rightButton, required this.currentProfile});
+  const SwipeControlButtons({super.key, required this.leftButton, required this.rightButton, required this.currentProfile});
 
   @override
   Widget build(BuildContext context) {
