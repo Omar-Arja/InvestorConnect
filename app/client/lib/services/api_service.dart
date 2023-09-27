@@ -212,8 +212,8 @@ class ApiService {
     }
   }
 
-  // swipe requests
-  static Future<Map<String, dynamic>> swipeRight(int? userId) async {
+  // Swipe requests
+  static Future<Map<String, dynamic>> swipedRight(int? userId) async {
     if (userId == null) {
       return {'status': 'error', 'error': 'User id is null'};
     }

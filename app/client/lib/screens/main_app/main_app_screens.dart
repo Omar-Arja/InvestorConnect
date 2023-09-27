@@ -27,9 +27,12 @@ class _MainAppScreensState extends State<MainAppScreens> {
       final List potentialMatches = response['potential_matches'];
       for (final match in potentialMatches) {
         if (response['usertype_name'] == 'investor') {
-          investorProfiles.add(InvestorProfileModel.fromJson(match));
+          final investorProfile = InvestorProfileModel.fromJson(match);
+          investorProfiles.add(investorProfile);
+
         } else if (response['usertype_name'] == 'startup') {
-          startupProfiles.add(StartupProfileModel.fromJson(match));
+          final startupProfile = StartupProfileModel.fromJson(match);
+          startupProfiles.add(startupProfile);
         }
       }
         
