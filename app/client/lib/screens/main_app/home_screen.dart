@@ -1,3 +1,4 @@
+import 'package:client/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:client/models/profile.dart';
@@ -26,12 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     if (widget.investorProfiles?.isNotEmpty == true) {
       currentProfile = Profile(
+        id: widget.investorProfiles![0].userId,
         name: widget.investorProfiles![0].fullName,
         aiAnalysis: widget.investorProfiles![0].aiAnalysis,
         pictureUrl: widget.investorProfiles![0].profilePictureUrl,
       );
     } else if (widget.startupProfiles?.isNotEmpty == true) {
       currentProfile = Profile(
+        id: widget.startupProfiles![0].userId,
         name: widget.startupProfiles![0].companyName,
         aiAnalysis: widget.startupProfiles![0].aiAnalysis,
         pictureUrl: widget.startupProfiles![0].companyLogoUrl,
@@ -45,6 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void swipeRight() {
     _swiperController.swipeRight();
+  }
+
+  void onSwipeRight(AppinioSwiperDirection direction, index, bool isInvestor) async {
+    if (isInvestor && index <= widget.investorProfiles!.length) {
+      ApiService.swipedRight(widget.investorProfiles![index - 1].userId!);
+    } else if (!isInvestor && index <= widget.startupProfiles!.length) {
+      final response = ApiService.swipedRight(widget.startupProfiles![index - 1].userId!);
+      print('swiped right: $response');
+    }
   }
 
   @override
@@ -105,31 +117,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundCardsCount: 1,
                 controller: _swiperController,
                 onSwipe: (index, direction) {
+                  onSwipeRight(direction, index, isInvestor);
                   if (isInvestor && index < widget.investorProfiles!.length && widget.investorProfiles?.isNotEmpty == true) {
                     Profile newProfile = Profile(
-                    name: widget.investorProfiles![index].fullName,
-                    aiAnalysis: widget.investorProfiles![index].aiAnalysis,
-                    pictureUrl: widget.investorProfiles![index].profilePictureUrl,
+                      id: widget.investorProfiles![index].userId ?? index,
+                      name: widget.investorProfiles![index].fullName,
+                      aiAnalysis: widget.investorProfiles![index].aiAnalysis,
+                      pictureUrl: widget.investorProfiles![index].profilePictureUrl,
                   );
+
                   setState(() {
                     currentProfile = newProfile;
                   });
+
                   } else if (!isInvestor && index < widget.startupProfiles!.length && widget.startupProfiles?.isNotEmpty == true) {
                     Profile newProfile = Profile(
-                    name: widget.startupProfiles![index].companyName,
-                    aiAnalysis: widget.startupProfiles![index].aiAnalysis,
-                    pictureUrl: widget.startupProfiles![index].companyLogoUrl,
+                      id: widget.startupProfiles![index].userId ?? index,
+                      name: widget.startupProfiles![index].companyName,
+                      aiAnalysis: widget.startupProfiles![index].aiAnalysis,
+                      pictureUrl: widget.startupProfiles![index].companyLogoUrl,
                   );
+
                   setState(() {
                     currentProfile = newProfile;
                   });
                   }
                 },
                 cardsBuilder: (context, index) {
-                  if (isInvestor && index < widget.investorProfiles!.length) {
+                  if (isInvestor && index <= widget.investorProfiles!.length) {
                     return ProfileCard(investorProfile: widget.investorProfiles![index]);
                   }
-                  else if (!isInvestor && index < widget.startupProfiles!.length) {
+                  else if (!isInvestor && index <= widget.startupProfiles!.length) {
                     return ProfileCard(startupProfile: widget.startupProfiles![index]);
                   }
                   else if (index == widget.investorProfiles!.length || index == widget.startupProfiles!.length) {
