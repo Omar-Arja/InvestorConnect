@@ -152,7 +152,7 @@ class SwipeController extends Controller
             : $user->startupProfile->load('startupPreferences');
 
         $response = Http::withOptions([
-            'timeout' => 60,
+            'timeout' => 70,
         ])->withHeaders([
             'Content-Type' => 'application/json',
             'X-API-KEY' => Env('FORGE_API_KEY'),
@@ -199,7 +199,7 @@ class SwipeController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'usertype_name' => $user->usertype_name == 'investor' ? 'startup' : 'investor',
+            'usertype_name' => Auth::user()->usertype_name == 'investor' ? 'startup' : 'investor',
             'potential_matches' => $potential_matches,
         ]);
     }
