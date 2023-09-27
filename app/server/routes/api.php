@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\SwipeController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -37,6 +38,12 @@ Route::middleware('auth.api')->group(function () {
     Route::prefix('/messages')->group(function () {
         Route::post('/send', [MessagesController::class, 'sendMessage']);
         Route::get('/all', [MessagesController::class, 'getMatchedProfilesWithMessages']);
+    });
+
+    Route::prefix('/swipe')->group(function () {
+        Route::post('/right', [SwipeController::class, 'swipeRight']);
+        Route::post('/left', [SwipeController::class, 'swipeLeft']);
+        Route::get('/all', [SwipeController::class, 'getPotentialMatches']);
     });
 
 });
