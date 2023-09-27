@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\http;
 use App\Models\Swipe;
 use App\Models\MatchedProfile;
 use Illuminate\Support\Facades\Auth;
@@ -84,6 +85,14 @@ class SwipeController extends Controller
                 'status' => 'error',
                 'message' => 'You have already swiped left on this user.',
             ]);
+        } else if (Swipe::where('swiper_id', $user->id)
+            ->where('swiped_id', $request->swiped_id)
+            ->where('direction', 'right')
+            ->first()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'You have already swiped right on this user.',
+            ]);
         }
 
         Swipe::create([
@@ -142,12 +151,56 @@ class SwipeController extends Controller
             ? $user->investorProfile->load('investorPreferences')
             : $user->startupProfile->load('startupPreferences');
 
+        $response = Http::withOptions([
+            'timeout' => 60,
+        ])->withHeaders([
+            'Content-Type' => 'application/json',
+            'X-API-KEY' => Env('FORGE_API_KEY'),
+        ])
+        ->post('https://api.theforgeai.com/v1/apps/65139e5bc4b84c2fdd707f3b/view/run', [
+            'user_inputs' => [
+                'user_profile_2' => [
+                    'value' => json_encode($user_profile),
+                ],
+                'potential_matches_3' => [
+                    'value' => json_encode($potential_matches),
+                ],
+            ],
+        ]);
+
+        $responseData = $response['user_outputs']['matched_users_5']['value'];
+        $data = json_decode($responseData, true);
+
+        if ($data) {
+            $matched_users = $data['matched_user_ids'];
+
+            $potential_matches = [];
+            
+            foreach($matched_users as $matched_user) {
+                $ai_analysis = $matched_user['ai_analysis'];
+                $user_id = $matched_user['id'];
+                $user = User::find($user_id);
+                $profile = $user->usertype_name === 'investor'
+                    ? $user->investorProfile
+                    : $user->startupProfile;
+
+                $profile->ai_analysis = $ai_analysis;
+
+                $swiped_right = Swipe::where('swiper_id', $user->id)
+                    ->where('swiped_id', $user->id)
+                    ->where('direction', 'right')
+                    ->first();
+
+                $profile->swiped_right = $swiped_right ? true : false;
+                
+                $potential_matches[] = $profile;
+            }
+        }
+
         return response()->json([
             'status' => 'success',
-            'user_profile' => $user_profile,
+            'usertype_name' => $user->usertype_name == 'investor' ? 'startup' : 'investor',
             'potential_matches' => $potential_matches,
         ]);
     }
-
-
 }
