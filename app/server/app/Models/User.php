@@ -73,6 +73,16 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Message::class, 'sender_id');
     }
+
+    public function swipes()
+    {
+        return $this->hasMany(Swipe::class, 'swiper_id');
+    }
+
+    public function swiped()
+    {
+        return $this->hasMany(Swipe::class, 'swiped_id');
+    }
     
     // Attributes
     public function getUsertypeNameAttribute()
