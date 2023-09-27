@@ -211,4 +211,26 @@ class ApiService {
       return {'error occured': '$e'};
     }
   }
+
+  // swipe requests
+  static Future<Map<String, dynamic>> swipeRight(int? userId) async {
+    if (userId == null) {
+      return {'status': 'error', 'error': 'User id is null'};
+    }
+
+    final url = Uri.parse('$baseUrl/swipe/right');
+    final body = {'swiped_id': userId.toString()};
+
+    try {
+      final response = await http.post(url, body: body, headers: headers);
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        return {'status': 'error'};
+      }
+    } catch (e) {
+      return {'error occured': '$e'};
+    }
+  }
 }
