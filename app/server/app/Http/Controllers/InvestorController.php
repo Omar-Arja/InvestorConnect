@@ -14,7 +14,6 @@ class InvestorController extends Controller
     {
         $request->validate([
             'profile_picture_file' => 'required|file',
-            'calendly_link' => 'required|string|sometimes',
             'location' => 'required|string',
             'bio' => 'required|string',
             'min_investment_amount' => 'required|string',

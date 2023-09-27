@@ -14,7 +14,6 @@ class StartupController extends Controller
     {
         $request->validate([
             'company_name' => 'required|string',
-            'calendly_link' => 'required|string|sometimes',
             'company_logo_file' => 'required|file',
             'industries' => 'required|string',
             'location' => 'required|string',
