@@ -146,6 +146,14 @@ class SwipeController extends Controller
             $potential_match->swiped_right = $swiped_right ? true : false;
         }
 
+        if ($potential_matches->isEmpty()) {
+            return response()->json([
+                'status' => 'success',
+                'usertype_name' => Auth::user()->usertype_name == 'investor' ? 'startup' : 'investor',
+                'potential_matches' => [],
+            ]);
+        }
+
         // get user profile and preferences
         $user_profile = $user->usertype_name === 'investor'
             ? $user->investorProfile->load('investorPreferences')
