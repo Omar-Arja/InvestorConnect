@@ -36,22 +36,30 @@ class StartupProfileModel {
   });
 
   factory StartupProfileModel.fromJson(Map<String, dynamic> json) {
-    return StartupProfileModel(
-      fullName: json['full_name'] ?? '',
-      companyName: json['company_name'] ?? '',
-      calendlyLink: json['calendly_link'] ?? '',
-      location: json['location'] ?? '',
-      industries: List<String>.from(json['industries'] ?? []),
-      companyLogoUrl: json['company_logo_url'] ?? '',
-      investmentStage: json['investment_stage'] ?? '',
-      companyDescription: json['company_description'] ?? '',
-      aiAnalysis: json['ai_analysis'] ?? '',
-      pitchVideoUrl: json['pitch_video_url'] ?? '',
-      preferredLocations: List<String>.from(json['preferred_locations'] ?? []),
-      minInvestmentAmount: json['min_investment_amount'] ?? 0.0,
-      maxInvestmentAmount: json['max_investment_amount'] ?? 0.0,
-    );
+  final industriesList = json['industries'];
+  List<String> industries = [];
+
+  if (industriesList != null && industriesList is List<dynamic>) {
+    industries = List<String>.from(industriesList.map((e) => e.toString()));
   }
+
+  return StartupProfileModel(
+    fullName: json['full_name'] ?? '',
+    companyName: json['company_name'] ?? '',
+    calendlyLink: json['calendly_link'] ?? '',
+    location: json['location'] ?? '',
+    industries: industries,
+    companyLogoUrl: json['company_logo_url'] ?? '',
+    investmentStage: json['investment_stage'] ?? '',
+    companyDescription: json['company_description'] ?? '',
+    aiAnalysis: json['ai_analysis'] ?? '',
+    pitchVideoUrl: json['pitch_video_url'] ?? '',
+    preferredLocations: List<String>.from(json['preferred_locations'] ?? []),
+    minInvestmentAmount: json['min_investment_amount'] ?? 0,
+    maxInvestmentAmount: json['max_investment_amount'] ?? 0,
+  );
+}
+
 
   Map<String, dynamic> toJson() {
     return {
