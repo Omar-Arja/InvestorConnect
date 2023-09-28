@@ -21,7 +21,7 @@ class ApiService {
       final response = await http.post(url, body: {
         'email': email,
         'password': password,
-        'device_token': deviceToken,
+        'device_token': deviceToken ?? '',
       });
 
       if (response.statusCode == 200) {
