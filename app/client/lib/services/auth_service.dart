@@ -64,4 +64,15 @@ class AuthService {
       return null;
     }
   }
+
+  // device token
+  static Future<void> saveDeviceToken(String token) async {
+    await init();
+    _prefs.setString('deviceToken', token);
+  }
+
+  static Future<String?> getDeviceToken() async {
+    await init();
+    return _prefs.getString('deviceToken');
+  }
 }
