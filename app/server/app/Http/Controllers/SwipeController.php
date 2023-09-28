@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\http;
+use Exception;
 use App\Models\Swipe;
 use App\Models\MatchedProfile;
 use Illuminate\Support\Facades\Auth;
@@ -136,6 +137,7 @@ class SwipeController extends Controller
             ->with(['investorProfile', 'startupProfile'])
             ->get();
 
+
         // add swiped_right boolean property to each user
         foreach ($potential_matches as $potential_match) {
             $swiped_right = Swipe::where('swiper_id', $potential_match->id)
@@ -178,31 +180,58 @@ class SwipeController extends Controller
 
         $responseData = $response['user_outputs']['matched_users_5']['value'];
         $data = json_decode($responseData, true);
-
-        if ($data) {
-            $matched_users = $data['matched_user_ids'];
-
-            $potential_matches = [];
             
-            foreach($matched_users as $matched_user) {
-                $ai_analysis = $matched_user['ai_analysis'];
-                $user_id = $matched_user['id'];
-                $user = User::find($user_id);
-                $profile = $user->usertype_name === 'investor'
-                    ? $user->investorProfile
-                    : $user->startupProfile;
+        try {
+            if (isset($data['matched_user_ids'])) {
+                $matched_users = $data['matched_user_ids'];
+                $potential_matches = [];
 
-                $profile->ai_analysis = $ai_analysis;
+                foreach ($matched_users as $matched_user) {
+                    $ai_analysis = $matched_user['ai_analysis'];
+                    $user_id = $matched_user['id'];
 
-                $swiped_right = Swipe::where('swiper_id', $user->id)
+                    $user = User::find($user_id);
+                    if (!$user) {
+                        continue;
+                    }
+
+                    $profile = $user->usertype_name === 'investor'
+                        ? $user->investorProfile
+                        : $user->startupProfile;
+
+                    $profile->ai_analysis = $ai_analysis;
+
+                    $swiped_right = Swipe::where('swiper_id', $user->id)
+                        ->where('swiped_id', $user->id)
+                        ->where('direction', 'right')
+                        ->first();
+
+                    $profile->swiped_right = $swiped_right ? true : false;
+
+                    $potential_matches[] = $profile;
+                }
+            } else {
+                throw new Exception('No matched users');
+            }
+            
+        } catch (Exception $e) {
+            $potential_matches_profiles = [];
+
+            foreach($potential_matches as $potential_match) {
+                $profile = $potential_match->usertype_name === 'investor'
+                    ? $potential_match->investorProfile
+                    : $potential_match->startupProfile;
+                
+                $swiped_right = Swipe::where('swiper_id', $potential_match->id)
                     ->where('swiped_id', $user->id)
                     ->where('direction', 'right')
                     ->first();
 
                 $profile->swiped_right = $swiped_right ? true : false;
-                
-                $potential_matches[] = $profile;
+
+                $potential_matches_profiles[] = $profile;
             }
+            $potential_matches = $potential_matches_profiles;
         }
 
         return response()->json([
