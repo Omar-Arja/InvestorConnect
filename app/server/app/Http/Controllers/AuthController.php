@@ -32,6 +32,16 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+
+        $device_token = $request->device_token;
+        $device_token_exists = User::find(Auth::id())->deviceTokens()->where('token', $device_token)->exists();
+
+        if (!$device_token_exists) {
+            $user->deviceTokens()->create([
+                'token' => $device_token,
+            ]);
+        }
+
         return response()->json([
                 'status' => 'success',
                 'user' => $user,
@@ -40,7 +50,6 @@ class AuthController extends Controller
                     'type' => 'bearer',
                 ]
             ]);
-
     }
 
     public function register(Request $request){
