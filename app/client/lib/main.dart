@@ -48,7 +48,7 @@ void main() async {
   }
 
   String? token = await messaging.getToken();
-  print('Token: $token');
+  AuthService.saveDeviceToken(token);
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
    if (kDebugMode) {
