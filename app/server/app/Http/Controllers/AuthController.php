@@ -36,7 +36,8 @@ class AuthController extends Controller
         $device_token = $request->device_token;
         $device_token_exists = User::find(Auth::id())->deviceTokens()->where('token', $device_token)->exists();
 
-        if (!$device_token_exists) {
+        if (!$device_token_exists && $device_token != '') {
+
             $user->deviceTokens()->create([
                 'token' => $device_token,
             ]);
