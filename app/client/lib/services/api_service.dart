@@ -14,13 +14,14 @@ class ApiService {
   };
 
   // Auth requests
-  static Future<Map<String, dynamic>> login(String email, String password) async {
+  static Future<Map<String, dynamic>> login(String email, String password, String? deviceToken) async {
     final url = Uri.parse('$baseUrl/auth/login');
 
     try {
       final response = await http.post(url, body: {
         'email': email,
         'password': password,
+        'device_token': deviceToken,
       });
 
       if (response.statusCode == 200) {

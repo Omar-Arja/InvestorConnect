@@ -18,6 +18,20 @@ class _LoginScreenState extends State<LoginScreen> {
   String buttonText = 'Login';
   String emailInputValue = '';
   String passwordInputValue = '';
+  String? token;
+
+  @override
+  void initState() {
+    super.initState();
+    _getDeviceToken();
+  }
+
+  Future<void> _getDeviceToken() async {
+    final deviceToken = await AuthService.getDeviceToken();
+    setState(() {
+      token = deviceToken;
+    });
+  }
 
   Future loginUser (String email, String password) async {
     setState(() {
@@ -41,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       // Call API
-      final data = await ApiService.login(email, password);
+      final data = await ApiService.login(email, password, token);
 
       if (data['status'] == 'success') {
         setState(() {
