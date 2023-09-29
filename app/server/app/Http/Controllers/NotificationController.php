@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Kreait\Firebase\Messaging\CloudMessage;
 use App\Models\User;
 use App\Models\Notification;
