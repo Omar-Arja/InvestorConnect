@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/screens/auth/authentication_screen.dart';
 import 'package:client/screens/auth/login_screen.dart';
@@ -63,7 +64,7 @@ void main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  await AuthService.deleteToken();
+  // await AuthService.deleteToken();
   final bool tokenValid = await AuthService.isTokenValid();
   runApp(App(tokenValid));
 }
@@ -88,6 +89,16 @@ class _AppState extends State<App> {
               '\nTitle=${message.notification?.title},'
               '\nBody=${message.notification?.body},'
               '\nData=${message.data}';
+
+          Fluttertoast.showToast(
+            msg: message.notification?.body ?? '',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.grey[700],
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
         } else {
           _lastMessage = 'Received a data message: ${message.data}';
         }
