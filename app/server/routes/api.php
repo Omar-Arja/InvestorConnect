@@ -7,6 +7,7 @@ use App\Http\Controllers\StartupController;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SwipeController;
+use App\Http\Controllers\NotificationController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -44,6 +45,10 @@ Route::middleware('auth.api')->group(function () {
         Route::post('/right', [SwipeController::class, 'swipeRight']);
         Route::post('/left', [SwipeController::class, 'swipeLeft']);
         Route::get('/all', [SwipeController::class, 'getPotentialMatches']);
+    });
+
+    Route::prefix('/notifications')->group(function () {
+        Route::get('/all', [NotificationController::class, 'getNotifications']);
     });
 
 });
