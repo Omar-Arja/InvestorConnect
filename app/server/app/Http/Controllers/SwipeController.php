@@ -64,8 +64,7 @@ class SwipeController extends Controller
                 ->where('direction', 'right')
                 ->delete();
 
-            $notificationController = new NotificationController();
-            $notificationController->sendMatchNotification($user->id, $request->swiped_id);
+            NotificationController::sendMatchNotification($user->id, $request->swiped_id);
 
             return response()->json([
                 'status' => 'success',
@@ -219,13 +218,6 @@ class SwipeController extends Controller
 
                     $profile->ai_analysis = $ai_analysis;
 
-                    $swiped_right = Swipe::where('swiper_id', $user->id)
-                        ->where('swiped_id', $user->id)
-                        ->where('direction', 'right')
-                        ->first();
-
-                    $profile->swiped_right = $swiped_right ? true : false;
-
                     $potential_matches[] = $profile;
                 }
             } else {
@@ -239,13 +231,6 @@ class SwipeController extends Controller
                 $profile = $potential_match->usertype_name === 'investor'
                     ? $potential_match->investorProfile
                     : $potential_match->startupProfile;
-                
-                $swiped_right = Swipe::where('swiper_id', $potential_match->id)
-                    ->where('swiped_id', $user->id)
-                    ->where('direction', 'right')
-                    ->first();
-
-                $profile->swiped_right = $swiped_right ? true : false;
 
                 $potential_matches_profiles[] = $profile;
             }
