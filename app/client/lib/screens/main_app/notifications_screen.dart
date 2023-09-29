@@ -93,26 +93,28 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              notification.title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                notification.title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              notification.body,
-                              style: const TextStyle(
-                                fontSize: 16,
+                              const SizedBox(height: 10),
+                              Text(
+                                notification.body,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 10),
-                          ],
+                              const SizedBox(height: 10),
+                            ],
+                          ),
                         ),
                         Text(
                           notification.time,
