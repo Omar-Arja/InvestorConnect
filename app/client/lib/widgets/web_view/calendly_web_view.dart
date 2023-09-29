@@ -31,7 +31,6 @@ class _CalendlyWebViewState extends State<CalendlyWebView> {
         ),
       )
       ..loadRequest(Uri.parse(widget.calendlyLink));
-      print(widget.calendlyLink);
   }
 
   @override

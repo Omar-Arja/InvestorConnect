@@ -20,6 +20,12 @@ class _MainAppScreensState extends State<MainAppScreens> {
   int _currentIndex = 0;
   List<StartupProfileModel> startupProfiles = [];
   List<InvestorProfileModel> investorProfiles = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getPotentialMatches();
+  }
   
   void getPotentialMatches() async {
     final response = await ApiService.getPotentialMatches();
@@ -41,12 +47,6 @@ class _MainAppScreensState extends State<MainAppScreens> {
         startupProfiles;
       });
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getPotentialMatches();
   }
 
   @override
