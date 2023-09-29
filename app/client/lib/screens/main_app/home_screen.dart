@@ -11,8 +11,9 @@ import 'package:client/widgets/ui/swipe_control_buttons.dart';
 class HomeScreen extends StatefulWidget {
   final List<InvestorProfileModel>? investorProfiles;
   final List<StartupProfileModel>? startupProfiles;
+  final Function updateMatches;
 
-  const HomeScreen({super.key , this.investorProfiles, this.startupProfiles});
+  const HomeScreen({super.key , this.investorProfiles, this.startupProfiles, required this.updateMatches});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _initializeCurrentProfile();
+  }
+
+  void _initializeCurrentProfile() {
     if (widget.investorProfiles?.isNotEmpty == true) {
       currentProfile = Profile(
         id: widget.investorProfiles![0].userId,
@@ -42,6 +47,33 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _updateCurrentProfile(bool isInvestor, int index) {
+    if (isInvestor && index < widget.investorProfiles!.length && widget.investorProfiles?.isNotEmpty == true) {
+      Profile newProfile = Profile(
+        id: widget.investorProfiles![index].userId ?? index,
+        name: widget.investorProfiles![index].fullName,
+        aiAnalysis: widget.investorProfiles![index].aiAnalysis,
+        pictureUrl: widget.investorProfiles![index].profilePictureUrl,
+      );
+      
+      setState(() {
+        currentProfile = newProfile;
+      });
+      
+      } else if (!isInvestor && index < widget.startupProfiles!.length && widget.startupProfiles?.isNotEmpty == true) {
+        Profile newProfile = Profile(
+          id: widget.startupProfiles![index].userId ?? index,
+          name: widget.startupProfiles![index].companyName,
+          aiAnalysis: widget.startupProfiles![index].aiAnalysis,
+          pictureUrl: widget.startupProfiles![index].companyLogoUrl,
+      );
+      
+      setState(() {
+        currentProfile = newProfile;
+      });
+    }
+  }
+
   void swipeLeft() {
     _swiperController.swipeLeft();
   }
@@ -56,6 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
     } else if (!isInvestor && index <= widget.startupProfiles!.length) {
       ApiService.swipedRight(widget.startupProfiles![index - 1].userId!);
     }
+  }
+
+  void refreshPotentialMatches() {
+    widget.updateMatches();
   }
 
   @override
@@ -82,91 +118,77 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: Container(
-        width: double.infinity,
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height,
-        ),
-        padding: const EdgeInsets.fromLTRB(24, 0, 24, 90),
-        child: widget.investorProfiles?.isNotEmpty == true || widget.startupProfiles?.isNotEmpty == true ?
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: AppinioSwiper(
-                padding: const EdgeInsets.only(bottom: 17),
-                cardsCount: isInvestor ? widget.investorProfiles!.length : widget.startupProfiles!.length,
-                cardsSpacing: 40,
-                backgroundCardsCount: 1,
-                controller: _swiperController,
-                onSwipe: (index, direction) {
-                  onSwipeRight(direction, index, isInvestor);
-                  if (isInvestor && index < widget.investorProfiles!.length && widget.investorProfiles?.isNotEmpty == true) {
-                    Profile newProfile = Profile(
-                      id: widget.investorProfiles![index].userId ?? index,
-                      name: widget.investorProfiles![index].fullName,
-                      aiAnalysis: widget.investorProfiles![index].aiAnalysis,
-                      pictureUrl: widget.investorProfiles![index].profilePictureUrl,
-                  );
-
-                  setState(() {
-                    currentProfile = newProfile;
-                  });
-
-                  } else if (!isInvestor && index < widget.startupProfiles!.length && widget.startupProfiles?.isNotEmpty == true) {
-                    Profile newProfile = Profile(
-                      id: widget.startupProfiles![index].userId ?? index,
-                      name: widget.startupProfiles![index].companyName,
-                      aiAnalysis: widget.startupProfiles![index].aiAnalysis,
-                      pictureUrl: widget.startupProfiles![index].companyLogoUrl,
-                  );
-
-                  setState(() {
-                    currentProfile = newProfile;
-                  });
-                  }
-                },
-                cardsBuilder: (context, index) {
-                  if (isInvestor && index <= widget.investorProfiles!.length) {
-                    return ProfileCard(investorProfile: widget.investorProfiles![index]);
-                  }
-                  else if (!isInvestor && index <= widget.startupProfiles!.length) {
-                    return ProfileCard(startupProfile: widget.startupProfiles![index]);
-                  }
-                  else if (index == widget.investorProfiles!.length || index == widget.startupProfiles!.length) {
-                    return const Center(
-                      child: Text('No Profiles Found, Please try again later',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: Text('No Profiles Found, Please try again later',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    );
-                  }
-                },
+      body: RefreshIndicator(
+        onRefresh: () async {
+          refreshPotentialMatches();
+        },
+        child: Container(
+          width: double.infinity,
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height,
+          ),
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 90),
+          child: widget.investorProfiles?.isNotEmpty == true || widget.startupProfiles?.isNotEmpty == true ?
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: AppinioSwiper(
+                  padding: const EdgeInsets.only(bottom: 17),
+                  cardsCount: isInvestor ? widget.investorProfiles!.length : widget.startupProfiles!.length,
+                  cardsSpacing: 40,
+                  backgroundCardsCount: 1,
+                  controller: _swiperController,
+                  onSwipe: (index, direction) {
+                    onSwipeRight(direction, index, isInvestor);
+                    _updateCurrentProfile(isInvestor, index);
+                  },
+                  cardsBuilder: (context, index) {
+                    return _buildProfileCards(isInvestor, index);
+                  },
+                ),
               ),
-            ),
-            SwipeControlButtons(leftButton: swipeLeft, rightButton: swipeRight, currentProfile: currentProfile),
-          ],
-        ) : const Center(
-          child: Text('No Profiles Found, Please try again later',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          )
+              SwipeControlButtons(leftButton: swipeLeft, rightButton: swipeRight, currentProfile: currentProfile),
+            ],
+          ) : const Center(
+            child: Text('No Profiles Found, Please try again later',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            )
+          ),
         ),
       ),
     );
+  }
+
+  Widget _buildProfileCards(bool isInvestor, int index) {
+    if (isInvestor && index <= widget.investorProfiles!.length) {
+      return ProfileCard(investorProfile: widget.investorProfiles![index]);
+    }
+    else if (!isInvestor && index <= widget.startupProfiles!.length) {
+      return ProfileCard(startupProfile: widget.startupProfiles![index]);
+    }
+    else if (index == widget.investorProfiles!.length || index == widget.startupProfiles!.length) {
+      return const Center(
+        child: Text('No Profiles Found, Please try again later',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      );
+    } else {
+      return const Center(
+        child: Text('No Profiles Found, Please try again later',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      );
+    }
   }
 }
