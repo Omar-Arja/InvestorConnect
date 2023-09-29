@@ -36,8 +36,8 @@ Route::middleware('auth.api')->group(function () {
     });
 
     Route::prefix('/messages')->group(function () {
-        Route::post('/send', [MessagesController::class, 'sendMessage']);
-        Route::get('/all', [MessagesController::class, 'getMatchedProfilesWithMessages']);
+        Route::post('/send', [MessageController::class, 'sendMessage']);
+        Route::get('/all', [MessageController::class, 'getMatchedProfilesWithMessages']);
     });
 
     Route::prefix('/swipe')->group(function () {

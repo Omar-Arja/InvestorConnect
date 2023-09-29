@@ -7,7 +7,7 @@ use App\Models\Message;
 use App\Models\MatchedProfile;
 use Illuminate\Support\Facades\Auth;
 
-class MessagesController extends Controller
+class MessageController extends Controller
 {
     public function sendMessage(Request $request)
     {
