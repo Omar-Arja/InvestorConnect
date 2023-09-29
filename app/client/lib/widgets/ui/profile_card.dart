@@ -223,7 +223,10 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
           );
         } else {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 61, 78, 129),
+              semanticsLabel: 'Loading',
+            ),
           );
         }
       },
