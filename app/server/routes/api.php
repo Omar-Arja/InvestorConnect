@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StartupController;
 use App\Http\Controllers\InvestorController;
-use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SwipeController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
