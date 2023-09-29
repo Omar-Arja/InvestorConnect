@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\http;
 use Exception;
@@ -39,15 +40,32 @@ class SwipeController extends Controller
             ->first();
 
         if ($swiped_right) {
+            $user1 = $user;
+            $user2 = User::find($request->swiped_id);
+
+            $investor_id;
+            $startup_id;
+            
+            if ($user1->usertype_name === 'investor') {
+                $investor_id = $user1->investorProfile->id;
+                $startup_id = $user2->startupProfile->id;
+            } else {
+                $investor_id = $user2->investorProfile->id;
+                $startup_id = $user1->startupProfile->id;
+            }
+            
             $matched_profile = MatchedProfile::create([
-                'investor_profile_id' => $user->usertype_name === 'investor' ? $user->investorProfile->id : $request->swiped_id,
-                'startup_profile_id' => $user->usertype_name === 'startup' ? $user->startupProfile->id : $request->swiped_id,
+                'investor_profile_id' => $investor_id,
+                'startup_profile_id' => $startup_id,
             ]);
 
             Swipe::where('swiper_id', $request->swiped_id)
                 ->where('swiped_id', $user->id)
                 ->where('direction', 'right')
                 ->delete();
+
+            $notificationController = new NotificationController();
+            $notificationController->sendMatchNotification($user->id, $request->swiped_id);
 
             return response()->json([
                 'status' => 'success',
