@@ -234,4 +234,21 @@ class ApiService {
       return {'error occured': '$e'};
     }
   }
+
+  // Notification requests
+  static Future<Map<String, dynamic>> getNotifications() async {
+    final url = Uri.parse('$baseUrl/notifications/all');
+
+    try {
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        return {'status': 'error'};
+      }
+    } catch (e) {
+      return {'error occured': '$e'};
+    }
+  }
 }
