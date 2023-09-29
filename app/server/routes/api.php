@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\StartupController;
 use App\Http\Controllers\InvestorController;
+use App\Http\Controllers\StartupController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SwipeController;
 use App\Http\Controllers\NotificationController;
@@ -22,6 +23,13 @@ Route::prefix('/auth')->group(function () {
 
 Route::middleware('auth.api')->group(function () {
 
+    Route::prefix('/investor')->group(function () {
+        Route::post('/create-profile', [InvestorController::class, 'createProfile']);
+        Route::get('/profile', [InvestorController::class, 'getProfile']);
+        Route::post('/update-profile', [InvestorController::class, 'updateProfile']);
+        Route::delete('/profile', [InvestorController::class, 'deleteProfile']);
+    });
+
     Route::prefix('/startup')->group(function () {
         Route::post('/create-profile', [StartupController::class, 'createProfile']);
         Route::get('/profile', [StartupController::class, 'getProfile']);
@@ -29,11 +37,8 @@ Route::middleware('auth.api')->group(function () {
         Route::delete('/profile', [StartupController::class, 'deleteProfile']);
     });
 
-    Route::prefix('/investor')->group(function () {
-        Route::post('/create-profile', [InvestorController::class, 'createProfile']);
-        Route::get('/profile', [InvestorController::class, 'getProfile']);
-        Route::post('/update-profile', [InvestorController::class, 'updateProfile']);
-        Route::delete('/profile', [InvestorController::class, 'deleteProfile']);
+    Route::prefix('/profile')->group(function () {
+        Route::get('/get', [ProfileController::class, 'getProfile']);
     });
 
     Route::prefix('/messages')->group(function () {
