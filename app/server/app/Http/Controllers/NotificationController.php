@@ -5,13 +5,24 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 
 use Illuminate\Http\Request;
-use Kreait\Firebase\Messaging\Notification;
 use Kreait\Firebase\Messaging\CloudMessage;
 use App\Models\User;
+use App\Models\Notification;
 
 
 class NotificationController extends Controller
 {
+    public function getNotifications(Request $request) {
+        $user = Auth::user();
+
+        $notifications = $user->notifications;
+
+        return response()->json([
+            'status' => 'success',
+            'notifications' => $notifications,
+        ]);
+    }
+
     public static function sendMatchNotification($user1_id, $user2_id) {
         $fcm_url = 'https://fcm.googleapis.com/fcm/send';
 
@@ -70,6 +81,17 @@ class NotificationController extends Controller
 
             $responseContent = $response->getBody()->getContents();
         }
-        
+
+        $notification = Notification::create([
+            'user_id' => $user1_id,
+            'title' => $user1_notification['title'],
+            'body' => $user1_notification['body'],
+        ]);
+
+        $notification = Notification::create([
+            'user_id' => $user2_id,
+            'title' => $user2_notification['title'],
+            'body' => $user2_notification['body'],
+        ]);
     }
 }
