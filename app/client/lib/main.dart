@@ -95,7 +95,7 @@ class _AppState extends State<App> {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.TOP,
             timeInSecForIosWeb: 2,
-            backgroundColor: Colors.grey[700],
+            backgroundColor: Colors.grey[800],
             textColor: Colors.white,
             fontSize: 16.0,
           );
