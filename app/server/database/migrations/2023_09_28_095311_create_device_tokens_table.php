@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('device_tokens', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->text('token')->unique();
+            $table->text('token');
             $table->timestamps();
         });
 
