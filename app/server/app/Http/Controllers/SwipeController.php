@@ -216,7 +216,10 @@ class SwipeController extends Controller
                         ? $user->investorProfile
                         : $user->startupProfile;
 
-                    $profile->ai_analysis = $ai_analysis;
+                    $profile != null ? $profile->ai_analysis = $ai_analysis : $profile = null;
+                    if ($profile == null) {
+                        continue;
+                    }
 
                     $potential_matches[] = $profile;
                 }
