@@ -39,13 +39,13 @@ class InvestorController extends Controller
         $request->min_investment_amount = (int) $request->min_investment_amount;
         $request->max_investment_amount = (int) $request->max_investment_amount;
 
-        // Generate unique name for the uploaded file
+        // generate unique name for the uploaded file
         $profile_picture_name = uniqid() . '.' . $request->File('profile_picture_file')->extension();
 
-        // Store the uploaded file in the public disk
+        // store the uploaded file in the public disk
         $profile_picture_path = $request->File('profile_picture_file')->storeAs('images', $profile_picture_name, 'public');
 
-        // Generate URL for the uploaded file
+        // generate URL for the uploaded file
         $profile_picture_url = asset('storage/' . $profile_picture_path);
 
         $investor_profile = InvestorProfile::create([

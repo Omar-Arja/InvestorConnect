@@ -40,15 +40,15 @@ class StartupController extends Controller
         $request->min_investment_amount = (int) $request->min_investment_amount;
         $request->max_investment_amount = (int) $request->max_investment_amount;
 
-        // Generate unique names for the uploaded files
+        // generate unique names for the uploaded files
         $company_logo_name = uniqid() . '.' . $request->File('company_logo_file')->extension();
         $pitch_video_name = uniqid() . '.' . $request->File('pitch_video_file')->extension();
 
-        // Store the uploaded files in the public disk
+        // store the uploaded files in the public disk
         $company_logo_path = $request->File('company_logo_file')->storeAs('images', $company_logo_name, 'public');
         $pitch_video_path = $request->File('pitch_video_file')->storeAs('videos', $pitch_video_name, 'public');
 
-        // Generate URLs for the uploaded files
+        // generate URLs for the uploaded files
         $company_logo_url = asset('storage/' . $company_logo_path);
         $pitch_video_url = asset('storage/' . $pitch_video_path);
 
@@ -111,15 +111,15 @@ class StartupController extends Controller
             ]);
         }
 
-        // Generate unique names for the uploaded files
+        // generate unique names for the uploaded files
         $company_logo_name = uniqid() . '.' . $request->File('company_logo_file')->extension();
         $pitch_video_name = uniqid() . '.' . $request->File('pitch_video_file')->extension();
 
-        // Store the uploaded files in the public disk
+        // store the uploaded files in the public disk
         $company_logo_path = $request->File('company_logo_file')->storeAs('images', $company_logo_name, 'public');
         $pitch_video_path = $request->File('pitch_video_file')->storeAs('videos', $pitch_video_name, 'public');
 
-        // Generate URLs for the uploaded files
+        // generate URLs for the uploaded files
         $company_logo_url = asset('storage/' . $company_logo_path);
         $pitch_video_url = asset('storage/' . $pitch_video_path);
 
