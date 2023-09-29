@@ -54,8 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (isInvestor && index <= widget.investorProfiles!.length) {
       ApiService.swipedRight(widget.investorProfiles![index - 1].userId!);
     } else if (!isInvestor && index <= widget.startupProfiles!.length) {
-      final response = ApiService.swipedRight(widget.startupProfiles![index - 1].userId!);
-      print('swiped right: $response');
+      ApiService.swipedRight(widget.startupProfiles![index - 1].userId!);
     }
   }
 
@@ -70,31 +69,16 @@ class _HomeScreenState extends State<HomeScreen> {
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark,
         ),
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'All',
-              style: TextStyle(
-                color: Color.fromARGB(255, 61, 78, 129),
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-                fontSize: 20,
-                fontFamily: 'Montserrat',
-              ),
-            ),
-            SizedBox(width: 8),
-            Text(
-              'Matched',
-              style: TextStyle(
-                color: Color.fromARGB(90, 62, 79, 129),
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                fontFamily: 'Montserrat',
-              ),
-            ),
-          ],
+        title: Text(
+          isInvestor ? 'Investors' : 'Startups',
+          style: const TextStyle(
+            color: Color.fromARGB(255, 61, 78, 129),
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'Montserrat',
+          ),
         ),
+        centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
