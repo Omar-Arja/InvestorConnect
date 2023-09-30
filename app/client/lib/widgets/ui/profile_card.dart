@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:client/models/startup_profile.dart';
 import 'package:client/models/investor_profile.dart';
-import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:flick_video_player/flick_video_player.dart';
+import 'package:video_player/video_player.dart';
 
 
 class ProfileCard extends StatefulWidget {
@@ -129,7 +130,7 @@ class _ProfileCardState extends State<ProfileCard> {
                 const SizedBox(height: 14),
                 Container(
                   constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height * 1 / 5.8,
+                    maxHeight: MediaQuery.of(context).size.height * 1 / 5.2,
                   ),
                   child: Text(
                     isInvestor ? widget.investorProfile!.bio : widget.startupProfile!.companyDescription,
@@ -193,48 +194,41 @@ class CustomVideoPlayer extends StatefulWidget {
 }
 
 class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
-  late VideoPlayerController _videoPlayerController;
-  late Future<void> _initializeVideoPlayerFuture; 
+  late FlickManager flickManager;
 
   @override
   void initState() {
     super.initState();
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
-      _initializeVideoPlayerFuture = _videoPlayerController.initialize().then((_) {
-        _videoPlayerController.play();
-        _videoPlayerController.setLooping(true);
-        setState(() {});
-      });
+    flickManager = FlickManager(
+      autoPlay: true,
+      autoInitialize: true,
+      onVideoEnd: () {
+        flickManager.flickControlManager!.seekTo(Duration.zero);
+        flickManager.flickControlManager!.pause();
+      },
+      videoPlayerController: VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl)),
+    );
   }
 
   @override
   void dispose() {
-    _videoPlayerController.dispose();
     super.dispose();
+    flickManager.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initializeVideoPlayerFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            child: AspectRatio(
-              aspectRatio: _videoPlayerController.value.aspectRatio,
-              child: VideoPlayer(_videoPlayerController),
-            ),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Color.fromARGB(255, 61, 78, 129),
-              semanticsLabel: 'Loading',
-            ),
-          );
-        }
-      },
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
+      child: FlickVideoPlayer(
+        flickManager: flickManager,
+        flickVideoWithControls: const FlickVideoWithControls(
+          controls: FlickPortraitControls(),
+        ),
+        flickVideoWithControlsFullscreen: const FlickVideoWithControls(
+          controls: FlickLandscapeControls(),
+        ),
+      ),
     );
   }
 }
