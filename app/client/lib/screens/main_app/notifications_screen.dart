@@ -73,7 +73,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 BoxShadow(
                   color: Color.fromRGBO(0, 0, 0, 0.2),
                   blurRadius: 10,
-                  offset: Offset(0, 4),
+                  offset: Offset(0, 2),
                 ),
               ],
             ),
