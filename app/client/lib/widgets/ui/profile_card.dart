@@ -24,7 +24,7 @@ class _ProfileCardState extends State<ProfileCard> {
 
     return Container(
       height: double.infinity,
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         color: const Color.fromARGB(255, 62, 79, 129),
@@ -74,7 +74,7 @@ class _ProfileCardState extends State<ProfileCard> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
             child: Column(
               children: [
                 if (!isInvestor)
@@ -127,11 +127,16 @@ class _ProfileCardState extends State<ProfileCard> {
                 )],
                 if (!isInvestor)
                 const SizedBox(height: 14),
-                Text(
-                  isInvestor ? widget.investorProfile!.bio : widget.startupProfile!.companyDescription,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                Container(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 1 / 5.8,
+                  ),
+                  child: Text(
+                    isInvestor ? widget.investorProfile!.bio : widget.startupProfile!.companyDescription,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ],
