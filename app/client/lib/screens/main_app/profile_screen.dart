@@ -46,13 +46,10 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: CircleAvatar(
-                  radius: 80,
-                  backgroundColor: const Color.fromARGB(255, 61, 78, 129),
-                  backgroundImage: NetworkImage(profile['profilePictureUrl']),
-                ),
+              CircleAvatar(
+                radius: 80,
+                backgroundColor: const Color.fromARGB(255, 61, 78, 129),
+                backgroundImage: NetworkImage(profile['profilePictureUrl']),
               ),
               const SizedBox(height: 20),
               Text(

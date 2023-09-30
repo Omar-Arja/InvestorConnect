@@ -128,17 +128,49 @@ class _ProfileCardState extends State<ProfileCard> {
                 )],
                 if (!isInvestor)
                 const SizedBox(height: 14),
-                Container(
-                  constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height * 1 / 5.2,
-                  ),
-                  child: Text(
-                    isInvestor ? widget.investorProfile!.bio : widget.startupProfile!.companyDescription,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth < 320) {
+                      return Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height * 1 / 6.8,
+                        ),
+                        child: Text(
+                          isInvestor ? widget.investorProfile!.bio : widget.startupProfile!.companyDescription,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    } else if (constraints.maxWidth < 600) {
+                      return Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height * 1 / 5.2,
+                        ),
+                        child: Text(
+                          isInvestor ? widget.investorProfile!.bio : widget.startupProfile!.companyDescription,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height * 1 / 5.2,
+                        ),
+                        child: Text(
+                          isInvestor ? widget.investorProfile!.bio : widget.startupProfile!.companyDescription,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    }
+                  },
                 ),
               ],
             ),
