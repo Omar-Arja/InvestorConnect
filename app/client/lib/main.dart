@@ -34,6 +34,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   final messaging = FirebaseMessaging.instance;
   final settings = await messaging.requestPermission(
     alert: true,
@@ -52,13 +53,6 @@ void main() async {
   AuthService.saveDeviceToken(token);
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-   if (kDebugMode) {
-     print('Handling a foreground message: ${message.messageId}');
-     print('Message data: ${message.data}');
-     print('Message notification: ${message.notification?.title}');
-     print('Message notification: ${message.notification?.body}');
-   }
-
    _messageStreamController.sink.add(message);
   });
 
@@ -79,16 +73,11 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  String _lastMessage = '';
 
   _AppState() {
     _messageStreamController.listen((message) {
       setState(() {
         if (message.notification != null) {
-          _lastMessage = 'Received a notification message:'
-              '\nTitle=${message.notification?.title},'
-              '\nBody=${message.notification?.body},'
-              '\nData=${message.data}';
 
           Fluttertoast.showToast(
             msg: message.notification?.body ?? '',
@@ -100,7 +89,6 @@ class _AppState extends State<App> {
             fontSize: 16.0,
           );
         } else {
-          _lastMessage = 'Received a data message: ${message.data}';
         }
       });
     });
