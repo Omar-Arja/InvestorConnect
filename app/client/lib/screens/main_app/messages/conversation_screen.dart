@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:client/services/api_service.dart';
-import 'package:client/services/auth_service.dart';
-import 'package:client/models/user_profile.dart';
-import 'package:client/models/message.dart';
-import 'package:client/widgets/ui/meeting_schedule_dialog.dart';
+import 'package:InvestorConnect/services/api_service.dart';
+import 'package:InvestorConnect/services/auth_service.dart';
+import 'package:InvestorConnect/models/user_profile.dart';
+import 'package:InvestorConnect/models/message.dart';
+import 'package:InvestorConnect/widgets/ui/meeting_schedule_dialog.dart';
 
 class ConversationScreen extends StatefulWidget {
   final UserProfile profile;

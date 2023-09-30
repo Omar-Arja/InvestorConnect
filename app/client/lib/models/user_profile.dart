@@ -1,4 +1,4 @@
-import 'package:client/models/message.dart';
+import 'package:InvestorConnect/models/message.dart';
 
 class UserProfile {
   final int id;

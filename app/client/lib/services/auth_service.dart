@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:client/services/api_service.dart';
+import 'package:InvestorConnect/services/api_service.dart';
 
 class AuthService {
   static late SharedPreferences _prefs;

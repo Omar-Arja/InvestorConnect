@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:client/models/notification.dart';
+import 'package:InvestorConnect/models/notification.dart';
 
 class NotificationsScreen extends StatefulWidget {
   final List<NotificationModel> notifications;

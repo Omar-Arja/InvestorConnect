@@ -1,5 +1,5 @@
-name: client
-description: A new Flutter project.
+name: InvestorConnect
+description: Matching app for investors and startups
 publish_to: 'none'
 
 version: 1.0.0+1

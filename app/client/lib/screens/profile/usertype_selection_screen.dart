@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:client/widgets/buttons/custom_buttons.dart';
+import 'package:InvestorConnect/widgets/buttons/custom_buttons.dart';
 
 class UsertypeSelectionScreen extends StatefulWidget {
   const UsertypeSelectionScreen({super.key});

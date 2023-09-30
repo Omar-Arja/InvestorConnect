@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'auth_service.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:client/models/startup_profile.dart';
-import 'package:client/models/investor_profile.dart';
-import 'package:client/models/message.dart';
+import 'package:InvestorConnect/models/startup_profile.dart';
+import 'package:InvestorConnect/models/investor_profile.dart';
+import 'package:InvestorConnect/models/message.dart';
 
 class ApiService {
   static const String baseUrl = 'http://192.168.1.2:8000/api';

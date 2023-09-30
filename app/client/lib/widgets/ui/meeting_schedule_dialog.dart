@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:client/widgets/web_view/calendly_web_view.dart';
+import 'package:InvestorConnect/widgets/web_view/calendly_web_view.dart';
 
 class MeetingScheduleDialog extends StatelessWidget {
   final String profileName;

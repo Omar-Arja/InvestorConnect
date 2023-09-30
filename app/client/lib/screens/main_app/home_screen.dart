@@ -1,12 +1,12 @@
-import 'package:client/services/api_service.dart';
+import 'package:InvestorConnect/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:client/models/profile.dart';
-import 'package:client/models/investor_profile.dart';
-import 'package:client/models/startup_profile.dart';
+import 'package:InvestorConnect/models/profile.dart';
+import 'package:InvestorConnect/models/investor_profile.dart';
+import 'package:InvestorConnect/models/startup_profile.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
-import 'package:client/widgets/ui/profile_card.dart';
-import 'package:client/widgets/buttons/swipe_control_buttons.dart';
+import 'package:InvestorConnect/widgets/ui/profile_card.dart';
+import 'package:InvestorConnect/widgets/buttons/swipe_control_buttons.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<InvestorProfileModel>? investorProfiles;

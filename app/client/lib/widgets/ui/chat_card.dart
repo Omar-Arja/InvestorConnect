@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:client/models/user_profile.dart';
-import 'package:client/screens/main_app/messages/conversation_screen.dart';
+import 'package:InvestorConnect/models/user_profile.dart';
+import 'package:InvestorConnect/screens/main_app/messages/conversation_screen.dart';
 
 class ChatCard extends StatelessWidget {
   final UserProfile profile;

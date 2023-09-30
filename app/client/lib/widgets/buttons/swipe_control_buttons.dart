@@ -1,6 +1,6 @@
-import 'package:client/models/profile.dart';
+import 'package:InvestorConnect/models/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:client/widgets/ui/ai_modal.dart';
+import 'package:InvestorConnect/widgets/ui/ai_modal.dart';
 
 class SwipeControlButtons extends StatelessWidget {
   final Function leftButton;

@@ -1,4 +1,4 @@
-import 'package:client/models/profile.dart';
+import 'package:InvestorConnect/models/profile.dart';
 import 'package:flutter/material.dart';
 
 class AiModal extends StatelessWidget {

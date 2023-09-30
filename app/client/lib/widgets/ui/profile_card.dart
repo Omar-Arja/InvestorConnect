@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:client/models/startup_profile.dart';
-import 'package:client/models/investor_profile.dart';
+import 'package:InvestorConnect/models/startup_profile.dart';
+import 'package:InvestorConnect/models/investor_profile.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:video_player/video_player.dart';
-
 
 class ProfileCard extends StatefulWidget {
   final InvestorProfileModel? investorProfile;

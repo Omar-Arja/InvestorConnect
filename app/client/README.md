@@ -1,4 +1,4 @@
-# client
+# InvestorConnect
 
 A new Flutter project.
 

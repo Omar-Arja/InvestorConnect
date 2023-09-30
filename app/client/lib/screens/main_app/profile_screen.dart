@@ -1,4 +1,4 @@
-import 'package:client/services/api_service.dart';
+import 'package:InvestorConnect/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

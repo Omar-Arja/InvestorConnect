@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:client/widgets/forms/input_fields.dart';
-import 'package:client/widgets/buttons/custom_buttons.dart';
+import 'package:InvestorConnect/widgets/forms/input_fields.dart';
+import 'package:InvestorConnect/widgets/buttons/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
-import 'package:client/models/startup_profile.dart';
+import 'package:InvestorConnect/models/startup_profile.dart';
 import 'dart:io';
 
 class StartupSetupProfileScreen2 extends StatefulWidget {

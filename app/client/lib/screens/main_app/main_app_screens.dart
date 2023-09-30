@@ -1,14 +1,14 @@
-import 'package:client/models/investor_profile.dart';
-import 'package:client/models/notification.dart';
-import 'package:client/models/startup_profile.dart';
-import 'package:client/models/user_profile.dart';
-import 'package:client/services/api_service.dart';
+import 'package:InvestorConnect/models/investor_profile.dart';
+import 'package:InvestorConnect/models/notification.dart';
+import 'package:InvestorConnect/models/startup_profile.dart';
+import 'package:InvestorConnect/models/user_profile.dart';
+import 'package:InvestorConnect/services/api_service.dart';
 import 'package:flutter/material.dart';
-import 'package:client/widgets/ui/bottom_navbar.dart';
-import 'package:client/screens/main_app/home_screen.dart';
-import 'package:client/screens/main_app/messages/chats_screen.dart';
-import 'package:client/screens/main_app/notifications_screen.dart';
-import 'package:client/screens/main_app/profile_screen.dart';
+import 'package:InvestorConnect/widgets/ui/bottom_navbar.dart';
+import 'package:InvestorConnect/screens/main_app/home_screen.dart';
+import 'package:InvestorConnect/screens/main_app/messages/chats_screen.dart';
+import 'package:InvestorConnect/screens/main_app/notifications_screen.dart';
+import 'package:InvestorConnect/screens/main_app/profile_screen.dart';
 
 class MainAppScreens extends StatefulWidget {
   const MainAppScreens({super.key});

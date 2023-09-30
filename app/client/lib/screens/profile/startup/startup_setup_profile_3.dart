@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:client/widgets/forms/custom_dropdown_text_field.dart';
-import 'package:client/widgets/buttons/custom_buttons.dart';
+import 'package:InvestorConnect/widgets/forms/custom_dropdown_text_field.dart';
+import 'package:InvestorConnect/widgets/buttons/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:client/services/api_service.dart';
-import 'package:client/models/startup_profile.dart';
+import 'package:InvestorConnect/services/api_service.dart';
+import 'package:InvestorConnect/models/startup_profile.dart';
 
 class StartupPreferencesScreen extends StatefulWidget {
   const StartupPreferencesScreen({Key? key}) : super(key: key);

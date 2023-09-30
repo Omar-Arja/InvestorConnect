@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:client/widgets/ui/chat_card.dart';
-import 'package:client/models/user_profile.dart';
+import 'package:InvestorConnect/widgets/ui/chat_card.dart';
+import 'package:InvestorConnect/models/user_profile.dart';
 
 class ChatsScreen extends StatefulWidget {
   final List<UserProfile> profiles;

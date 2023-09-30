@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:client/widgets/forms/input_fields.dart';
-import 'package:client/widgets/forms/custom_dropdown_text_field.dart';
-import 'package:client/widgets/buttons/custom_buttons.dart';
-import 'package:client/models/investor_profile.dart';
+import 'package:InvestorConnect/widgets/forms/input_fields.dart';
+import 'package:InvestorConnect/widgets/forms/custom_dropdown_text_field.dart';
+import 'package:InvestorConnect/widgets/buttons/custom_buttons.dart';
+import 'package:InvestorConnect/models/investor_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
