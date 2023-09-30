@@ -58,7 +58,6 @@ void main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  // await AuthService.deleteToken();
   final bool tokenValid = await AuthService.isTokenValid();
   runApp(App(tokenValid));
 }
