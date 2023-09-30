@@ -95,6 +95,39 @@ class ApiService {
     return null;
   }
 
+  // Investor profile requests
+  static Future<Map<String, dynamic>> createInvestorProfile(InvestorProfileModel investorData) async {
+    const url = '$baseUrl/investor/create-profile';
+    final dio = Dio();
+
+    dio.options.headers['Authorization'] = '${headers['Authorization']}';
+    dio.options.headers['Content-Type'] = 'multipart/form-data';
+
+    final FormData formData = FormData.fromMap({
+      'calendly_link': investorData.calendlyLink,
+      'location': investorData.location,
+      'bio': investorData.bio,
+      'min_investment_amount': investorData.minInvestmentAmount.toString(),
+      'max_investment_amount': investorData.maxInvestmentAmount.toString(),
+      'industries': investorData.preferredIndustries.join(','),
+      'preferred_locations': investorData.preferredLocations.join(','),
+      'investment_stages': investorData.preferredInvestmentStages.join(','),
+      'profile_picture_file': await MultipartFile.fromFile(investorData.profilePictureFile!.path, contentType: MediaType('image', investorData.profilePictureFile!.path.split('.').last)),
+    });
+
+    try {
+      final response = await dio.post(url, data: formData);
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return response.data;
+      } else {
+          return {'status': 'error'};
+      }
+    } catch (e) {
+      return {'status': 'error', 'error': '$e'};
+    }
+  }
+
   // Startup profile requests
   static Future<Map<String, dynamic>> createStartupProfile(StartupProfileModel startupData) async {
     const url = '$baseUrl/startup/create-profile';
@@ -129,33 +162,17 @@ class ApiService {
     }
   }
 
-  // Investor profile requests
-  static Future<Map<String, dynamic>> createInvestorProfile(InvestorProfileModel investorData) async {
-    const url = '$baseUrl/investor/create-profile';
-    final dio = Dio();
-
-    dio.options.headers['Authorization'] = '${headers['Authorization']}';
-    dio.options.headers['Content-Type'] = 'multipart/form-data';
-
-    final FormData formData = FormData.fromMap({
-      'calendly_link': investorData.calendlyLink,
-      'location': investorData.location,
-      'bio': investorData.bio,
-      'min_investment_amount': investorData.minInvestmentAmount.toString(),
-      'max_investment_amount': investorData.maxInvestmentAmount.toString(),
-      'industries': investorData.preferredIndustries.join(','),
-      'preferred_locations': investorData.preferredLocations.join(','),
-      'investment_stages': investorData.preferredInvestmentStages.join(','),
-      'profile_picture_file': await MultipartFile.fromFile(investorData.profilePictureFile!.path, contentType: MediaType('image', investorData.profilePictureFile!.path.split('.').last)),
-    });
+  // Profile requests
+  static Future<Map<String, dynamic>> getProfile() async {
+    final url = Uri.parse('$baseUrl/profile/get');
 
     try {
-      final response = await dio.post(url, data: formData);
+      final response = await http.get(url, headers: headers);
 
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        return response.data;
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
       } else {
-          return {'status': 'error'};
+        return {'status': 'error'};
       }
     } catch (e) {
       return {'status': 'error', 'error': '$e'};
