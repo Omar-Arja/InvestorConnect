@@ -6,7 +6,7 @@ import 'package:client/models/investor_profile.dart';
 import 'package:client/models/startup_profile.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:client/widgets/ui/profile_card.dart';
-import 'package:client/widgets/ui/swipe_control_buttons.dart';
+import 'package:client/widgets/buttons/swipe_control_buttons.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<InvestorProfileModel>? investorProfiles;
@@ -152,7 +152,9 @@ class _HomeScreenState extends State<HomeScreen> {
               SwipeControlButtons(leftButton: swipeLeft, rightButton: swipeRight, currentProfile: currentProfile),
             ],
           ) : const Center(
-            child: Text('No Profiles Found, Please try again later',
+            child: Text(
+              'No Profiles Found, Please try again later',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -173,7 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     else if (index == widget.investorProfiles!.length || index == widget.startupProfiles!.length) {
       return const Center(
-        child: Text('No Profiles Found, Please try again later',
+        child: Text(
+          'No Profiles Found, Please try again later',
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -182,7 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } else {
       return const Center(
-        child: Text('No Profiles Found, Please try again later',
+        child: Text(
+          'No Profiles Found, Please try again later',
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
