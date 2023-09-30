@@ -5,7 +5,7 @@
         android:label="InvestorConnect"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/investor_connect_logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
