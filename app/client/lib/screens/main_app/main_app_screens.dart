@@ -23,6 +23,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
   List<StartupProfileModel> startupProfiles = [];
   List<NotificationModel> notifications = [];
   List<UserProfile> profiles = [];
+  Map<String, dynamic> profile = {};
   bool isDataLoaded = false;
 
   @override
@@ -36,6 +37,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
       getPotentialMatches(),
       getChats(),
       getNotifications(),
+      getProfile(),
     ]);
   }
   
@@ -99,6 +101,31 @@ class _MainAppScreensState extends State<MainAppScreens> {
     }
   }
 
+  Future<void> getProfile() async {
+    final response = await ApiService.getProfile();
+
+    if (response['status'] == 'success') {
+      if(response['usertype_name'] == 'investor') {
+        InvestorProfileModel currentProfile;
+        currentProfile = InvestorProfileModel.fromJson(response['profile']);
+        profile['fullName'] = currentProfile.fullName;
+        profile['location'] = currentProfile.location;
+        profile['profilePictureUrl'] = currentProfile.profilePictureUrl;
+        profile['description'] = currentProfile.bio;
+      } else if (response['usertype_name'] == 'startup') {
+        StartupProfileModel currentProfile;
+        currentProfile = StartupProfileModel.fromJson(response['profile']);
+        profile['fullName'] = currentProfile.fullName;
+        profile['location'] = currentProfile.location;
+        profile['profilePictureUrl'] = currentProfile.companyLogoUrl;
+        profile['description'] = currentProfile.companyDescription;
+      }
+      setState(() {
+        profile = profile;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -136,7 +163,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
       case 2:
         return NotificationsScreen(notifications: notifications, updateNotifications: getNotifications);
       case 3:
-        return const ProfileScreen();
+        return ProfileScreen(profile: profile);
       default:
         return HomeScreen(investorProfiles: investorProfiles, startupProfiles: startupProfiles, updateMatches: getPotentialMatches);
     }
