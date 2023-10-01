@@ -21,6 +21,7 @@ Route::prefix('/auth')->group(function () {
     Route::post('/refresh', [AuthController::class, 'refresh']);
 });
 
+// requires authentication
 Route::middleware('auth.api')->group(function () {
 
     Route::prefix('/investor')->group(function () {
@@ -54,6 +55,14 @@ Route::middleware('auth.api')->group(function () {
 
     Route::prefix('/notifications')->group(function () {
         Route::get('/all', [NotificationController::class, 'getNotifications']);
+    });
+
+    // requires admin authentication
+    Route::middleware('auth.admin')->group(function () {
+        
+        Route::prefix('/admin')->group(function () {
+            
+        });
     });
 
 });
