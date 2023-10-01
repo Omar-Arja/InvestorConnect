@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\http;
+use Illuminate\Support\Facades\Http;
 use Exception;
 use App\Models\Swipe;
 use App\Models\MatchedProfile;
