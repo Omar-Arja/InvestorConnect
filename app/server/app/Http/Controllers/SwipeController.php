@@ -182,7 +182,7 @@ class SwipeController extends Controller
             'timeout' => 70,
         ])->withHeaders([
             'Content-Type' => 'application/json',
-            'X-API-KEY' => Env('FORGE_API_KEY'),
+            'X-API-KEY' => 'sk_Mlk2W2jwcaikSmZfQ4wFckEvsb3Wpk2w3c7apl802yo',
         ])
         ->post('https://api.theforgeai.com/v1/apps/65139e5bc4b84c2fdd707f3b/view/run', [
             'user_inputs' => [
