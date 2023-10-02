@@ -8,7 +8,7 @@ import 'package:InvestorConnect/models/investor_profile.dart';
 import 'package:InvestorConnect/models/message.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://34.245.175.224:80/api';
+  static const String baseUrl = 'http://192.168.1.2:8000/api';
   static Map<String, String> headers = {
     'Authorization': 'Bearer ',
   };

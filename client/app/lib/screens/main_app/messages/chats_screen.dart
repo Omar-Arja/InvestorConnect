@@ -63,12 +63,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   Widget _buildChatsList(List<UserProfile> profiles) {
     if (profiles.isNotEmpty) {
-      profiles.sort((a, b) {
-        final aTime = a.messages.last.createdAt;
-        final bTime = b.messages.last.createdAt;
-        return bTime.compareTo(aTime);
-      });
-
+      
       return ListView.builder(
         padding: const EdgeInsets.only(bottom: 80),
         itemCount: profiles.length,

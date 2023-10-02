@@ -83,10 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onSwipeRight(AppinioSwiperDirection direction, index, bool isInvestor) async {
-    if (isInvestor && index <= widget.investorProfiles!.length) {
-      ApiService.swipedRight(widget.investorProfiles![index - 1].userId!);
-    } else if (!isInvestor && index <= widget.startupProfiles!.length) {
-      ApiService.swipedRight(widget.startupProfiles![index - 1].userId!);
+    if (direction == AppinioSwiperDirection.right) {
+      if (isInvestor && index <= widget.investorProfiles!.length) {
+        ApiService.swipedRight(widget.investorProfiles![index - 1].userId!);
+      } else if (!isInvestor && index <= widget.startupProfiles!.length) {
+        ApiService.swipedRight(widget.startupProfiles![index - 1].userId!);
+      }
     }
   }
 

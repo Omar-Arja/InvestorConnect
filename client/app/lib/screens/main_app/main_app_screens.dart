@@ -4,7 +4,6 @@ import 'package:InvestorConnect/models/notification.dart';
 import 'package:InvestorConnect/models/startup_profile.dart';
 import 'package:InvestorConnect/models/user_profile.dart';
 import 'package:InvestorConnect/services/api_service.dart';
-import 'package:InvestorConnect/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:InvestorConnect/widgets/ui/bottom_navbar.dart';
 import 'package:InvestorConnect/screens/main_app/home_screen.dart';
@@ -27,37 +26,32 @@ class _MainAppScreensState extends State<MainAppScreens> {
   List<UserProfile> profiles = [];
   Map<String, dynamic> profile = {};
   bool isDataLoaded = false;
-  late Timer _timeoutTimer;
 
   @override
   void initState() {
     super.initState();
-    startTimeout();
     getAllData();
   }
 
   @override
   void dispose() {
     super.dispose();
-    cancelTimeout();
   }
 
   Future<void> getAllData() async {
-    Future.wait([
+    await Future.wait([
       getPotentialMatches(),
       getChats(),
       getNotifications(),
       getProfile(),
-    ]).then((_) {
-      cancelTimeout();
-    });
+    ]);
   }
 
   Future<void> getPotentialMatches() async {
     final List<StartupProfileModel> newStartupProfiles = [];
     final List<InvestorProfileModel> newInvestorProfiles = [];
     final response = await ApiService.getPotentialMatches();
-    
+
     if (response['status'] == 'success') {
       final potentialMatches = response['potential_matches'];
       for (final match in potentialMatches) {
@@ -78,7 +72,6 @@ class _MainAppScreensState extends State<MainAppScreens> {
     }
   }
 
-
   Future<void> getChats() async {
     final List<UserProfile> newProfiles = [];
     final response = await ApiService.getChats();
@@ -89,7 +82,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
         final profile = UserProfile.fromJson(chat);
         newProfiles.add(profile);
       }
-      newProfiles.sort((a, b) => b.messages.last.createdAt.compareTo(a.messages.last.createdAt));
+      
       setState(() {
         profiles = newProfiles;
       });
@@ -99,7 +92,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
   Future<void> getNotifications() async {
     final List<NotificationModel> newNotifications = [];
     final response = await ApiService.getNotifications();
-    
+
     if (response['status'] == 'success') {
       final List notificationsData = response['notifications'];
       for (final notification in notificationsData) {
@@ -117,7 +110,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
     final response = await ApiService.getProfile();
 
     if (response['status'] == 'success') {
-      if(response['usertype_name'] == 'investor') {
+      if (response['usertype_name'] == 'investor') {
         InvestorProfileModel currentProfile;
         currentProfile = InvestorProfileModel.fromJson(response['profile']);
         profile['fullName'] = currentProfile.fullName;
@@ -138,23 +131,8 @@ class _MainAppScreensState extends State<MainAppScreens> {
     }
   }
 
-  void startTimeout() {
-    const timeoutDuration = Duration(seconds: 100);
-    Timer(timeoutDuration, () {
-      AuthService.deleteToken();
-      Navigator.pushReplacementNamed(context, '/auth');
-    });
-  }
-
-  void cancelTimeout() {
-    if (_timeoutTimer.isActive) {
-      _timeoutTimer.cancel();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-
     if (!isDataLoaded) {
       return const Scaffold(
         body: Center(
@@ -183,15 +161,23 @@ class _MainAppScreensState extends State<MainAppScreens> {
   Widget _buildScreen(int index) {
     switch (index) {
       case 0:
-        return HomeScreen(investorProfiles: investorProfiles, startupProfiles: startupProfiles, updateMatches: getPotentialMatches);
+        return HomeScreen(
+            investorProfiles: investorProfiles,
+            startupProfiles: startupProfiles,
+            updateMatches: getPotentialMatches);
       case 1:
         return ChatsScreen(profiles: profiles, updateChats: getChats);
       case 2:
-        return NotificationsScreen(notifications: notifications, updateNotifications: getNotifications);
+        return NotificationsScreen(
+            notifications: notifications,
+            updateNotifications: getNotifications);
       case 3:
         return ProfileScreen(profile: profile);
       default:
-        return HomeScreen(investorProfiles: investorProfiles, startupProfiles: startupProfiles, updateMatches: getPotentialMatches);
+        return HomeScreen(
+            investorProfiles: investorProfiles,
+            startupProfiles: startupProfiles,
+            updateMatches: getPotentialMatches);
     }
   }
 }
