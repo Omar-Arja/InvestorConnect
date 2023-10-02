@@ -74,7 +74,7 @@ class NotificationController extends Controller
 
             $response = $client->post('https://fcm.googleapis.com/fcm/send', [
                 'headers' => [
-                    'Authorization' => 'key=' . env('FIREBASE_SERVER_KEY'),
+                    'Authorization' => 'key=' . 'AAAA1uF6lEM:APA91bEosmSB3oVUvcA5HNe5pRpGtwdwSfUNxA9TGYS6fVxfnMGD4wc2Nn6hPkIVnKE_yFS2IuADX22ONVZVXO5w0VP8sVLnLNLD2N5uMBB5ZpHSXG-UPzhaPTbI015zgckmEoEPH_Pu',
                     'Content-Type' => 'application/json',
                 ],
                 'json' => $data,
