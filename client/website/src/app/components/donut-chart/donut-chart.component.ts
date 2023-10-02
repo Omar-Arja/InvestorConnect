@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-donut-chart',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./donut-chart.component.css'],
 })
 export class DonutChartComponent {
+  @Input() chartData: any[] = [];
+
   chartOptions = {
     title: {
       text: 'Users',
@@ -18,10 +20,7 @@ export class DonutChartComponent {
       {
         type: 'doughnut',
         indexLabel: '{label}: {y}',
-        dataPoints: [
-          { label: 'Startups', y: 60 },
-          { label: 'Investors', y: 40 },
-        ],
+        dataPoints: this.chartData,
       },
     ],
   };

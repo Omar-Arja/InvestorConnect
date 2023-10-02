@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-bar-chart',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./bar-chart.component.css'],
 })
 export class BarChartComponent {
+  @Input() chartData: any[] = [];
+
   chartOptions = {
     title: {
       text: 'Top Countries by User Count',
@@ -20,13 +22,7 @@ export class BarChartComponent {
     data: [
       {
         type: 'bar',
-        dataPoints: [
-          { label: 'Category A', y: 10 },
-          { label: 'Category B', y: 20 },
-          { label: 'Category C', y: 30 },
-          { label: 'Category D', y: 40 },
-          { label: 'Category E', y: 50 },
-        ],
+        dataPoints: this.chartData,
       },
     ],
   };
