@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SwipeController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AnalyticsController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -59,9 +60,9 @@ Route::middleware('auth.api')->group(function () {
 
     // requires admin authentication
     Route::middleware('auth.admin')->group(function () {
-        
+
         Route::prefix('/admin')->group(function () {
-            
+            Route::get('/analytics', [AnalyticsController::class, 'getData']);
         });
     });
 
