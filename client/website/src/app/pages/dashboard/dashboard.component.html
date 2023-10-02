@@ -1,0 +1,43 @@
+<app-sidebar></app-sidebar>
+<main class="dashboard-page">
+  <div class="dashboard-container">
+    <section class="dashboard-cards">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="material-icons">people</i>
+                <h2>Total Swipe Rights</h2>
+            </div>
+            <div class="card-content">
+                <div class="count">145</div>
+            </div>
+        </div>
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="material-icons">swipe_right</i>
+                <h2>Total Matches</h2>
+            </div>
+            <div class="card-content">
+                <div class="count">105</div>
+            </div>
+        </div>
+        <div class="dashboard-card">
+            <div class="card-header">
+                <i class="material-icons">message</i>
+                <h2>Total Messages</h2>
+            </div>
+            <div class="card-content">
+                <div class="count">145</div>
+            </div>
+        </div>
+
+    </section>
+    <section class="dashboard-charts">
+        <div class="dashboard-chart dashboard-chart__left">
+            <app-bar-chart></app-bar-chart>
+        </div>
+        <div class="dashboard-chart dashboard-chart__right">
+            <app-donut-chart></app-donut-chart>
+        </div>
+    </section>
+  </div>
+</main>
