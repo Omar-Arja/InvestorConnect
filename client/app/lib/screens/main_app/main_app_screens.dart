@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:InvestorConnect/models/investor_profile.dart';
 import 'package:InvestorConnect/models/notification.dart';
 import 'package:InvestorConnect/models/startup_profile.dart';
 import 'package:InvestorConnect/models/user_profile.dart';
 import 'package:InvestorConnect/services/api_service.dart';
+import 'package:InvestorConnect/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:InvestorConnect/widgets/ui/bottom_navbar.dart';
 import 'package:InvestorConnect/screens/main_app/home_screen.dart';
@@ -25,11 +27,19 @@ class _MainAppScreensState extends State<MainAppScreens> {
   List<UserProfile> profiles = [];
   Map<String, dynamic> profile = {};
   bool isDataLoaded = false;
+  late Timer _timeoutTimer;
 
   @override
   void initState() {
     super.initState();
+    startTimeout();
     getAllData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    cancelTimeout();
   }
 
   Future<void> getAllData() async {
@@ -38,9 +48,11 @@ class _MainAppScreensState extends State<MainAppScreens> {
       getChats(),
       getNotifications(),
       getProfile(),
-    ]);
+    ]).then((_) {
+      cancelTimeout();
+    });
   }
-  
+
   Future<void> getPotentialMatches() async {
     final List<StartupProfileModel> newStartupProfiles = [];
     final List<InvestorProfileModel> newInvestorProfiles = [];
@@ -56,7 +68,7 @@ class _MainAppScreensState extends State<MainAppScreens> {
           final startupProfile = StartupProfileModel.fromJson(match);
           newStartupProfiles.add(startupProfile);
         }
-      } 
+      }
 
       setState(() {
         investorProfiles = newInvestorProfiles;
@@ -123,6 +135,20 @@ class _MainAppScreensState extends State<MainAppScreens> {
       setState(() {
         profile = profile;
       });
+    }
+  }
+
+  void startTimeout() {
+    const timeoutDuration = Duration(seconds: 100);
+    Timer(timeoutDuration, () {
+      AuthService.deleteToken();
+      Navigator.pushReplacementNamed(context, '/auth');
+    });
+  }
+
+  void cancelTimeout() {
+    if (_timeoutTimer.isActive) {
+      _timeoutTimer.cancel();
     }
   }
 
