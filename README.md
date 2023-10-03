@@ -82,7 +82,7 @@ Finally, the app provides a comprehensive dashboard with analytics to monitor us
 
 <!-- Tech stack -->
 <a name="tech-stack" ></a>
-<img src="./readme/title5.svg"/>
+<img src="./readme/title4.svg"/>
 > The InvestorConnect app relies on a robust technology stack to drive its advanced matchmaking platform. Below, we provide an in-depth breakdown of the core technologies powering this solution, with an emphasis on the unique role of OpenAI in enhancing user experience.
 
 ## Mobile App (Frontend)
@@ -114,14 +114,29 @@ Please note that this is just a summary of the technologies driving InvestorConn
 <br><br> 
 
 <a name="Demo"></a>
-<img src="./readme/title4.svg"/>
+<img src="./readme/title5.svg"/>
 > InvestorConnect showcases its matchmaking platform through an intuitive user experience. Explore the app's core features below:
 
-### Investor and Startup Signup
+### Login/Signup
 
-| Investor Signup | Startup Signup |
+| Login/Signup |
+| --- |
+| ![Login/Signup](INSERT_LOGIN_SIGNUP_GIF_URL_HERE) |
+
+### Profile Creation
+
+#### Investor Profile Creation
+
+| Step 1 | Step 2 |
 | --- | --- |
-| ![Investor Signup](INSERT_INVESTOR_SIGNUP_GIF_URL_HERE) | ![Startup Signup](INSERT_STARTUP_SIGNUP_GIF_URL_HERE) |
+| ![Investor Profile Creation - Step 1](INSERT_INVESTOR_PROFILE_STEP1_GIF_URL_HERE) | ![Investor Profile Creation - Step 2](INSERT_INVESTOR_PROFILE_STEP2_GIF_URL_HERE) |
+
+#### Startup Profile Creation
+
+| Step 1 | Step 2 | Step 3 |
+| --- | --- | --- |
+| ![Startup Profile Creation - Step 1](INSERT_STARTUP_PROFILE_STEP1_GIF_URL_HERE) | ![Startup Profile Creation - Step 2](INSERT_STARTUP_PROFILE_STEP2_GIF_URL_HERE) | ![Startup Profile Creation - Step 3](INSERT_STARTUP_PROFILE_STEP3_GIF_URL_HERE) |
+
 
 ### App Screens
 
