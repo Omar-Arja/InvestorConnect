@@ -76,9 +76,9 @@ Finally, the app provides a comprehensive dashboard with analytics to monitor us
 
 | Landing screen                                | Signup screen                             | Login screen                               | Usertype Selection screen                               |
 | -------------------------------------------- | ------------------------------------------ | ------------------------------------------ | ----------------------------------------------- |
-| ![Landing](/readme/mockups/landing.png)       | ![Signup](/readme/mockups/signup.png)    | ![Login](/readme/mockups/login.png)       | ![Usertype Selection](/readme/mockups/usertype-selection.png) |
+| <img src="/readme/mockups/landing.png" alt="Landing" height="460px" style="width: auto;">       | <img src="/readme/mockups/signup.png" alt="Signup" height="460px" style="width: auto;">    | <img src="/readme/mockups/login.png" alt="Login" height="460px" style="width: auto;">       | <img src="/readme/mockups/usertype-selection.png" alt="Usertype Selection" height="460px" style="width: auto;"> |
 | Home screen                                   | Chats Screen                               | Messages Screen                            | Notifications Screen                          |
-| ![Home](/readme/mockups/home.png)             | ![Chats](/readme/mockups/chats.png)        | ![Messages](/readme/mockups/messages.png) | ![Notifications](/readme/mockups/notifications.png)   |
+| <img src="/readme/mockups/home.png" alt="Home" height="460px" style="width: auto;">             | <img src="/readme/mockups/chats.png" alt="Chats" height="460px" style="width: auto;">        | <img src="/readme/mockups/messages.png" alt="Messages" height="460px" style="width: auto;"> | <img src="/readme/mockups/notifications.png" alt="Notifications" height="460px" style="width: auto;">   |
 
 <br><br>
 
@@ -153,7 +153,7 @@ Authentication  | Login | Signup |
 
 | Chats | Messages | Notifications | Profile |
 | --- | --- | --- | --- |
-| <img src="/readme/images/chats.png" height="440px"> | <img src="/readme/gifs/messages.gif" height="440px"> | <img src="/readme/images/notifications.png" height="440px"> | <img src="/readme/images/profile-screen.png" height="440px"> |
+| <img src="/readme/images/chats.png" height="440px" width="auto"> | <img src="/readme/gifs/messages.gif" height="440px" width="auto"> | <img src="/readme/images/notifications.png" height="440px" width="auto"> | <img src="/readme/images/profile-screen.png" height="440px" width="auto"> |
 
 ### Booking Meetings
 
