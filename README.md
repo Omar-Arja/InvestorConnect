@@ -3,7 +3,6 @@
 
 <img src="./readme/title7.svg"/> 
 
-
 - [Project Philosophy](#project-description)
 - [User Types](#user-types)
 - [Prototyping](#prototyping)
@@ -34,11 +33,15 @@ Finally, the app provides a comprehensive dashboard with analytics to monitor us
 
 <br>
 
-### User Types 
+<!-- User Types -->
+<a name="user-types"></a>
+<img src="./readme/title8.svg"/>
 
-1. Admin 
-2. Investor
-3. Startup
+> InvestorConnect caters to three main user types: investors, startups, and admins. Each user type has a unique set of features and capabilities within the platform. Below, we provide an overview of the core features available to each user type.
+
+1. Investor
+2. Startup
+3. Admin
 
 <br>
 
