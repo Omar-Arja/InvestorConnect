@@ -6,7 +6,6 @@
 
 - [Project Philosophy](#project-description)
 - [User Types](#user-types)
-- [Features of the App](#features-of-the-app)
 - [Tech Stack](#tech-stack)
   - [Frontend](#Frontend)
   - [Backend](#Backend)
