@@ -72,9 +72,9 @@ Finally, the app provides a comprehensive dashboard with analytics to monitor us
 
 ### Mockups
 
-| Landing screen                                | Register screen                             | Login screen                               | Usertype Selection screen                               |
+| Landing screen                                | Signup screen                             | Login screen                               | Usertype Selection screen                               |
 | -------------------------------------------- | ------------------------------------------ | ------------------------------------------ | ----------------------------------------------- |
-| ![Landing](/readme/mockups/landing.png)       | ![Register](/readme/mockups/signup.png)    | ![Login](/readme/mockups/login.png)       | ![Usertype Selection](/readme/mockups/usertype-selection.png) |
+| ![Landing](/readme/mockups/landing.png)       | ![Signup](/readme/mockups/signup.png)    | ![Login](/readme/mockups/login.png)       | ![Usertype Selection](/readme/mockups/usertype-selection.png) |
 | Home screen                                   | Chats Screen                               | Messages Screen                            | Notifications Screen                          |
 | ![Home](/readme/mockups/home.png)             | ![Chats](/readme/mockups/chats.png)        | ![Messages](/readme/mockups/messages.png) | ![Notifications](/readme/mockups/notifications.png)   |
 
@@ -117,11 +117,11 @@ Please note that this is just a summary of the technologies driving InvestorConn
 <img src="./readme/title5.svg"/>
 > InvestorConnect showcases its matchmaking platform through an intuitive user experience. Explore the app's core features below:
 
-### Login/Signup
+### Authentication
 
-| Login/Signup |
-| --- |
-| ![Login/Signup](INSERT_LOGIN_SIGNUP_GIF_URL_HERE) |
+Authentication  | Login | Signup |
+| --- | --- | --- |
+![Authentication](/readme/images/landing_page.png)| ![Login](/readme/gifs/login.gif) | ![Signup](/readme/gifs/signup.gif) |
 
 ### Profile Creation
 
@@ -129,13 +129,13 @@ Please note that this is just a summary of the technologies driving InvestorConn
 
 | Step 1 | Step 2 |
 | --- | --- |
-| ![Investor Profile Creation - Step 1](INSERT_INVESTOR_PROFILE_STEP1_GIF_URL_HERE) | ![Investor Profile Creation - Step 2](INSERT_INVESTOR_PROFILE_STEP2_GIF_URL_HERE) |
+| ![Investor Profile Creation - Step 1](/readme/gifs/investor_profile_1.gif) | ![Investor Profile Creation - Step 2](/readme/gifs/investor_profile_2.gif) |
 
 #### Startup Profile Creation
 
 | Step 1 | Step 2 | Step 3 |
 | --- | --- | --- |
-| ![Startup Profile Creation - Step 1](INSERT_STARTUP_PROFILE_STEP1_GIF_URL_HERE) | ![Startup Profile Creation - Step 2](INSERT_STARTUP_PROFILE_STEP2_GIF_URL_HERE) | ![Startup Profile Creation - Step 3](INSERT_STARTUP_PROFILE_STEP3_GIF_URL_HERE) |
+| ![Startup Profile Creation - Step 1](/readme/gifs/startup_profile_1.gif) | ![Startup Profile Creation - Step 2](/readme/gifs/startup_profile_2.gif) | ![Startup Profile Creation - Step 3](/readme/gifs/startup_profile_3.gif) |
 
 
 ### App Screens
@@ -144,25 +144,25 @@ Please note that this is just a summary of the technologies driving InvestorConn
 
 | Investor Homepage | Startup Homepage |
 | --- | --- |
-| ![Investor Homepage](INSERT_INVESTOR_HOME_GIF_URL_HERE) | ![Startup Homepage](INSERT_STARTUP_HOME_GIF_URL_HERE) |
+| ![Investor Homepage](/readme/gifs/investor_card_swipe.gif) | ![Startup Homepage](/readme/images/startup-home.png) |
 
 #### Common App Screens
 
 | Chats | Messages | Notifications | Profile |
 | --- | --- | --- | --- |
-| ![Chats](INSERT_CHATS_GIF_URL_HERE) | ![Messages](INSERT_MESSAGES_GIF_URL_HERE) | ![Notifications](INSERT_NOTIFICATIONS_GIF_URL_HERE) | ![Profile](INSERT_PROFILE_GIF_URL_HERE) |
+| ![Chats](/readme/images/chats.png) | ![Messages](/readme/gifs/messages.gif) | ![Notifications](/readme/images/notifications.png) | ![Profile](/readme/images/profile-screen.png) |
 
 ### Booking Meetings
 
 | Booking Meetings |
 | --- |
-| ![Booking Meetings](INSERT_MEETINGS_GIF_URL_HERE) |
+| ![Booking Meetings](/readme/gifs/meetings.gif) |
 
 ### Push Notifications
 
 | Push Notifications |
 | --- |
-| ![Push Notifications](INSERT_PUSH_NOTIFICATIONS_GIF_URL_HERE) |
+| ![Push Notifications](/readme/images/notification.png) |
 
 ### Admin Dashboard
 
@@ -170,41 +170,79 @@ Please note that this is just a summary of the technologies driving InvestorConn
 
 | Admin Login | Dashboard |
 | --- | --- |
-| ![Admin Login](INSERT_ADMIN_LOGIN_GIF_URL_HERE) | ![Admin Dashboard](INSERT_ADMIN_DASHBOARD_GIF_URL_HERE) |
+| ![Admin Login](/readme/images/admin-login.png) | ![Admin Dashboard](/readme/images/admin-dashboard.png) |
 
 
 <br><br>
 
 <!-- How to run -->
-<img src="./readme/title6.svg"/>
+<img src="./readme/title6.svg" name="how-to-run"/>
 
-> To set up Coffee Express locally, follow these steps:
+> To set up InvestorConnect locally, follow the steps below:
+
+<a name="prerequisites"></a>
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+- Flutter SDK: Install the Flutter SDK to build and run the mobile application.
+- Android Studio: Install Android Studio to run the Flutter app on an emulator or connected device.
+- Angular CLI: Install Angular CLI to run the admin dashboard.
+- Node.js: Install Node.js for Angular development.
+- Laravel: Install Laravel to run the backend server.
+- Composer: Install Composer to manage Laravel dependencies.
+- MySQL: Install MySQL to set up the database.
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+<a name="installation"></a>
 
 ### Installation
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
+
+    ```sh
+    git clone https://github.com/Omar-Arja/InvestorConnect
+    ```
+
+2. Install Laravel dependencies by navigating to the Laravel project directory:
+
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+   cd server
+   composer install
    ```
 
-Now, you should be able to run Coffee Express locally and explore its features.
+3. Set up your Laravel environment and configure the .env file with your database settings.
+
+   Run Laravel migrations to set up the database:
+
+   ```sh
+   php artisan migrate --seed
+   ```
+
+4. Navigate to the Flutter app directory:
+
+   ```sh
+   cd client/app
+   ```
+
+5. Install Flutter dependencies and run the Flutter app on your emulator or connected device:
+
+   ```sh
+   flutter pub get
+   flutter run
+   ```
+
+6. Navigate to the Angular project directory:
+
+   ```sh
+   cd client/website
+   ```
+
+7. Install Angular dependencies and run the Angular app:
+
+   ```sh
+   npm install
+   ng serve
+   ```
+
+Now, you should be able to run **InvestorConnect** locally and explore its features
