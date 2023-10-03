@@ -6,10 +6,10 @@
 
 - [Project Philosophy](#project-description)
 - [User Types](#user-types)
+- [Prototyping](#prototyping)
 - [Tech Stack](#tech-stack)
   - [Frontend](#Frontend)
   - [Backend](#Backend)
-- [Prototyping](#prototyping)
 - [Demo](#Demo)
 - [How to Run](#how-to-run)
   - [Prerequisites](#prerequisites)
