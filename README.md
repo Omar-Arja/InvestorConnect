@@ -117,13 +117,14 @@ Please note that this is just a summary of the technologies driving InvestorConn
 
 <a name="Demo"></a>
 <img src="./readme/title5.svg"/>
+
 > InvestorConnect showcases its matchmaking platform through an intuitive user experience. Explore the app's core features below:
 
 ### Authentication
 
 Authentication  | Login | Signup |
 | --- | --- | --- |
-![Authentication](/readme/images/landing_page.png)| ![Login](/readme/gifs/login.gif) | ![Signup](/readme/gifs/signup.gif) |
+<img src="/readme/images/landing_page.png" height="440px">| <img src="/readme/gifs/login.gif" height="440px"> | <img src="/readme/gifs/signup.gif" height="440px"> |
 
 ### Profile Creation
 
@@ -131,13 +132,13 @@ Authentication  | Login | Signup |
 
 | Step 1 | Step 2 |
 | --- | --- |
-| ![Investor Profile Creation - Step 1](/readme/gifs/investor_profile_1.gif) | ![Investor Profile Creation - Step 2](/readme/gifs/investor_profile_2.gif) |
+| <img src="/readme/gifs/investor_profile_1.gif" height="440px"> | <img src="/readme/gifs/investor_profile_2.gif" height="440px"> |
 
 #### Startup Profile Creation
 
 | Step 1 | Step 2 | Step 3 |
 | --- | --- | --- |
-| ![Startup Profile Creation - Step 1](/readme/gifs/startup_profile_1.gif) | ![Startup Profile Creation - Step 2](/readme/gifs/startup_profile_2.gif) | ![Startup Profile Creation - Step 3](/readme/gifs/startup_profile_3.gif) |
+| <img src="/readme/gifs/startup_profile_1.gif" height="440px"> | <img src="/readme/gifs/startup_profile_2.gif" height="440px"> | <img src="/readme/gifs/startup_profile_3.gif" height="440px"> |
 
 
 ### App Screens
@@ -146,25 +147,25 @@ Authentication  | Login | Signup |
 
 | Investor Homepage | Startup Homepage |
 | --- | --- |
-| ![Investor Homepage](/readme/gifs/investor_card_swipe.gif) | ![Startup Homepage](/readme/images/startup-home.png) |
+| <img src="/readme/gifs/investor_card_swipe.gif" height="440px"> | <img src="/readme/images/startup-home.png" height="440px"> |
 
 #### Common App Screens
 
 | Chats | Messages | Notifications | Profile |
 | --- | --- | --- | --- |
-| ![Chats](/readme/images/chats.png) | ![Messages](/readme/gifs/messages.gif) | ![Notifications](/readme/images/notifications.png) | ![Profile](/readme/images/profile-screen.png) |
+| <img src="/readme/images/chats.png" height="440px"> | <img src="/readme/gifs/messages.gif" height="440px"> | <img src="/readme/images/notifications.png" height="440px"> | <img src="/readme/images/profile-screen.png" height="440px"> |
 
 ### Booking Meetings
 
 | Booking Meetings |
 | --- |
-| ![Booking Meetings](/readme/gifs/meetings.gif) |
+| <img src="/readme/gifs/meetings.gif" height="440px"> |
 
 ### Push Notifications
 
 | Push Notifications |
 | --- |
-| ![Push Notifications](/readme/images/notification.png) |
+| <img src="/readme/images/notification.png" height="440px"> |
 
 ### Admin Dashboard
 
@@ -172,7 +173,7 @@ Authentication  | Login | Signup |
 
 | Admin Login | Dashboard |
 | --- | --- |
-| ![Admin Login](/readme/images/admin-login.png) | ![Admin Dashboard](/readme/images/admin-dashboard.png) |
+| <img src="/readme/images/admin-login.png" width="540px"> | <img src="/readme/images/admin-dashboard.png"  width="540px"> |
 
 
 <br><br>
