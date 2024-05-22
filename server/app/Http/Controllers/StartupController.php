@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\StartupProfile;
 use App\Models\StartupPreference;
-use App\Models\UserType;
+use App\Models\Usertype;
 use Illuminate\Support\Facades\Auth;
 
 class StartupController extends Controller
@@ -71,7 +71,7 @@ class StartupController extends Controller
             'max_investment_amount' => $request->max_investment_amount,
         ]);
 
-        $user->userType()->associate(UserType::where('name', 'startup')->first());
+        $user->usertype()->associate(Usertype::where('name', 'startup')->first());
         $user->save();
 
         return response()->json([
@@ -91,7 +91,7 @@ class StartupController extends Controller
             'location' => 'required|string',
             'investment_stage' => 'required|string',
             'pitch_video_file' => 'required|file',
-            'company_description' => 'required|string', 
+            'company_description' => 'required|string',
             'preferred_locations' => 'required|string',
             'min_investment_amount' => 'required|string',
             'max_investment_amount' => 'required|string',
@@ -189,5 +189,4 @@ class StartupController extends Controller
             'message' => 'Profile deleted successfully',
         ], 200);
     }
-
 }
