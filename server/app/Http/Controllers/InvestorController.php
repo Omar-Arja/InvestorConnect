@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\InvestorProfile;
 use App\Models\InvestorPreference;
-use App\Models\UserType;
+use App\Models\Usertype;
 use Illuminate\Support\Facades\Auth;
 
 class InvestorController extends Controller
@@ -65,7 +65,7 @@ class InvestorController extends Controller
             'investment_stages' => $request->investment_stages,
         ]);
 
-        $user->userType()->associate(UserType::where('name', 'investor')->first());
+        $user->usertype()->associate(UserType::where('name', 'investor')->first());
         $user->save();
 
         return response()->json([
