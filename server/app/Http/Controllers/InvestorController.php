@@ -65,7 +65,7 @@ class InvestorController extends Controller
             'investment_stages' => $request->investment_stages,
         ]);
 
-        $user->usertype()->associate(UserType::where('name', 'investor')->first());
+        $user->usertype()->associate(Usertype::where('name', 'investor')->first());
         $user->save();
 
         return response()->json([
