@@ -8,13 +8,14 @@ import 'package:InvestorConnect/models/investor_profile.dart';
 import 'package:InvestorConnect/models/message.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.1.2:8000/api';
+  static const String baseUrl = 'http://192.168.1.11:8000/api';
   static Map<String, String> headers = {
     'Authorization': 'Bearer ',
   };
 
   // Auth requests
-  static Future<Map<String, dynamic>> login(String email, String password, String? deviceToken) async {
+  static Future<Map<String, dynamic>> login(
+      String email, String password, String? deviceToken) async {
     final url = Uri.parse('$baseUrl/auth/login');
 
     try {
@@ -25,7 +26,8 @@ class ApiService {
       });
 
       if (response.statusCode == 200) {
-        headers['Authorization'] = 'Bearer ${json.decode(response.body)['authorisation']['token']}';
+        headers['Authorization'] =
+            'Bearer ${json.decode(response.body)['authorisation']['token']}';
 
         return json.decode(response.body);
       } else {
@@ -36,7 +38,8 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>> signup(String firstName, String lastName, String email, String password) async {
+  static Future<Map<String, dynamic>> signup(
+      String firstName, String lastName, String email, String password) async {
     final url = Uri.parse('$baseUrl/auth/register');
     final name = '$firstName $lastName';
 
@@ -84,7 +87,8 @@ class ApiService {
       final response = await http.post(url, headers: headers);
 
       if (response.statusCode == 200) {
-        headers['Authorization'] = 'Bearer ${json.decode(response.body)['authorisation']['token']}';
+        headers['Authorization'] =
+            'Bearer ${json.decode(response.body)['authorisation']['token']}';
         return json.decode(response.body);
       } else {
         throw Exception();
@@ -96,7 +100,8 @@ class ApiService {
   }
 
   // Investor profile requests
-  static Future<Map<String, dynamic>> createInvestorProfile(InvestorProfileModel investorData) async {
+  static Future<Map<String, dynamic>> createInvestorProfile(
+      InvestorProfileModel investorData) async {
     const url = '$baseUrl/investor/create-profile';
     final dio = Dio();
 
@@ -112,7 +117,10 @@ class ApiService {
       'industries': investorData.preferredIndustries.join(','),
       'preferred_locations': investorData.preferredLocations.join(','),
       'investment_stages': investorData.preferredInvestmentStages.join(','),
-      'profile_picture_file': await MultipartFile.fromFile(investorData.profilePictureFile!.path, contentType: MediaType('image', investorData.profilePictureFile!.path.split('.').last)),
+      'profile_picture_file': await MultipartFile.fromFile(
+          investorData.profilePictureFile!.path,
+          contentType: MediaType(
+              'image', investorData.profilePictureFile!.path.split('.').last)),
     });
 
     try {
@@ -121,7 +129,7 @@ class ApiService {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return response.data;
       } else {
-          return {'status': 'error'};
+        return {'status': 'error'};
       }
     } catch (e) {
       return {'status': 'error', 'error': '$e'};
@@ -129,13 +137,14 @@ class ApiService {
   }
 
   // Startup profile requests
-  static Future<Map<String, dynamic>> createStartupProfile(StartupProfileModel startupData) async {
+  static Future<Map<String, dynamic>> createStartupProfile(
+      StartupProfileModel startupData) async {
     const url = '$baseUrl/startup/create-profile';
     final dio = Dio();
 
     dio.options.headers['Authorization'] = '${headers['Authorization']}';
     dio.options.headers['Content-Type'] = 'multipart/form-data';
-    
+
     final FormData formData = FormData.fromMap({
       'company_name': startupData.companyName,
       'location': startupData.location,
@@ -145,8 +154,14 @@ class ApiService {
       'min_investment_amount': startupData.minInvestmentAmount.toString(),
       'max_investment_amount': startupData.maxInvestmentAmount.toString(),
       'preferred_locations': startupData.preferredLocations.join(','),
-      'company_logo_file': await MultipartFile.fromFile(startupData.logoFile!.path, contentType: MediaType('image', startupData.logoFile!.path.split('.').last)),
-      'pitch_video_file': await MultipartFile.fromFile(startupData.pitchVideoFile!.path, contentType: MediaType('video', startupData.pitchVideoFile!.path.split('.').last)),
+      'company_logo_file': await MultipartFile.fromFile(
+          startupData.logoFile!.path,
+          contentType:
+              MediaType('image', startupData.logoFile!.path.split('.').last)),
+      'pitch_video_file': await MultipartFile.fromFile(
+          startupData.pitchVideoFile!.path,
+          contentType: MediaType(
+              'video', startupData.pitchVideoFile!.path.split('.').last)),
     });
 
     try {
@@ -155,7 +170,7 @@ class ApiService {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return response.data;
       } else {
-          return {'status': 'error'};
+        return {'status': 'error'};
       }
     } catch (e) {
       return {'status': 'error', 'error': '$e'};
