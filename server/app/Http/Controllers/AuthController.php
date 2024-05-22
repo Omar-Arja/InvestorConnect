@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth.api', ['except' => ['login','register']]);
+        $this->middleware('auth.api', ['except' => ['login', 'register']]);
     }
 
     public function login(Request $request)
@@ -44,23 +45,24 @@ class AuthController extends Controller
         }
 
         return response()->json([
-                'status' => 'success',
-                'user' => $user,
-                'authorisation' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
-            ]);
+            'status' => 'success',
+            'user' => $user,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'google_id' => 'nullable|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
-        
+
         $usertype_id = Usertype::where('name', 'pending')->first()->id;
 
         $user = User::create([
@@ -85,6 +87,9 @@ class AuthController extends Controller
 
     public function logout()
     {
+        $user = Auth::user();
+        $user->deviceTokens()->delete();
+
         Auth::logout();
         return response()->json([
             'status' => 'success',
@@ -103,5 +108,4 @@ class AuthController extends Controller
             ]
         ]);
     }
-
 }
